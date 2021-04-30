@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nickel.medicalrecord.repository.IFollowupVascularEventRecordMapper">
+    <resultMap id="BaseResultMap" type="com.nickel.medicalrecord.model.entity.FollowupVascularEventRecord">
+        <id column="id" property="id"/>
+        <result column="patientId" property="patientId"/>
+        <result column="followupRecordsId" property="followupRecordsId"/>
+        <result column="cerebrovascularEvent" property="cerebrovascularEvent"/>
+        <result column="TOAST" property="TOAST"/>
+        <result column="possibility" property="possibility"/>
+        <result column="checkEvaluationIndexId" property="checkEvaluationIndexId"/>
+        <result column="description" property="description"/>
+        <result column="createTime" property="createTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, patientId, followupRecordsId, cerebrovascularEvent, `TOAST`, possibility, checkEvaluationIndexId,
+    description, createTime
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from followup_vascular_event_record
+        where id = #{id}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from followup_vascular_event_record
+        where id = #{id}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id"
+            parameterType="com.nickel.medicalrecord.model.entity.FollowupVascularEventRecord" useGeneratedKeys="true">
+        insert into followup_vascular_event_record (patientId, followupRecordsId, cerebrovascularEvent,
+                                                    `TOAST`, possibility, checkEvaluationIndexId,
+                                                    description, createTime)
+        values (#{patientId}, #{followupRecordsId}, #{cerebrovascularEvent},
+                #{TOAST}, #{possibility}, #{checkEvaluationIndexId},
+                #{description}, #{createTime})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id"
+            parameterType="com.nickel.medicalrecord.model.entity.FollowupVascularEventRecord" useGeneratedKeys="true">
+        insert into followup_vascular_event_record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="patientId != null">
+                patientId,
+            </if>
+            <if test="followupRecordsId != null">
+                followupRecordsId,
+            </if>
+            <if test="cerebrovascularEvent != null">
+                cerebrovascularEvent,
+            </if>
+            <if test="TOAST != null">
+                `TOAST`,
+            </if>
+            <if test="possibility != null">
+                possibility,
+            </if>
+            <if test="checkEvaluationIndexId != null">
+                checkEvaluationIndexId,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="patientId != null">
+                #{patientId},
+            </if>
+            <if test="followupRecordsId != null">
+                #{followupRecordsId},
+            </if>
+            <if test="cerebrovascularEvent != null">
+                #{cerebrovascularEvent},
+            </if>
+            <if test="TOAST != null">
+                #{TOAST},
+            </if>
+            <if test="possibility != null">
+                #{possibility},
+            </if>
+            <if test="checkEvaluationIndexId != null">
+                #{checkEvaluationIndexId},
+            </if>
+            <if test="description != null">
+                #{description},
+            </if>
+            <if test="createTime != null">
+                #{createTime},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective"
+            parameterType="com.nickel.medicalrecord.model.entity.FollowupVascularEventRecord">
+        update followup_vascular_event_record
+        <set>
+            <if test="patientId != null">
+                patientId = #{patientId},
+            </if>
+            <if test="followupRecordsId != null">
+                followupRecordsId = #{followupRecordsId},
+            </if>
+            <if test="cerebrovascularEvent != null">
+                cerebrovascularEvent = #{cerebrovascularEvent},
+            </if>
+            <if test="TOAST != null">
+                `TOAST` = #{TOAST},
+            </if>
+            <if test="possibility != null">
+                possibility = #{possibility},
+            </if>
+            <if test="checkEvaluationIndexId != null">
+                checkEvaluationIndexId = #{checkEvaluationIndexId},
+            </if>
+            <if test="description != null">
+                description = #{description},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.nickel.medicalrecord.model.entity.FollowupVascularEventRecord">
+        update followup_vascular_event_record
+        set patientId              = #{patientId},
+            followupRecordsId      = #{followupRecordsId},
+            cerebrovascularEvent   = #{cerebrovascularEvent},
+            `TOAST`                = #{TOAST},
+            possibility            = #{possibility},
+            checkEvaluationIndexId = #{checkEvaluationIndexId},
+            description            = #{description}
+        where id = #{id}
+    </update>
+</mapper>

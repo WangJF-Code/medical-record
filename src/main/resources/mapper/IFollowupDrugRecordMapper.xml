@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nickel.medicalrecord.repository.IFollowupDrugRecordMapper">
+    <resultMap id="BaseResultMap" type="com.nickel.medicalrecord.model.entity.FollowupDrugRecord">
+        <id column="id" property="id"/>
+        <result column="patientId" property="patientId"/>
+        <result column="followupRecordsId" property="followupRecordsId"/>
+        <result column="eatDrug" property="eatDrug"/>
+        <result column="eatDrugType" property="eatDrugType"/>
+        <result column="eatDrugText" property="eatDrugText"/>
+        <result column="description" property="description"/>
+        <result column="createTime" property="createTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, patientId, followupRecordsId, eatDrug, eatDrugType, eatDrugText, description,
+    createTime
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from followup_drug_record
+        where id = #{id}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from followup_drug_record
+        where id = #{id}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.nickel.medicalrecord.model.entity.FollowupDrugRecord"
+            useGeneratedKeys="true">
+        insert into followup_drug_record (patientId, followupRecordsId, eatDrug,
+                                          eatDrugType, eatDrugText, description,
+                                          createTime)
+        values (#{patientId}, #{followupRecordsId}, #{eatDrug},
+                #{eatDrugType}, #{eatDrugText}, #{description},
+                #{createTime})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.nickel.medicalrecord.model.entity.FollowupDrugRecord"
+            useGeneratedKeys="true">
+        insert into followup_drug_record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="patientId != null">
+                patientId,
+            </if>
+            <if test="followupRecordsId != null">
+                followupRecordsId,
+            </if>
+            <if test="eatDrug != null">
+                eatDrug,
+            </if>
+            <if test="eatDrugType != null">
+                eatDrugType,
+            </if>
+            <if test="eatDrugText != null">
+                eatDrugText,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="patientId != null">
+                #{patientId},
+            </if>
+            <if test="followupRecordsId != null">
+                #{followupRecordsId},
+            </if>
+            <if test="eatDrug != null">
+                #{eatDrug},
+            </if>
+            <if test="eatDrugType != null">
+                #{eatDrugType},
+            </if>
+            <if test="eatDrugText != null">
+                #{eatDrugText},
+            </if>
+            <if test="description != null">
+                #{description},
+            </if>
+            <if test="createTime != null">
+                #{createTime},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.nickel.medicalrecord.model.entity.FollowupDrugRecord">
+        update followup_drug_record
+        <set>
+            <if test="patientId != null">
+                patientId = #{patientId},
+            </if>
+            <if test="followupRecordsId != null">
+                followupRecordsId = #{followupRecordsId},
+            </if>
+            <if test="eatDrug != null">
+                eatDrug = #{eatDrug},
+            </if>
+            <if test="eatDrugType != null">
+                eatDrugType = #{eatDrugType},
+            </if>
+            <if test="eatDrugText != null">
+                eatDrugText = #{eatDrugText},
+            </if>
+            <if test="description != null">
+                description = #{description},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.nickel.medicalrecord.model.entity.FollowupDrugRecord">
+        update followup_drug_record
+        set patientId         = #{patientId},
+            followupRecordsId = #{followupRecordsId},
+            eatDrug           = #{eatDrug},
+            eatDrugType       = #{eatDrugType},
+            eatDrugText       = #{eatDrugText},
+            description       = #{description}
+        where id = #{id}
+    </update>
+</mapper>
