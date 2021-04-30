@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nickel.medicalrecord.repository.IDetectClottingRoutineMapper">
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+            resultType="com.nickel.medicalrecord.model.entity.DetectClottingRoutine">
+        select id,
+               patientId,
+               `type`,
+               dataId,
+               fibrinogen,
+               fibrinogenOutcome,
+               dDimerQuantification,
+               dDimerQuantificationOutcome,
+               INR,
+               INROutcome,
+               images,
+               checkTime,
+               createTime
+        from detect_clotting_routine
+        where id = #{id}
+    </select>
+    <select id="selectList" resultType="com.nickel.medicalrecord.model.entity.DetectClottingRoutine">
+        select id,
+               patientId,
+               `type`,
+               dataId,
+               fibrinogen,
+               fibrinogenOutcome,
+               dDimerQuantification,
+               dDimerQuantificationOutcome,
+               INR,
+               INROutcome,
+               images,
+               checkTime,
+               createTime
+        from detect_clotting_routine
+        where `type` = #{type}
+          and dataId = #{dataId}
+        ORDER BY checkTime
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from detect_clotting_routine
+        where id = #{id}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id"
+            parameterType="com.nickel.medicalrecord.model.entity.DetectClottingRoutine" useGeneratedKeys="true">
+        insert into detect_clotting_routine (patientId, `type`, dataId,
+                                             fibrinogen, fibrinogenOutcome, dDimerQuantification,
+                                             dDimerQuantificationOutcome, INR, INROutcome,
+                                             images, checkTime, createTime)
+        values (#{patientId}, #{type}, #{dataId},
+                #{fibrinogen}, #{fibrinogenOutcome},
+                #{dDimerQuantification},
+                #{dDimerQuantificationOutcome}, #{INR}, #{INROutcome},
+                #{images}, #{checkTime}, #{createTime})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id"
+            parameterType="com.nickel.medicalrecord.model.entity.DetectClottingRoutine" useGeneratedKeys="true">
+        insert into detect_clotting_routine
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="patientId != null">
+                patientId,
+            </if>
+            <if test="type != null">
+                `type`,
+            </if>
+            <if test="dataId != null">
+                dataId,
+            </if>
+            <if test="fibrinogen != null">
+                fibrinogen,
+            </if>
+            <if test="fibrinogenOutcome != null">
+                fibrinogenOutcome,
+            </if>
+            <if test="dDimerQuantification != null">
+                dDimerQuantification,
+            </if>
+            <if test="dDimerQuantificationOutcome != null">
+                dDimerQuantificationOutcome,
+            </if>
+            <if test="INR != null">
+                INR,
+            </if>
+            <if test="INROutcome != null">
+                INROutcome,
+            </if>
+            <if test="images != null">
+                images,
+            </if>
+            <if test="checkTime != null">
+                checkTime,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="patientId != null">
+                #{patientId},
+            </if>
+            <if test="type != null">
+                #{type},
+            </if>
+            <if test="dataId != null">
+                #{dataId},
+            </if>
+            <if test="fibrinogen != null">
+                #{fibrinogen},
+            </if>
+            <if test="fibrinogenOutcome != null">
+                #{fibrinogenOutcome},
+            </if>
+            <if test="dDimerQuantification != null">
+                #{dDimerQuantification},
+            </if>
+            <if test="dDimerQuantificationOutcome != null">
+                #{dDimerQuantificationOutcome},
+            </if>
+            <if test="INR != null">
+                #{INR},
+            </if>
+            <if test="INROutcome != null">
+                #{INROutcome},
+            </if>
+            <if test="images != null">
+                #{images},
+            </if>
+            <if test="checkTime != null">
+                #{checkTime},
+            </if>
+            <if test="createTime != null">
+                #{createTime},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective"
+            parameterType="com.nickel.medicalrecord.model.entity.DetectClottingRoutine">
+        update detect_clotting_routine
+        <set>
+            <if test="patientId != null">
+                patientId = #{patientId},
+            </if>
+            <if test="type != null">
+                `type` = #{type},
+            </if>
+            <if test="dataId != null">
+                dataId = #{dataId},
+            </if>
+            <if test="fibrinogen != null">
+                fibrinogen = #{fibrinogen},
+            </if>
+            <if test="fibrinogenOutcome != null">
+                fibrinogenOutcome = #{fibrinogenOutcome},
+            </if>
+            <if test="dDimerQuantification != null">
+                dDimerQuantification = #{dDimerQuantification},
+            </if>
+            <if test="dDimerQuantificationOutcome != null">
+                dDimerQuantificationOutcome = #{dDimerQuantificationOutcome},
+            </if>
+            <if test="INR != null">
+                INR = #{INR},
+            </if>
+            <if test="INROutcome != null">
+                INROutcome = #{INROutcome},
+            </if>
+            <if test="images != null">
+                images = #{images},
+            </if>
+            <if test="checkTime != null">
+                checkTime = #{checkTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.nickel.medicalrecord.model.entity.DetectClottingRoutine">
+        update detect_clotting_routine
+        set patientId                   = #{patientId},
+            `type`                      = #{type},
+            dataId                      = #{dataId},
+            fibrinogen                  = #{fibrinogen},
+            fibrinogenOutcome           = #{fibrinogenOutcome},
+            dDimerQuantification        = #{dDimerQuantification},
+            dDimerQuantificationOutcome = #{dDimerQuantificationOutcome},
+            INR                         = #{INR},
+            INROutcome                  = #{INROutcome},
+            images                      = #{images},
+            checkTime                   = #{checkTime}
+        where id = #{id}
+    </update>
+</mapper>

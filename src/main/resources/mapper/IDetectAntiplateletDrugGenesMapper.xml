@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nickel.medicalrecord.repository.IDetectAntiplateletDrugGenesMapper">
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+            resultType="com.nickel.medicalrecord.model.dto.DetectAntiplateletDrugGenesDTO">
+        SELECT id,
+               patientId,
+               `type`,
+               dataId,
+               aspirinImages,
+               aspirinOutcome,
+               clopidogrelImages,
+               clopidogrelOutcome,
+               statinsImages,
+               statinsOutcome,
+               checkTime,
+               createTime
+        FROM detect_antiplatelet_drug_genes
+        WHERE id = #{id}
+    </select>
+    <select id="selectList" resultType="com.nickel.medicalrecord.model.dto.DetectAntiplateletDrugGenesDTO">
+        SELECT id,
+               patientId,
+               `type`,
+               dataId,
+               aspirinImages,
+               aspirinOutcome,
+               clopidogrelImages,
+               clopidogrelOutcome,
+               statinsImages,
+               statinsOutcome,
+               checkTime,
+               createTime
+        FROM detect_antiplatelet_drug_genes
+        WHERE `type` = #{type}
+          AND dataId = #{dataId}
+        ORDER BY checkTime
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from detect_antiplatelet_drug_genes
+        where id = #{id}
+    </delete>
+
+    <insert id="insert" keyColumn="id" keyProperty="id"
+            parameterType="com.nickel.medicalrecord.model.entity.DetectAntiplateletDrugGenes" useGeneratedKeys="true">
+        insert into detect_antiplatelet_drug_genes (patientId, `type`, dataId,
+                                                    aspirinImages, aspirinOutcome, clopidogrelImages,
+                                                    clopidogrelOutcome, statinsImages, statinsOutcome,
+                                                    checkTime, createTime)
+        values (#{patientId}, #{type}, #{dataId},
+                #{aspirinImages}, #{aspirinOutcome},
+                #{clopidogrelImages},
+                #{clopidogrelOutcome}, #{statinsImages},
+                #{statinsOutcome},
+                #{checkTime}, #{createTime})
+    </insert>
+
+    <insert id="insertSelective" keyColumn="id" keyProperty="id"
+            parameterType="com.nickel.medicalrecord.model.entity.DetectAntiplateletDrugGenes" useGeneratedKeys="true">
+        insert into detect_antiplatelet_drug_genes
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="patientId != null">
+                patientId,
+            </if>
+            <if test="type != null">
+                `type`,
+            </if>
+            <if test="dataId != null">
+                dataId,
+            </if>
+            <if test="aspirinImages != null">
+                aspirinImages,
+            </if>
+            <if test="aspirinOutcome != null">
+                aspirinOutcome,
+            </if>
+            <if test="clopidogrelImages != null">
+                clopidogrelImages,
+            </if>
+            <if test="clopidogrelOutcome != null">
+                clopidogrelOutcome,
+            </if>
+            <if test="statinsImages != null">
+                statinsImages,
+            </if>
+            <if test="statinsOutcome != null">
+                statinsOutcome,
+            </if>
+            <if test="checkTime != null">
+                checkTime,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="patientId != null">
+                #{patientId},
+            </if>
+            <if test="type != null">
+                #{type},
+            </if>
+            <if test="dataId != null">
+                #{dataId},
+            </if>
+            <if test="aspirinImages != null">
+                #{aspirinImages},
+            </if>
+            <if test="aspirinOutcome != null">
+                #{aspirinOutcome},
+            </if>
+            <if test="clopidogrelImages != null">
+                #{clopidogrelImages},
+            </if>
+            <if test="clopidogrelOutcome != null">
+                #{clopidogrelOutcome},
+            </if>
+            <if test="statinsImages != null">
+                #{statinsImages},
+            </if>
+            <if test="statinsOutcome != null">
+                #{statinsOutcome},
+            </if>
+            <if test="checkTime != null">
+                #{checkTime},
+            </if>
+            <if test="createTime != null">
+                #{createTime},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective"
+            parameterType="com.nickel.medicalrecord.model.entity.DetectAntiplateletDrugGenes">
+        update detect_antiplatelet_drug_genes
+        <set>
+            <if test="patientId != null">
+                patientId = #{patientId},
+            </if>
+            <if test="type != null">
+                `type` = #{type},
+            </if>
+            <if test="dataId != null">
+                dataId = #{dataId},
+            </if>
+            <if test="aspirinImages != null">
+                aspirinImages = #{aspirinImages},
+            </if>
+            <if test="aspirinOutcome != null">
+                aspirinOutcome = #{aspirinOutcome},
+            </if>
+            <if test="clopidogrelImages != null">
+                clopidogrelImages = #{clopidogrelImages},
+            </if>
+            <if test="clopidogrelOutcome != null">
+                clopidogrelOutcome = #{clopidogrelOutcome},
+            </if>
+            <if test="statinsImages != null">
+                statinsImages = #{statinsImages},
+            </if>
+            <if test="statinsOutcome != null">
+                statinsOutcome = #{statinsOutcome},
+            </if>
+            <if test="checkTime != null">
+                checkTime = #{checkTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.nickel.medicalrecord.model.entity.DetectAntiplateletDrugGenes">
+        update detect_antiplatelet_drug_genes
+        set patientId          = #{patientId},
+            `type`             = #{type},
+            dataId             = #{dataId},
+            aspirinImages      = #{aspirinImages},
+            aspirinOutcome     = #{aspirinOutcome},
+            clopidogrelImages  = #{clopidogrelImages},
+            clopidogrelOutcome = #{clopidogrelOutcome},
+            statinsImages      = #{statinsImages},
+            statinsOutcome     = #{statinsOutcome},
+            checkTime          = #{checkTime}
+        where id = #{id}
+    </update>
+</mapper>

@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nickel.medicalrecord.repository.IPatientMapper">
+
+    <sql id="Base_Column_List">
+        id,
+        userName,
+        sex,
+        IDCard,
+        age,
+        phoneNumber,
+        nation,
+        livingStatus,
+        maritalStatus,
+        educationDegree,
+        medicalInsuranceType,
+        job,
+        income,
+        city,
+        address,
+        createTime,
+        updateTime,
+        deleted
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String"
+            resultType="com.nickel.medicalrecord.model.entity.Patient">
+        select
+        <include refid="Base_Column_List"/>
+        from patient
+        where id = #{id}
+    </select>
+    <select id="findCount" resultType="java.lang.Integer" parameterType="com.nickel.medicalrecord.model.entity.Patient">
+        select
+        count(1)
+        from patient
+        where deleted = #{deleted}
+        <if test="userName != null">
+            and userName = #{userName}
+        </if>
+        <if test="sex != null">
+            and sex = #{sex}
+        </if>
+        <if test="IDCard != null">
+            and IDCard = #{IDCard}
+        </if>
+        <if test="age != null">
+            and age = #{age}
+        </if>
+        <if test="phoneNumber != null">
+            and phoneNumber = #{phoneNumber}
+        </if>
+        <if test="nation != null">
+            and nation = #{nation}
+        </if>
+        <if test="livingStatus != null">
+            and livingStatus = #{livingStatus}
+        </if>
+        <if test="maritalStatus != null">
+            and maritalStatus = #{maritalStatus}
+        </if>
+        <if test="educationDegree != null">
+            and educationDegree = #{educationDegree}
+        </if>
+        <if test="medicalInsuranceType != null">
+            and medicalInsuranceType = #{medicalInsuranceType}
+        </if>
+        <if test="job != null">
+            and job = #{job}
+        </if>
+        <if test="income != null">
+            and income = #{income}
+        </if>
+    </select>
+    <select id="findPage" resultType="com.nickel.medicalrecord.model.entity.Patient"
+            parameterType="com.nickel.medicalrecord.model.entity.Patient">
+        select
+        <include refid="Base_Column_List"/>
+        from patient
+        where deleted = #{patient.deleted}
+        <if test="patient.userName != null">
+            and userName = #{patient.userName}
+        </if>
+        <if test="patient.sex != null">
+            and sex = #{patient.sex}
+        </if>
+        <if test="patient.IDCard != null">
+            and IDCard = #{patient.IDCard}
+        </if>
+        <if test="patient.age != null">
+            and age = #{patient.age}
+        </if>
+        <if test="patient.phoneNumber != null">
+            and phoneNumber = #{patient.phoneNumber}
+        </if>
+        <if test="patient.nation != null">
+            and nation = #{patient.nation}
+        </if>
+        <if test="patient.livingStatus != null">
+            and livingStatus = #{patient.livingStatus}
+        </if>
+        <if test="patient.maritalStatus != null">
+            and maritalStatus = #{patient.maritalStatus}
+        </if>
+        <if test="patient.educationDegree != null">
+            and educationDegree = #{patient.educationDegree}
+        </if>
+        <if test="patient.medicalInsuranceType != null">
+            and medicalInsuranceType = #{patient.medicalInsuranceType}
+        </if>
+        <if test="patient.job != null">
+            and job = #{patient.job}
+        </if>
+        <if test="patient.income != null">
+            and income = #{patient.income}
+        </if>
+        ORDER BY createTime DESC
+        LIMIT #{index}, #{size}
+    </select>
+    <select id="findList" resultType="com.nickel.medicalrecord.model.entity.Patient"
+            parameterType="com.nickel.medicalrecord.model.entity.Patient">
+        select
+        <include refid="Base_Column_List"/>
+        from patient
+        where deleted = #{deleted}
+        <if test="userName != null">
+            and userName = #{userName}
+        </if>
+        <if test="sex != null">
+            and sex = #{sex}
+        </if>
+        <if test="IDCard != null">
+            and IDCard = #{IDCard}
+        </if>
+        <if test="age != null">
+            and age = #{age}
+        </if>
+        <if test="phoneNumber != null">
+            and phoneNumber = #{phoneNumber}
+        </if>
+        <if test="nation != null">
+            and nation = #{nation}
+        </if>
+        <if test="livingStatus != null">
+            and livingStatus = #{livingStatus}
+        </if>
+        <if test="maritalStatus != null">
+            and maritalStatus = #{maritalStatus}
+        </if>
+        <if test="educationDegree != null">
+            and educationDegree = #{educationDegree}
+        </if>
+        <if test="medicalInsuranceType != null">
+            and medicalInsuranceType = #{medicalInsuranceType}
+        </if>
+        <if test="job != null">
+            and job = #{job}
+        </if>
+        <if test="income != null">
+            and income = #{income}
+        </if>
+        ORDER BY createTime DESC
+    </select>
+    <select id="findTodayCount" resultType="java.lang.Integer" parameterType="java.lang.String">
+        select count(1)
+        from patient
+        where id like CONCAT(#{id}, '%')
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete
+        from patient
+        where id = #{id}
+    </delete>
+    <insert id="insert" keyProperty="id" parameterType="com.nickel.medicalrecord.model.entity.Patient">
+        insert into patient (id,
+                             userName,
+                             sex,
+                             IDCard,
+                             age,
+                             phoneNumber,
+                             nation,
+                             livingStatus,
+                             maritalStatus,
+                             educationDegree,
+                             medicalInsuranceType,
+                             job,
+                             income,
+                             city,
+                             address,
+                             createTime,
+                             updateTime,
+                             deleted)
+        values (#{id},
+                #{userName},
+                #{sex},
+                #{IDCard},
+                #{age},
+                #{phoneNumber},
+                #{nation},
+                #{livingStatus},
+                #{maritalStatus},
+                #{educationDegree},
+                #{medicalInsuranceType},
+                #{job},
+                #{income},
+                #{city},
+                #{address},
+                #{createTime},
+                #{updateTime},
+                #{deleted})
+    </insert>
+    <insert id="insertSelective" parameterType="com.nickel.medicalrecord.model.entity.Patient">
+        insert into patient
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            id,
+            <if test="userName != null">
+                userName,
+            </if>
+            <if test="sex != null">
+                sex,
+            </if>
+            <if test="IDCard != null">
+                IDCard,
+            </if>
+            <if test="age != null">
+                age,
+            </if>
+            <if test="phoneNumber != null">
+                phoneNumber,
+            </if>
+            <if test="nation != null">
+                nation,
+            </if>
+            <if test="livingStatus != null">
+                livingStatus,
+            </if>
+            <if test="maritalStatus != null">
+                maritalStatus,
+            </if>
+            <if test="educationDegree != null">
+                educationDegree,
+            </if>
+            <if test="medicalInsuranceType != null">
+                medicalInsuranceType,
+            </if>
+            <if test="job != null">
+                job,
+            </if>
+            <if test="income != null">
+                income,
+            </if>
+            <if test="city != null">
+                city,
+            </if>
+            <if test="address != null">
+                address,
+            </if>
+            <if test="userType != null">
+                userType,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+            <if test="updateTime != null">
+                updateTime,
+            </if>
+            <if test="deleted != null">
+                deleted,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            #{id},
+            <if test="userName != null">
+                #{userName},
+            </if>
+            <if test="sex != null">
+                #{sex},
+            </if>
+            <if test="IDCard != null">
+                #{IDCard},
+            </if>
+            <if test="age != null">
+                #{age},
+            </if>
+            <if test="phoneNumber != null">
+                #{phoneNumber},
+            </if>
+            <if test="nation != null">
+                #{nation},
+            </if>
+            <if test="livingStatus != null">
+                #{livingStatus},
+            </if>
+            <if test="maritalStatus != null">
+                #{maritalStatus},
+            </if>
+            <if test="educationDegree != null">
+                #{educationDegree},
+            </if>
+            <if test="medicalInsuranceType != null">
+                #{medicalInsuranceType},
+            </if>
+            <if test="job != null">
+                #{job},
+            </if>
+            <if test="income != null">
+                #{income},
+            </if>
+            <if test="city != null">
+                #{city},
+            </if>
+            <if test="address != null">
+                #{address},
+            </if>
+            <if test="userType != null">
+                #{userType},
+            </if>
+            <if test="createTime != null">
+                #{createTime},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime},
+            </if>
+            <if test="deleted != null">
+                #{deleted},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.nickel.medicalrecord.model.entity.Patient">
+        update patient
+        <set>
+            <if test="userName != null">
+                userName = #{userName},
+            </if>
+            <if test="sex != null">
+                sex = #{sex},
+            </if>
+            <if test="IDCard != null">
+                IDCard = #{IDCard},
+            </if>
+            <if test="age != null">
+                age = #{age},
+            </if>
+            <if test="phoneNumber != null">
+                phoneNumber = #{phoneNumber},
+            </if>
+            <if test="nation != null">
+                nation = #{nation},
+            </if>
+            <if test="livingStatus != null">
+                livingStatus = #{livingStatus},
+            </if>
+            <if test="maritalStatus != null">
+                maritalStatus = #{maritalStatus},
+            </if>
+            <if test="educationDegree != null">
+                educationDegree = #{educationDegree},
+            </if>
+            <if test="medicalInsuranceType != null">
+                medicalInsuranceType = #{medicalInsuranceType},
+            </if>
+            <if test="job != null">
+                job = #{job},
+            </if>
+            <if test="income != null">
+                income = #{income},
+            </if>
+            <if test="city != null">
+                city = #{city},
+            </if>
+            <if test="address != null">
+                address = #{address},
+            </if>
+            <if test="updateTime != null">
+                updateTime = #{updateTime},
+            </if>
+            <if test="deleted != null">
+                deleted = #{deleted},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.nickel.medicalrecord.model.entity.Patient">
+        update patient
+        set userName             = #{userName},
+            sex                  = #{sex},
+            IDCard               = #{IDCard},
+            age                  = #{age},
+            phoneNumber          = #{phoneNumber},
+            nation               = #{nation},
+            livingStatus         = #{livingStatus},
+            maritalStatus        = #{maritalStatus},
+            educationDegree      = #{educationDegree},
+            medicalInsuranceType = #{medicalInsuranceType},
+            job                  = #{job},
+            income               = #{income},
+            city                 = #{city},
+            address              = #{address},
+            createTime           = #{createTime},
+            updateTime           = #{updateTime},
+            deleted              = #{deleted}
+        where id = #{id}
+    </update>
+</mapper>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nickel.medicalrecord.repository.IMedicationRecordMapper">
+    <resultMap id="ResultMedicationRecordDTO" type="com.nickel.medicalrecord.model.dto.MedicationRecordDTO">
+        <id column="id" property="id"/>
+        <result column="patientId" property="patientId"/>
+        <result column="type" property="type"/>
+        <result column="dataId" property="dataId"/>
+        <result column="description" property="description"/>
+        <result column="createTime" property="createTime"/>
+        <collection property="drugRecordDTOList" ofType="com.nickel.medicalrecord.model.dto.MedicationDrugRecordDTO">
+            <id column="drug_record_id" property="id"/>
+            <result column="id" property="medicationRecordId"/>
+            <result column="drugType" property="drugType"/>
+            <result column="drug" property="drug"/>
+            <result column="dosage" property="dosage"/>
+            <result column="frequency" property="frequency"/>
+            <result column="ordersDrug" property="ordersDrug"/>
+        </collection>
+    </resultMap>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMedicationRecordDTO">
+        SELECT medication_record.id,
+               medication_record.patientId,
+               medication_record.type,
+               medication_record.dataId,
+               medication_record.description,
+               medication_record.createTime,
+               medication_drug_record.id AS drug_record_id,
+               medication_drug_record.drugType,
+               medication_drug_record.drug,
+               medication_drug_record.dosage,
+               medication_drug_record.frequency,
+               medication_drug_record.ordersDrug
+        FROM medication_record
+                 LEFT JOIN medication_drug_record ON medication_drug_record.medicationRecordId = medication_record.id
+        WHERE medication_record.id = #{id}
+    </select>
+    <select id="getList" resultMap="ResultMedicationRecordDTO">
+        SELECT medication_record.id,
+               medication_record.patientId,
+               medication_record.type,
+               medication_record.dataId,
+               medication_record.description,
+               medication_record.createTime,
+               medication_drug_record.id AS drug_record_id,
+               medication_drug_record.drugType,
+               medication_drug_record.drug,
+               medication_drug_record.dosage,
+               medication_drug_record.frequency,
+               medication_drug_record.ordersDrug
+        FROM medication_record
+                 LEFT JOIN medication_drug_record ON medication_drug_record.medicationRecordId = medication_record.id
+        WHERE medication_record.type = #{type}
+          AND medication_record.dataId = #{dataId}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from medication_record
+        where id = #{id}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id"
+            parameterType="com.nickel.medicalrecord.model.entity.MedicationRecord" useGeneratedKeys="true">
+        insert into medication_record (patientId, `type`, dataId,
+                                       description, createTime)
+        values (#{patientId}, #{type}, #{dataId},
+                #{description}, #{createTime})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id"
+            parameterType="com.nickel.medicalrecord.model.entity.MedicationRecord" useGeneratedKeys="true">
+        insert into medication_record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="patientId != null">
+                patientId,
+            </if>
+            <if test="type != null">
+                `type`,
+            </if>
+            <if test="dataId != null">
+                dataId,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="patientId != null">
+                #{patientId},
+            </if>
+            <if test="type != null">
+                #{type},
+            </if>
+            <if test="dataId != null">
+                #{dataId},
+            </if>
+            <if test="description != null">
+                #{description},
+            </if>
+            <if test="createTime != null">
+                #{createTime},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.nickel.medicalrecord.model.entity.MedicationRecord">
+        update medication_record
+        <set>
+            <if test="patientId != null">
+                patientId = #{patientId},
+            </if>
+            <if test="type != null">
+                `type` = #{type},
+            </if>
+            <if test="dataId != null">
+                dataId = #{dataId},
+            </if>
+            <if test="description != null">
+                description = #{description},
+            </if>
+            <if test="createTime != null">
+                createTime = #{createTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.nickel.medicalrecord.model.entity.MedicationRecord">
+        update medication_record
+        set patientId   = #{patientId},
+            `type`      = #{type},
+            dataId      = #{dataId},
+            description = #{description},
+            createTime  = #{createTime}
+        where id = #{id}
+    </update>
+</mapper>

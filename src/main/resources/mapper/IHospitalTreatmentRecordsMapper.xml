@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nickel.medicalrecord.repository.IHospitalTreatmentRecordsMapper">
+
+    <sql id="Base_Column_List">
+        id, patientId, hospitalRecordsId, walk, thrombosisPrevention, thrombosisPreventionTypes,
+    antiplatelets, antiplateletsDrugs, anticoagulant, anticoagulantDrugs, lipid, lipidStrengthen, 
+    lipidDrugs, gastricTube, ureter, swallowingFunction, description, createTime
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+            resultType="com.nickel.medicalrecord.model.dto.HospitalTreatmentRecordsDTO">
+        select
+        <include refid="Base_Column_List"/>
+        from hospital_treatment_records
+        where id = #{id}
+    </select>
+    <select id="selectByHospitalRecordsId"
+            resultType="com.nickel.medicalrecord.model.dto.HospitalTreatmentRecordsDTO">
+        select
+        <include refid="Base_Column_List"/>
+        from hospital_treatment_records
+        where hospitalRecordsId = #{hospitalRecordsId}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from hospital_treatment_records
+        where id = #{id}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id"
+            parameterType="com.nickel.medicalrecord.model.entity.HospitalTreatmentRecords" useGeneratedKeys="true">
+        insert into hospital_treatment_records (patientId, hospitalRecordsId, walk,
+                                                thrombosisPrevention, thrombosisPreventionTypes,
+                                                antiplatelets, antiplateletsDrugs, anticoagulant,
+                                                anticoagulantDrugs, lipid, lipidStrengthen,
+                                                lipidDrugs, gastricTube, ureter,
+                                                swallowingFunction, description, createTime)
+        values (#{patientId}, #{hospitalRecordsId}, #{walk},
+                #{thrombosisPrevention}, #{thrombosisPreventionTypes},
+                #{antiplatelets}, #{antiplateletsDrugs},
+                #{anticoagulant},
+                #{anticoagulantDrugs}, #{lipid}, #{lipidStrengthen},
+                #{lipidDrugs}, #{gastricTube}, #{ureter},
+                #{swallowingFunction}, #{description}, #{createTime})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id"
+            parameterType="com.nickel.medicalrecord.model.entity.HospitalTreatmentRecords" useGeneratedKeys="true">
+        insert into hospital_treatment_records
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="patientId != null">
+                patientId,
+            </if>
+            <if test="hospitalRecordsId != null">
+                hospitalRecordsId,
+            </if>
+            <if test="walk != null">
+                walk,
+            </if>
+            <if test="thrombosisPrevention != null">
+                thrombosisPrevention,
+            </if>
+            <if test="thrombosisPreventionTypes != null">
+                thrombosisPreventionTypes,
+            </if>
+            <if test="antiplatelets != null">
+                antiplatelets,
+            </if>
+            <if test="antiplateletsDrugs != null">
+                antiplateletsDrugs,
+            </if>
+            <if test="anticoagulant != null">
+                anticoagulant,
+            </if>
+            <if test="anticoagulantDrugs != null">
+                anticoagulantDrugs,
+            </if>
+            <if test="lipid != null">
+                lipid,
+            </if>
+            <if test="lipidStrengthen != null">
+                lipidStrengthen,
+            </if>
+            <if test="lipidDrugs != null">
+                lipidDrugs,
+            </if>
+            <if test="gastricTube != null">
+                gastricTube,
+            </if>
+            <if test="ureter != null">
+                ureter,
+            </if>
+            <if test="swallowingFunction != null">
+                swallowingFunction,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="createTime != null">
+                createTime
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="patientId != null">
+                #{patientId},
+            </if>
+            <if test="hospitalRecordsId != null">
+                #{hospitalRecordsId},
+            </if>
+            <if test="walk != null">
+                #{walk},
+            </if>
+            <if test="thrombosisPrevention != null">
+                #{thrombosisPrevention},
+            </if>
+            <if test="thrombosisPreventionTypes != null">
+                #{thrombosisPreventionTypes},
+            </if>
+            <if test="antiplatelets != null">
+                #{antiplatelets},
+            </if>
+            <if test="antiplateletsDrugs != null">
+                #{antiplateletsDrugs},
+            </if>
+            <if test="anticoagulant != null">
+                #{anticoagulant},
+            </if>
+            <if test="anticoagulantDrugs != null">
+                #{anticoagulantDrugs},
+            </if>
+            <if test="lipid != null">
+                #{lipid},
+            </if>
+            <if test="lipidStrengthen != null">
+                #{lipidStrengthen},
+            </if>
+            <if test="lipidDrugs != null">
+                #{lipidDrugs},
+            </if>
+            <if test="gastricTube != null">
+                #{gastricTube},
+            </if>
+            <if test="ureter != null">
+                #{ureter},
+            </if>
+            <if test="swallowingFunction != null">
+                #{swallowingFunction},
+            </if>
+            <if test="description != null">
+                #{description},
+            </if>
+            <if test="createTime != null">
+                #{createTime}
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective"
+            parameterType="com.nickel.medicalrecord.model.entity.HospitalTreatmentRecords">
+        update hospital_treatment_records
+        <set>
+            <if test="patientId != null">
+                patientId = #{patientId},
+            </if>
+            <if test="hospitalRecordsId != null">
+                hospitalRecordsId = #{hospitalRecordsId},
+            </if>
+            <if test="walk != null">
+                walk = #{walk},
+            </if>
+            <if test="thrombosisPrevention != null">
+                thrombosisPrevention = #{thrombosisPrevention},
+            </if>
+            <if test="thrombosisPreventionTypes != null">
+                thrombosisPreventionTypes = #{thrombosisPreventionTypes},
+            </if>
+            <if test="antiplatelets != null">
+                antiplatelets = #{antiplatelets},
+            </if>
+            <if test="antiplateletsDrugs != null">
+                antiplateletsDrugs = #{antiplateletsDrugs},
+            </if>
+            <if test="anticoagulant != null">
+                anticoagulant = #{anticoagulant},
+            </if>
+            <if test="anticoagulantDrugs != null">
+                anticoagulantDrugs = #{anticoagulantDrugs},
+            </if>
+            <if test="lipid != null">
+                lipid = #{lipid},
+            </if>
+            <if test="lipidStrengthen != null">
+                lipidStrengthen = #{lipidStrengthen},
+            </if>
+            <if test="lipidDrugs != null">
+                lipidDrugs = #{lipidDrugs},
+            </if>
+            <if test="gastricTube != null">
+                gastricTube = #{gastricTube},
+            </if>
+            <if test="ureter != null">
+                ureter = #{ureter},
+            </if>
+            <if test="swallowingFunction != null">
+                swallowingFunction = #{swallowingFunction},
+            </if>
+            <if test="description != null">
+                description = #{description},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.nickel.medicalrecord.model.entity.HospitalTreatmentRecords">
+        update hospital_treatment_records
+        set patientId                 = #{patientId},
+            hospitalRecordsId         = #{hospitalRecordsId},
+            walk                      = #{walk},
+            thrombosisPrevention      = #{thrombosisPrevention},
+            thrombosisPreventionTypes = #{thrombosisPreventionTypes},
+            antiplatelets             = #{antiplatelets},
+            antiplateletsDrugs        = #{antiplateletsDrugs},
+            anticoagulant             = #{anticoagulant},
+            anticoagulantDrugs        = #{anticoagulantDrugs},
+            lipid                     = #{lipid},
+            lipidStrengthen           = #{lipidStrengthen},
+            lipidDrugs                = #{lipidDrugs},
+            gastricTube               = #{gastricTube},
+            ureter                    = #{ureter},
+            swallowingFunction        = #{swallowingFunction},
+            description               = #{description}
+        where id = #{id}
+    </update>
+</mapper>

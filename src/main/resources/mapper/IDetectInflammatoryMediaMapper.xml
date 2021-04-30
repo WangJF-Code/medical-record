@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nickel.medicalrecord.repository.IDetectInflammatoryMediaMapper">
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+            resultType="com.nickel.medicalrecord.model.entity.DetectInflammatoryMedia">
+        select id,
+               patientId,
+               `type`,
+               dataId,
+               IL2,
+               IL2Outcome,
+               IL4,
+               IL4Outcome,
+               IL6,
+               IL6Outcome,
+               IL10,
+               IL10Outcome,
+               IL17,
+               IL17Outcome,
+               TNFA,
+               TNFAOutcome,
+               TNFC,
+               TNFCOutcome,
+               images,
+               checkTime,
+               createTime
+        from detect_Inflammatory_media
+        where id = #{id}
+    </select>
+    <select id="selectList" resultType="com.nickel.medicalrecord.model.entity.DetectInflammatoryMedia">
+        select id,
+               patientId,
+               `type`,
+               dataId,
+               IL2,
+               IL2Outcome,
+               IL4,
+               IL4Outcome,
+               IL6,
+               IL6Outcome,
+               IL10,
+               IL10Outcome,
+               IL17,
+               IL17Outcome,
+               TNFA,
+               TNFAOutcome,
+               TNFC,
+               TNFCOutcome,
+               images,
+               checkTime,
+               createTime
+        from detect_Inflammatory_media
+        where `type` = #{type}
+          and dataId = #{dataId}
+        ORDER BY checkTime
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from detect_Inflammatory_media
+        where id = #{id}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id"
+            parameterType="com.nickel.medicalrecord.model.entity.DetectInflammatoryMedia" useGeneratedKeys="true">
+        insert into detect_Inflammatory_media (patientId, `type`, dataId,
+                                               IL2, IL2Outcome, IL4,
+                                               IL4Outcome, IL6, IL6Outcome,
+                                               IL10, IL10Outcome, IL17,
+                                               IL17Outcome, TNFA, TNFAOutcome,
+                                               TNFC, TNFCOutcome, images,
+                                               checkTime, createTime)
+        values (#{patientId}, #{type}, #{dataId},
+                #{IL2}, #{IL2Outcome}, #{IL4},
+                #{IL4Outcome}, #{IL6}, #{IL6Outcome},
+                #{IL10}, #{IL10Outcome}, #{IL17},
+                #{IL17Outcome}, #{TNFA}, #{TNFAOutcome},
+                #{TNFC}, #{TNFCOutcome}, #{images},
+                #{checkTime}, #{createTime})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id"
+            parameterType="com.nickel.medicalrecord.model.entity.DetectInflammatoryMedia" useGeneratedKeys="true">
+        insert into detect_Inflammatory_media
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="patientId != null">
+                patientId,
+            </if>
+            <if test="type != null">
+                `type`,
+            </if>
+            <if test="dataId != null">
+                dataId,
+            </if>
+            <if test="IL2 != null">
+                IL2,
+            </if>
+            <if test="IL2Outcome != null">
+                IL2Outcome,
+            </if>
+            <if test="IL4 != null">
+                IL4,
+            </if>
+            <if test="IL4Outcome != null">
+                IL4Outcome,
+            </if>
+            <if test="IL6 != null">
+                IL6,
+            </if>
+            <if test="IL6Outcome != null">
+                IL6Outcome,
+            </if>
+            <if test="IL10 != null">
+                IL10,
+            </if>
+            <if test="IL10Outcome != null">
+                IL10Outcome,
+            </if>
+            <if test="IL17 != null">
+                IL17,
+            </if>
+            <if test="IL17Outcome != null">
+                IL17Outcome,
+            </if>
+            <if test="TNFA != null">
+                TNFA,
+            </if>
+            <if test="TNFAOutcome != null">
+                TNFAOutcome,
+            </if>
+            <if test="TNFC != null">
+                TNFC,
+            </if>
+            <if test="TNFCOutcome != null">
+                TNFCOutcome,
+            </if>
+            <if test="images != null">
+                images,
+            </if>
+            <if test="checkTime != null">
+                checkTime,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="patientId != null">
+                #{patientId},
+            </if>
+            <if test="type != null">
+                #{type},
+            </if>
+            <if test="dataId != null">
+                #{dataId},
+            </if>
+            <if test="IL2 != null">
+                #{IL2},
+            </if>
+            <if test="IL2Outcome != null">
+                #{IL2Outcome},
+            </if>
+            <if test="IL4 != null">
+                #{IL4},
+            </if>
+            <if test="IL4Outcome != null">
+                #{IL4Outcome},
+            </if>
+            <if test="IL6 != null">
+                #{IL6},
+            </if>
+            <if test="IL6Outcome != null">
+                #{IL6Outcome},
+            </if>
+            <if test="IL10 != null">
+                #{IL10},
+            </if>
+            <if test="IL10Outcome != null">
+                #{IL10Outcome},
+            </if>
+            <if test="IL17 != null">
+                #{IL17},
+            </if>
+            <if test="IL17Outcome != null">
+                #{IL17Outcome},
+            </if>
+            <if test="TNFA != null">
+                #{TNFA},
+            </if>
+            <if test="TNFAOutcome != null">
+                #{TNFAOutcome},
+            </if>
+            <if test="TNFC != null">
+                #{TNFC},
+            </if>
+            <if test="TNFCOutcome != null">
+                #{TNFCOutcome},
+            </if>
+            <if test="images != null">
+                #{images},
+            </if>
+            <if test="checkTime != null">
+                #{checkTime},
+            </if>
+            <if test="createTime != null">
+                #{createTime},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective"
+            parameterType="com.nickel.medicalrecord.model.entity.DetectInflammatoryMedia">
+        update detect_Inflammatory_media
+        <set>
+            <if test="patientId != null">
+                patientId = #{patientId},
+            </if>
+            <if test="type != null">
+                `type` = #{type},
+            </if>
+            <if test="dataId != null">
+                dataId = #{dataId},
+            </if>
+            <if test="IL2 != null">
+                IL2 = #{IL2},
+            </if>
+            <if test="IL2Outcome != null">
+                IL2Outcome = #{IL2Outcome},
+            </if>
+            <if test="IL4 != null">
+                IL4 = #{IL4},
+            </if>
+            <if test="IL4Outcome != null">
+                IL4Outcome = #{IL4Outcome},
+            </if>
+            <if test="IL6 != null">
+                IL6 = #{IL6},
+            </if>
+            <if test="IL6Outcome != null">
+                IL6Outcome = #{IL6Outcome},
+            </if>
+            <if test="IL10 != null">
+                IL10 = #{IL10},
+            </if>
+            <if test="IL10Outcome != null">
+                IL10Outcome = #{IL10Outcome},
+            </if>
+            <if test="IL17 != null">
+                IL17 = #{IL17},
+            </if>
+            <if test="IL17Outcome != null">
+                IL17Outcome = #{IL17Outcome},
+            </if>
+            <if test="TNFA != null">
+                TNFA = #{TNFA},
+            </if>
+            <if test="TNFAOutcome != null">
+                TNFAOutcome = #{TNFAOutcome},
+            </if>
+            <if test="TNFC != null">
+                TNFC = #{TNFC},
+            </if>
+            <if test="TNFCOutcome != null">
+                TNFCOutcome = #{TNFCOutcome},
+            </if>
+            <if test="images != null">
+                images = #{images},
+            </if>
+            <if test="checkTime != null">
+                checkTime = #{checkTime},
+            </if>
+            <if test="createTime != null">
+                createTime = #{createTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.nickel.medicalrecord.model.entity.DetectInflammatoryMedia">
+        update detect_Inflammatory_media
+        set patientId   = #{patientId},
+            `type`      = #{type},
+            dataId      = #{dataId},
+            IL2         = #{IL2},
+            IL2Outcome  = #{IL2Outcome},
+            IL4         = #{IL4},
+            IL4Outcome  = #{IL4Outcome},
+            IL6         = #{IL6},
+            IL6Outcome  = #{IL6Outcome},
+            IL10        = #{IL10},
+            IL10Outcome = #{IL10Outcome},
+            IL17        = #{IL17},
+            IL17Outcome = #{IL17Outcome},
+            TNFA        = #{TNFA},
+            TNFAOutcome = #{TNFAOutcome},
+            TNFC        = #{TNFC},
+            TNFCOutcome = #{TNFCOutcome},
+            images      = #{images},
+            checkTime   = #{checkTime},
+            createTime  = #{createTime}
+        where id = #{id}
+    </update>
+</mapper>

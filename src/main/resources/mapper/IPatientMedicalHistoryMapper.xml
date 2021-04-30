@@ -1,0 +1,748 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nickel.medicalrecord.repository.IPatientMedicalHistoryMapper">
+
+    <sql id="Base_Column_List">
+        id, patientId, priorStroke, priorStrokeNum, priorStrokeType, priorStrokeText, transientCerebralIchemia,
+        transientCerebralIchemiaTime, transientCerebralIchemiaText, coronaryHeartDisease,
+        coronaryHeartDiseaseText, atrialFibrillation, atrialFibrillationText, heartFailure,
+        heartFailureText, coronaryStent, coronaryStentText, diabetes, diabetesTime, diabetesText,
+        hypertension, hypertensionTime, hypertensionText, dyslipidemia, dyslipidemiaText,
+        peripheralArtery, peripheralArteryText, renalFailure, renalFailureText, intracranialArterystent,
+        intracranialArterystentText, internalCarotidArteryStent, internalCarotidArteryStentText,
+        internalCarotidArteryEndarterectomy, internalCarotidArteryEndarterectomyText, intravenousThrombolysis,
+        intravenousThrombolysisText, arterialThrombectomy, arterialThrombectomyText, metabolism,
+        metabolismText, immunity, immunityText, migraine, migraineText, sleepApnea, sleepApneaText,
+        homocysteineemia, homocysteineemiaText, hyperuricAcidemia, hyperuricAcidemiaText,
+        chronicObstructivePulmonaryDisease, chronicObstructivePulmonaryDiseaseText, createTime,
+        updateTime, deleted
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+            resultType="com.nickel.medicalrecord.model.entity.PatientMedicalHistory">
+        select
+        <include refid="Base_Column_List"/>
+        from patient_medical_history
+        where id = #{id}
+    </select>
+    <select id="findList" resultType="com.nickel.medicalrecord.model.entity.PatientMedicalHistory"
+            parameterType="com.nickel.medicalrecord.model.entity.PatientMedicalHistory">
+        select
+        <include refid="Base_Column_List"/>
+        from patient_medical_history
+        where deleted = #{deleted}
+        <if test="patientId != null">
+            and #{patientId}
+        </if>
+        <if test="priorStroke != null">
+            and #{priorStroke}
+        </if>
+        <if test="priorStrokeNum != null">
+            and #{priorStrokeNum}
+        </if>
+        <if test="priorStrokeType != null">
+            and #{priorStrokeType}
+        </if>
+        <if test="transientCerebralIchemia != null">
+            and #{transientCerebralIchemia}
+        </if>
+        <if test="transientCerebralIchemiaTime != null">
+            and #{transientCerebralIchemiaTime}
+        </if>
+        <if test="coronaryHeartDisease != null">
+            and #{coronaryHeartDisease}
+        </if>
+        <if test="atrialFibrillation != null">
+            and #{atrialFibrillation}
+        </if>
+        <if test="heartFailure != null">
+            and #{heartFailure}
+        </if>
+        <if test="coronaryStent != null">
+            and #{coronaryStent}
+        </if>
+        <if test="diabetes != null">
+            and #{diabetes}
+        </if>
+        <if test="diabetesTime != null">
+            and #{diabetesTime}
+        </if>
+        <if test="hypertension != null">
+            and #{hypertension}
+        </if>
+        <if test="hypertensionTime != null">
+            and #{hypertensionTime}
+        </if>
+        <if test="dyslipidemia != null">
+            and #{dyslipidemia}
+        </if>
+        <if test="peripheralArtery != null">
+            and #{peripheralArtery}
+        </if>
+        <if test="renalFailure != null">
+            and #{renalFailure}
+        </if>
+        <if test="intracranialArterystent != null">
+            and #{intracranialArterystent}
+        </if>
+        <if test="internalCarotidArteryStent != null">
+            and #{internalCarotidArteryStent}
+        </if>
+        <if test="internalCarotidArteryEndarterectomy != null">
+            and #{internalCarotidArteryEndarterectomy}
+        </if>
+        <if test="intravenousThrombolysis != null">
+            and #{intravenousThrombolysis}
+        </if>
+        <if test="arterialThrombectomy != null">
+            and #{arterialThrombectomy}
+        </if>
+        <if test="metabolism != null">
+            and #{metabolism}
+        </if>
+        <if test="immunity != null">
+            and #{immunity}
+        </if>
+        <if test="migraine != null">
+            and #{migraine}
+        </if>
+        <if test="sleepApnea != null">
+            and #{sleepApnea}
+        </if>
+        <if test="homocysteineemia != null">
+            and #{homocysteineemia}
+        </if>
+        <if test="hyperuricAcidemia != null">
+            and #{hyperuricAcidemia}
+        </if>
+        <if test="chronicObstructivePulmonaryDisease != null">
+            and #{chronicObstructivePulmonaryDisease}
+        </if>
+        ORDER BY createTime DESC
+    </select>
+    <select id="findListByPatientId" resultType="com.nickel.medicalrecord.model.entity.PatientMedicalHistory"
+            parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from patient_medical_history
+        where deleted = 0
+        and patientId = #{patientId}
+        ORDER BY createTime DESC
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from patient_medical_history
+        where id = #{id}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id"
+            parameterType="com.nickel.medicalrecord.model.entity.PatientMedicalHistory" useGeneratedKeys="true">
+        insert into patient_medical_history (patientId, priorStroke, priorStrokeNum,
+                                             priorStrokeType, priorStrokeText, transientCerebralIchemia,
+                                             transientCerebralIchemiaTime, transientCerebralIchemiaText,
+                                             coronaryHeartDisease, coronaryHeartDiseaseText,
+                                             atrialFibrillation, atrialFibrillationText,
+                                             heartFailure, heartFailureText, coronaryStent,
+                                             coronaryStentText, diabetes, diabetesTime,
+                                             diabetesText, hypertension, hypertensionTime,
+                                             hypertensionText, dyslipidemia, dyslipidemiaText,
+                                             peripheralArtery, peripheralArteryText,
+                                             renalFailure, renalFailureText, intracranialArterystent,
+                                             intracranialArterystentText, internalCarotidArteryStent,
+                                             internalCarotidArteryStentText, internalCarotidArteryEndarterectomy,
+                                             internalCarotidArteryEndarterectomyText, intravenousThrombolysis,
+                                             intravenousThrombolysisText, arterialThrombectomy,
+                                             arterialThrombectomyText, metabolism, metabolismText,
+                                             immunity, immunityText, migraine,
+                                             migraineText, sleepApnea, sleepApneaText,
+                                             homocysteineemia, homocysteineemiaText,
+                                             hyperuricAcidemia, hyperuricAcidemiaText,
+                                             chronicObstructivePulmonaryDisease, chronicObstructivePulmonaryDiseaseText,
+                                             createTime, updateTime, deleted)
+        values (#{patientId}, #{priorStroke}, #{priorStrokeNum},
+                #{priorStrokeType}, #{priorStrokeText}, #{transientCerebralIchemia},
+                #{transientCerebralIchemiaTime}, #{transientCerebralIchemiaText},
+                #{coronaryHeartDisease}, #{coronaryHeartDiseaseText},
+                #{atrialFibrillation}, #{atrialFibrillationText},
+                #{heartFailure}, #{heartFailureText}, #{coronaryStent},
+                #{coronaryStentText}, #{diabetes}, #{diabetesTime},
+                #{diabetesText}, #{hypertension}, #{hypertensionTime},
+                #{hypertensionText}, #{dyslipidemia}, #{dyslipidemiaText},
+                #{peripheralArtery}, #{peripheralArteryText},
+                #{renalFailure}, #{renalFailureText}, #{intracranialArterystent},
+                #{intracranialArterystentText}, #{internalCarotidArteryStent},
+                #{internalCarotidArteryStentText}, #{internalCarotidArteryEndarterectomy},
+                #{internalCarotidArteryEndarterectomyText}, #{intravenousThrombolysis},
+                #{intravenousThrombolysisText}, #{arterialThrombectomy},
+                #{arterialThrombectomyText}, #{metabolism}, #{metabolismText},
+                #{immunity}, #{immunityText}, #{migraine},
+                #{migraineText}, #{sleepApnea}, #{sleepApneaText},
+                #{homocysteineemia}, #{homocysteineemiaText},
+                #{hyperuricAcidemia}, #{hyperuricAcidemiaText},
+                #{chronicObstructivePulmonaryDisease}, #{chronicObstructivePulmonaryDiseaseText},
+                #{createTime}, #{updateTime}, #{deleted})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id"
+            parameterType="com.nickel.medicalrecord.model.entity.PatientMedicalHistory" useGeneratedKeys="true">
+        insert into patient_medical_history
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="patientId != null">
+                patientId,
+            </if>
+            <if test="priorStroke != null">
+                priorStroke,
+            </if>
+            <if test="priorStrokeNum != null">
+                priorStrokeNum,
+            </if>
+            <if test="priorStrokeType != null">
+                priorStrokeType,
+            </if>
+            <if test="priorStrokeText != null">
+                priorStrokeText,
+            </if>
+            <if test="transientCerebralIchemia != null">
+                transientCerebralIchemia,
+            </if>
+            <if test="transientCerebralIchemiaTime != null">
+                transientCerebralIchemiaTime,
+            </if>
+            <if test="transientCerebralIchemiaText != null">
+                transientCerebralIchemiaText,
+            </if>
+            <if test="coronaryHeartDisease != null">
+                coronaryHeartDisease,
+            </if>
+            <if test="coronaryHeartDiseaseText != null">
+                coronaryHeartDiseaseText,
+            </if>
+            <if test="atrialFibrillation != null">
+                atrialFibrillation,
+            </if>
+            <if test="atrialFibrillationText != null">
+                atrialFibrillationText,
+            </if>
+            <if test="heartFailure != null">
+                heartFailure,
+            </if>
+            <if test="heartFailureText != null">
+                heartFailureText,
+            </if>
+            <if test="coronaryStent != null">
+                coronaryStent,
+            </if>
+            <if test="coronaryStentText != null">
+                coronaryStentText,
+            </if>
+            <if test="diabetes != null">
+                diabetes,
+            </if>
+            <if test="diabetesTime != null">
+                diabetesTime,
+            </if>
+            <if test="diabetesText != null">
+                diabetesText,
+            </if>
+            <if test="hypertension != null">
+                hypertension,
+            </if>
+            <if test="hypertensionTime != null">
+                hypertensionTime,
+            </if>
+            <if test="hypertensionText != null">
+                hypertensionText,
+            </if>
+            <if test="dyslipidemia != null">
+                dyslipidemia,
+            </if>
+            <if test="dyslipidemiaText != null">
+                dyslipidemiaText,
+            </if>
+            <if test="peripheralArtery != null">
+                peripheralArtery,
+            </if>
+            <if test="peripheralArteryText != null">
+                peripheralArteryText,
+            </if>
+            <if test="renalFailure != null">
+                renalFailure,
+            </if>
+            <if test="renalFailureText != null">
+                renalFailureText,
+            </if>
+            <if test="intracranialArterystent != null">
+                intracranialArterystent,
+            </if>
+            <if test="intracranialArterystentText != null">
+                intracranialArterystentText,
+            </if>
+            <if test="internalCarotidArteryStent != null">
+                internalCarotidArteryStent,
+            </if>
+            <if test="internalCarotidArteryStentText != null">
+                internalCarotidArteryStentText,
+            </if>
+            <if test="internalCarotidArteryEndarterectomy != null">
+                internalCarotidArteryEndarterectomy,
+            </if>
+            <if test="internalCarotidArteryEndarterectomyText != null">
+                internalCarotidArteryEndarterectomyText,
+            </if>
+            <if test="intravenousThrombolysis != null">
+                intravenousThrombolysis,
+            </if>
+            <if test="intravenousThrombolysisText != null">
+                intravenousThrombolysisText,
+            </if>
+            <if test="arterialThrombectomy != null">
+                arterialThrombectomy,
+            </if>
+            <if test="arterialThrombectomyText != null">
+                arterialThrombectomyText,
+            </if>
+            <if test="metabolism != null">
+                metabolism,
+            </if>
+            <if test="metabolismText != null">
+                metabolismText,
+            </if>
+            <if test="immunity != null">
+                immunity,
+            </if>
+            <if test="immunityText != null">
+                immunityText,
+            </if>
+            <if test="migraine != null">
+                migraine,
+            </if>
+            <if test="migraineText != null">
+                migraineText,
+            </if>
+            <if test="sleepApnea != null">
+                sleepApnea,
+            </if>
+            <if test="sleepApneaText != null">
+                sleepApneaText,
+            </if>
+            <if test="homocysteineemia != null">
+                homocysteineemia,
+            </if>
+            <if test="homocysteineemiaText != null">
+                homocysteineemiaText,
+            </if>
+            <if test="hyperuricAcidemia != null">
+                hyperuricAcidemia,
+            </if>
+            <if test="hyperuricAcidemiaText != null">
+                hyperuricAcidemiaText,
+            </if>
+            <if test="chronicObstructivePulmonaryDisease != null">
+                chronicObstructivePulmonaryDisease,
+            </if>
+            <if test="chronicObstructivePulmonaryDiseaseText != null">
+                chronicObstructivePulmonaryDiseaseText,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+            <if test="updateTime != null">
+                updateTime,
+            </if>
+            <if test="deleted != null">
+                deleted,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="patientId != null">
+                #{patientId},
+            </if>
+            <if test="priorStroke != null">
+                #{priorStroke},
+            </if>
+            <if test="priorStrokeNum != null">
+                #{priorStrokeNum},
+            </if>
+            <if test="priorStrokeType != null">
+                #{priorStrokeType},
+            </if>
+            <if test="priorStrokeText != null">
+                #{priorStrokeText},
+            </if>
+            <if test="transientCerebralIchemia != null">
+                #{transientCerebralIchemia},
+            </if>
+            <if test="transientCerebralIchemiaTime != null">
+                #{transientCerebralIchemiaTime},
+            </if>
+            <if test="transientCerebralIchemiaText != null">
+                #{transientCerebralIchemiaText},
+            </if>
+            <if test="coronaryHeartDisease != null">
+                #{coronaryHeartDisease},
+            </if>
+            <if test="coronaryHeartDiseaseText != null">
+                #{coronaryHeartDiseaseText},
+            </if>
+            <if test="atrialFibrillation != null">
+                #{atrialFibrillation},
+            </if>
+            <if test="atrialFibrillationText != null">
+                #{atrialFibrillationText},
+            </if>
+            <if test="heartFailure != null">
+                #{heartFailure},
+            </if>
+            <if test="heartFailureText != null">
+                #{heartFailureText},
+            </if>
+            <if test="coronaryStent != null">
+                #{coronaryStent},
+            </if>
+            <if test="coronaryStentText != null">
+                #{coronaryStentText},
+            </if>
+            <if test="diabetes != null">
+                #{diabetes},
+            </if>
+            <if test="diabetesTime != null">
+                #{diabetesTime},
+            </if>
+            <if test="diabetesText != null">
+                #{diabetesText},
+            </if>
+            <if test="hypertension != null">
+                #{hypertension},
+            </if>
+            <if test="hypertensionTime != null">
+                #{hypertensionTime},
+            </if>
+            <if test="hypertensionText != null">
+                #{hypertensionText},
+            </if>
+            <if test="dyslipidemia != null">
+                #{dyslipidemia},
+            </if>
+            <if test="dyslipidemiaText != null">
+                #{dyslipidemiaText},
+            </if>
+            <if test="peripheralArtery != null">
+                #{peripheralArtery},
+            </if>
+            <if test="peripheralArteryText != null">
+                #{peripheralArteryText},
+            </if>
+            <if test="renalFailure != null">
+                #{renalFailure},
+            </if>
+            <if test="renalFailureText != null">
+                #{renalFailureText},
+            </if>
+            <if test="intracranialArterystent != null">
+                #{intracranialArterystent},
+            </if>
+            <if test="intracranialArterystentText != null">
+                #{intracranialArterystentText},
+            </if>
+            <if test="internalCarotidArteryStent != null">
+                #{internalCarotidArteryStent},
+            </if>
+            <if test="internalCarotidArteryStentText != null">
+                #{internalCarotidArteryStentText},
+            </if>
+            <if test="internalCarotidArteryEndarterectomy != null">
+                #{internalCarotidArteryEndarterectomy},
+            </if>
+            <if test="internalCarotidArteryEndarterectomyText != null">
+                #{internalCarotidArteryEndarterectomyText},
+            </if>
+            <if test="intravenousThrombolysis != null">
+                #{intravenousThrombolysis},
+            </if>
+            <if test="intravenousThrombolysisText != null">
+                #{intravenousThrombolysisText},
+            </if>
+            <if test="arterialThrombectomy != null">
+                #{arterialThrombectomy},
+            </if>
+            <if test="arterialThrombectomyText != null">
+                #{arterialThrombectomyText},
+            </if>
+            <if test="metabolism != null">
+                #{metabolism},
+            </if>
+            <if test="metabolismText != null">
+                #{metabolismText},
+            </if>
+            <if test="immunity != null">
+                #{immunity},
+            </if>
+            <if test="immunityText != null">
+                #{immunityText},
+            </if>
+            <if test="migraine != null">
+                #{migraine},
+            </if>
+            <if test="migraineText != null">
+                #{migraineText},
+            </if>
+            <if test="sleepApnea != null">
+                #{sleepApnea},
+            </if>
+            <if test="sleepApneaText != null">
+                #{sleepApneaText},
+            </if>
+            <if test="homocysteineemia != null">
+                #{homocysteineemia},
+            </if>
+            <if test="homocysteineemiaText != null">
+                #{homocysteineemiaText},
+            </if>
+            <if test="hyperuricAcidemia != null">
+                #{hyperuricAcidemia},
+            </if>
+            <if test="hyperuricAcidemiaText != null">
+                #{hyperuricAcidemiaText},
+            </if>
+            <if test="chronicObstructivePulmonaryDisease != null">
+                #{chronicObstructivePulmonaryDisease},
+            </if>
+            <if test="chronicObstructivePulmonaryDiseaseText != null">
+                #{chronicObstructivePulmonaryDiseaseText},
+            </if>
+            <if test="createTime != null">
+                #{createTime},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime},
+            </if>
+            <if test="deleted != null">
+                #{deleted},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective"
+            parameterType="com.nickel.medicalrecord.model.entity.PatientMedicalHistory">
+        update patient_medical_history
+        <set>
+            <if test="patientId != null">
+                patientId = #{patientId},
+            </if>
+            <if test="priorStroke != null">
+                priorStroke = #{priorStroke},
+            </if>
+            <if test="priorStrokeNum != null">
+                priorStrokeNum = #{priorStrokeNum},
+            </if>
+            <if test="priorStrokeType != null">
+                priorStrokeType = #{priorStrokeType},
+            </if>
+            <if test="priorStrokeText != null">
+                priorStrokeText = #{priorStrokeText},
+            </if>
+            <if test="transientCerebralIchemia != null">
+                transientCerebralIchemia = #{transientCerebralIchemia},
+            </if>
+            <if test="transientCerebralIchemiaTime != null">
+                transientCerebralIchemiaTime = #{transientCerebralIchemiaTime},
+            </if>
+            <if test="transientCerebralIchemiaText != null">
+                transientCerebralIchemiaText = #{transientCerebralIchemiaText},
+            </if>
+            <if test="coronaryHeartDisease != null">
+                coronaryHeartDisease = #{coronaryHeartDisease},
+            </if>
+            <if test="coronaryHeartDiseaseText != null">
+                coronaryHeartDiseaseText = #{coronaryHeartDiseaseText},
+            </if>
+            <if test="atrialFibrillation != null">
+                atrialFibrillation = #{atrialFibrillation},
+            </if>
+            <if test="atrialFibrillationText != null">
+                atrialFibrillationText = #{atrialFibrillationText},
+            </if>
+            <if test="heartFailure != null">
+                heartFailure = #{heartFailure},
+            </if>
+            <if test="heartFailureText != null">
+                heartFailureText = #{heartFailureText},
+            </if>
+            <if test="coronaryStent != null">
+                coronaryStent = #{coronaryStent},
+            </if>
+            <if test="coronaryStentText != null">
+                coronaryStentText = #{coronaryStentText},
+            </if>
+            <if test="diabetes != null">
+                diabetes = #{diabetes},
+            </if>
+            <if test="diabetesTime != null">
+                diabetesTime = #{diabetesTime},
+            </if>
+            <if test="diabetesText != null">
+                diabetesText = #{diabetesText},
+            </if>
+            <if test="hypertension != null">
+                hypertension = #{hypertension},
+            </if>
+            <if test="hypertensionTime != null">
+                hypertensionTime = #{hypertensionTime},
+            </if>
+            <if test="hypertensionText != null">
+                hypertensionText = #{hypertensionText},
+            </if>
+            <if test="dyslipidemia != null">
+                dyslipidemia = #{dyslipidemia},
+            </if>
+            <if test="dyslipidemiaText != null">
+                dyslipidemiaText = #{dyslipidemiaText},
+            </if>
+            <if test="peripheralArtery != null">
+                peripheralArtery = #{peripheralArtery},
+            </if>
+            <if test="peripheralArteryText != null">
+                peripheralArteryText = #{peripheralArteryText},
+            </if>
+            <if test="renalFailure != null">
+                renalFailure = #{renalFailure},
+            </if>
+            <if test="renalFailureText != null">
+                renalFailureText = #{renalFailureText},
+            </if>
+            <if test="intracranialArterystent != null">
+                intracranialArterystent = #{intracranialArterystent},
+            </if>
+            <if test="intracranialArterystentText != null">
+                intracranialArterystentText = #{intracranialArterystentText},
+            </if>
+            <if test="internalCarotidArteryStent != null">
+                internalCarotidArteryStent = #{internalCarotidArteryStent},
+            </if>
+            <if test="internalCarotidArteryStentText != null">
+                internalCarotidArteryStentText = #{internalCarotidArteryStentText},
+            </if>
+            <if test="internalCarotidArteryEndarterectomy != null">
+                internalCarotidArteryEndarterectomy = #{internalCarotidArteryEndarterectomy},
+            </if>
+            <if test="internalCarotidArteryEndarterectomyText != null">
+                internalCarotidArteryEndarterectomyText = #{internalCarotidArteryEndarterectomyText},
+            </if>
+            <if test="intravenousThrombolysis != null">
+                intravenousThrombolysis = #{intravenousThrombolysis},
+            </if>
+            <if test="intravenousThrombolysisText != null">
+                intravenousThrombolysisText = #{intravenousThrombolysisText},
+            </if>
+            <if test="arterialThrombectomy != null">
+                arterialThrombectomy = #{arterialThrombectomy},
+            </if>
+            <if test="arterialThrombectomyText != null">
+                arterialThrombectomyText = #{arterialThrombectomyText},
+            </if>
+            <if test="metabolism != null">
+                metabolism = #{metabolism},
+            </if>
+            <if test="metabolismText != null">
+                metabolismText = #{metabolismText},
+            </if>
+            <if test="immunity != null">
+                immunity = #{immunity},
+            </if>
+            <if test="immunityText != null">
+                immunityText = #{immunityText},
+            </if>
+            <if test="migraine != null">
+                migraine = #{migraine},
+            </if>
+            <if test="migraineText != null">
+                migraineText = #{migraineText},
+            </if>
+            <if test="sleepApnea != null">
+                sleepApnea = #{sleepApnea},
+            </if>
+            <if test="sleepApneaText != null">
+                sleepApneaText = #{sleepApneaText},
+            </if>
+            <if test="homocysteineemia != null">
+                homocysteineemia = #{homocysteineemia},
+            </if>
+            <if test="homocysteineemiaText != null">
+                homocysteineemiaText = #{homocysteineemiaText},
+            </if>
+            <if test="hyperuricAcidemia != null">
+                hyperuricAcidemia = #{hyperuricAcidemia},
+            </if>
+            <if test="hyperuricAcidemiaText != null">
+                hyperuricAcidemiaText = #{hyperuricAcidemiaText},
+            </if>
+            <if test="chronicObstructivePulmonaryDisease != null">
+                chronicObstructivePulmonaryDisease = #{chronicObstructivePulmonaryDisease},
+            </if>
+            <if test="chronicObstructivePulmonaryDiseaseText != null">
+                chronicObstructivePulmonaryDiseaseText = #{chronicObstructivePulmonaryDiseaseText},
+            </if>
+            <if test="updateTime != null">
+                updateTime = #{updateTime},
+            </if>
+            <if test="deleted != null">
+                deleted = #{deleted},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.nickel.medicalrecord.model.entity.PatientMedicalHistory">
+        update patient_medical_history
+        set patientId                               = #{patientId},
+            priorStroke                             = #{priorStroke},
+            priorStrokeNum                          = #{priorStrokeNum},
+            priorStrokeType                         = #{priorStrokeType},
+            priorStrokeText                         = #{priorStrokeText},
+            transientCerebralIchemia                = #{transientCerebralIchemia},
+            transientCerebralIchemiaTime            = #{transientCerebralIchemiaTime},
+            transientCerebralIchemiaText            = #{transientCerebralIchemiaText},
+            coronaryHeartDisease                    = #{coronaryHeartDisease},
+            coronaryHeartDiseaseText                = #{coronaryHeartDiseaseText},
+            atrialFibrillation                      = #{atrialFibrillation},
+            atrialFibrillationText                  = #{atrialFibrillationText},
+            heartFailure                            = #{heartFailure},
+            heartFailureText                        = #{heartFailureText},
+            coronaryStent                           = #{coronaryStent},
+            coronaryStentText                       = #{coronaryStentText},
+            diabetes                                = #{diabetes},
+            diabetesTime                            = #{diabetesTime},
+            diabetesText                            = #{diabetesText},
+            hypertension                            = #{hypertension},
+            hypertensionTime                        = #{hypertensionTime},
+            hypertensionText                        = #{hypertensionText},
+            dyslipidemia                            = #{dyslipidemia},
+            dyslipidemiaText                        = #{dyslipidemiaText},
+            peripheralArtery                        = #{peripheralArtery},
+            peripheralArteryText                    = #{peripheralArteryText},
+            renalFailure                            = #{renalFailure},
+            renalFailureText                        = #{renalFailureText},
+            intracranialArterystent                 = #{intracranialArterystent},
+            intracranialArterystentText             = #{intracranialArterystentText},
+            internalCarotidArteryStent              = #{internalCarotidArteryStent},
+            internalCarotidArteryStentText          = #{internalCarotidArteryStentText},
+            internalCarotidArteryEndarterectomy     = #{internalCarotidArteryEndarterectomy},
+            internalCarotidArteryEndarterectomyText = #{internalCarotidArteryEndarterectomyText},
+            intravenousThrombolysis                 = #{intravenousThrombolysis},
+            intravenousThrombolysisText             = #{intravenousThrombolysisText},
+            arterialThrombectomy                    = #{arterialThrombectomy},
+            arterialThrombectomyText                = #{arterialThrombectomyText},
+            metabolism                              = #{metabolism},
+            metabolismText                          = #{metabolismText},
+            immunity                                = #{immunity},
+            immunityText                            = #{immunityText},
+            migraine                                = #{migraine},
+            migraineText                            = #{migraineText},
+            sleepApnea                              = #{sleepApnea},
+            sleepApneaText                          = #{sleepApneaText},
+            homocysteineemia                        = #{homocysteineemia},
+            homocysteineemiaText                    = #{homocysteineemiaText},
+            hyperuricAcidemia                       = #{hyperuricAcidemia},
+            hyperuricAcidemiaText                   = #{hyperuricAcidemiaText},
+            chronicObstructivePulmonaryDisease      = #{chronicObstructivePulmonaryDisease},
+            chronicObstructivePulmonaryDiseaseText  = #{chronicObstructivePulmonaryDiseaseText},
+            updateTime                              = #{updateTime},
+            deleted                                 = #{deleted}
+        where id = #{id}
+    </update>
+</mapper>

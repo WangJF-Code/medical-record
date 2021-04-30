@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nickel.medicalrecord.repository.IHospitalRecordsMapper">
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.String"
+            resultType="com.nickel.medicalrecord.model.dto.HospitalRecordsDTO">
+        SELECT hospital_records.id,
+               hospital_records.patientId,
+               hospital_records.onsetTime,
+               hospital_records.toHospitalTime,
+               hospital_records.hospitalizationTime,
+               hospital_records.description,
+               hospital_records.dischargeTime,
+               hospital_records.`status`,
+               hospital_records.createTime,
+               hospital_records.updateTime,
+               hospital_records.deleted,
+               patient.userName,
+               patient.sex,
+               patient.IDCard,
+               patient.age,
+               patient.phoneNumber,
+               patient.nation,
+               patient.livingStatus,
+               patient.maritalStatus,
+               patient.educationDegree,
+               patient.medicalInsuranceType,
+               patient.job,
+               patient.income,
+               patient.city,
+               patient.address
+        FROM hospital_records
+                 LEFT JOIN patient ON patient.id = hospital_records.patientId
+        WHERE hospital_records.id = #{id}
+    </select>
+
+    <select id="findTodayCount" resultType="java.lang.Integer" parameterType="java.lang.String">
+        select count(1)
+        from hospital_records
+        where id like CONCAT(#{id}, '%')
+    </select>
+    <select id="selectList" resultType="com.nickel.medicalrecord.model.dto.HospitalRecordsDTO"
+            parameterType="com.nickel.medicalrecord.model.dto.HospitalRecordsConditionDTO">
+        SELECT
+        hospital_records.id,
+        hospital_records.patientId,
+        hospital_records.onsetTime,
+        hospital_records.toHospitalTime,
+        hospital_records.hospitalizationTime,
+        hospital_records.description,
+        hospital_records.dischargeTime,
+        hospital_records.`status`,
+        hospital_records.createTime,
+        hospital_records.updateTime,
+        hospital_records.deleted,
+        patient.userName,
+        patient.sex,
+        patient.IDCard,
+        patient.age,
+        patient.phoneNumber,
+        patient.nation,
+        patient.livingStatus,
+        patient.maritalStatus,
+        patient.educationDegree,
+        patient.medicalInsuranceType,
+        patient.job,
+        patient.income,
+        patient.city,
+        patient.address
+        FROM
+        hospital_records
+        LEFT JOIN patient ON patient.id = hospital_records.patientId
+        WHERE hospital_records.deleted = #{deleted}
+        <if test="patientId != null">
+            AND hospital_records.patientId = #{patientId}
+        </if>
+        <if test="userName != null">
+            AND patient.userName = #{userName}
+        </if>
+        <if test="sex != null">
+            AND patient.sex = #{sex}
+        </if>
+        <if test="nation != null">
+            AND patient.nation = #{nation}
+        </if>
+        <if test="startHospitalizationTime != null and endHospitalizationTime != null">
+            AND hospital_records.hospitalizationTime > #{startHospitalizationTime}
+            AND #{endHospitalizationTime} > hospital_records.hospitalizationTime
+        </if>
+        <if test="startDischargeTime != null and endDischargeTime != null">
+            AND hospital_records.dischargeTime > #{startDischargeTime}
+            AND #{endDischargeTime} > hospital_records.dischargeTime
+        </if>
+        <if test="status != null">
+            AND hospital_records.`status` = #{status}
+        </if>
+        ORDER BY hospital_records.createTime
+    </select>
+    <select id="findCount" resultType="java.lang.Integer"
+            parameterType="com.nickel.medicalrecord.model.dto.HospitalRecordsConditionDTO">
+        SELECT
+        COUNT(hospital_records.id)
+        FROM
+        hospital_records
+        LEFT JOIN patient ON patient.id = hospital_records.patientId
+        WHERE hospital_records.deleted = #{deleted}
+        <if test="patientId != null">
+            AND hospital_records.patientId = #{patientId}
+        </if>
+        <if test="userName != null">
+            AND patient.userName = #{userName}
+        </if>
+        <if test="sex != null">
+            AND patient.sex = #{sex}
+        </if>
+        <if test="nation != null">
+            AND patient.nation = #{nation}
+        </if>
+        <if test="startHospitalizationTime != null">
+            AND hospital_records.hospitalizationTime > #{startHospitalizationTime}
+            AND #{endHospitalizationTime}> hospital_records.hospitalizationTime
+        </if>
+        <if test="startDischargeTime != null">
+            AND hospital_records.dischargeTime > #{startDischargeTime}
+            AND #{endDischargeTime} > hospital_records.dischargeTime
+        </if>
+        <if test="status != null">
+            AND hospital_records.`status` = #{status}
+        </if>
+    </select>
+    <select id="findPage" resultType="com.nickel.medicalrecord.model.dto.HospitalRecordsDTO">
+        SELECT
+        hospital_records.id,
+        hospital_records.patientId,
+        hospital_records.onsetTime,
+        hospital_records.toHospitalTime,
+        hospital_records.hospitalizationTime,
+        hospital_records.description,
+        hospital_records.dischargeTime,
+        hospital_records.`status`,
+        hospital_records.createTime,
+        hospital_records.updateTime,
+        hospital_records.deleted,
+        patient.userName,
+        patient.sex,
+        patient.IDCard,
+        patient.age,
+        patient.phoneNumber,
+        patient.nation,
+        patient.livingStatus,
+        patient.maritalStatus,
+        patient.educationDegree,
+        patient.medicalInsuranceType,
+        patient.job,
+        patient.income,
+        patient.city,
+        patient.address
+        FROM
+        hospital_records
+        LEFT JOIN patient ON patient.id = hospital_records.patientId
+        WHERE hospital_records.deleted = #{conditionDTO.deleted}
+        <if test="conditionDTO.patientId != null">
+            AND hospital_records.patientId = #{conditionDTO.patientId}
+        </if>
+        <if test="conditionDTO.userName != null">
+            AND patient.userName = #{conditionDTO.userName}
+        </if>
+        <if test="conditionDTO.sex != null">
+            AND patient.sex = #{conditionDTO.sex}
+        </if>
+        <if test="conditionDTO.nation != null">
+            AND patient.nation = #{conditionDTO.nation}
+        </if>
+        <if test="conditionDTO.startHospitalizationTime != null">
+            AND hospital_records.hospitalizationTime > #{conditionDTO.startHospitalizationTime}
+            AND #{conditionDTO.endHospitalizationTime}> hospital_records.hospitalizationTime
+        </if>
+        <if test="conditionDTO.startDischargeTime != null">
+            AND hospital_records.dischargeTime > #{conditionDTO.startDischargeTime}
+            AND #{conditionDTO.endDischargeTime} > hospital_records.dischargeTime
+        </if>
+        <if test="conditionDTO.status != null">
+            AND hospital_records.`status` = #{conditionDTO.status}
+        </if>
+        ORDER BY hospital_records.createTime
+        LIMIT #{index}, #{size}
+    </select>
+    <insert id="insert" parameterType="com.nickel.medicalrecord.model.entity.HospitalRecords">
+        insert into hospital_records (id, patientId, onsetTime, toHospitalTime,
+                                      hospitalizationTime, description, dischargeTime,
+                                      `status`, createTime, updateTime, deleted)
+        values (#{id}, #{patientId}, #{onsetTime}, #{toHospitalTime},
+                #{hospitalizationTime}, #{description},
+                #{dischargeTime},
+                #{status}, #{createTime}, #{updateTime}, #{deleted})
+    </insert>
+    <insert id="insertSelective" parameterType="com.nickel.medicalrecord.model.entity.HospitalRecords">
+        insert into hospital_records
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            id,
+            <if test="patientId != null">
+                patientId,
+            </if>
+            <if test="onsetTime != null">
+                onsetTime,
+            </if>
+            <if test="toHospitalTime != null">
+                toHospitalTime,
+            </if>
+            <if test="hospitalizationTime != null">
+                hospitalizationTime,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="dischargeTime != null">
+                dischargeTime,
+            </if>
+            <if test="status != null">
+                `status`,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+            <if test="updateTime != null">
+                updateTime,
+            </if>
+            <if test="deleted != null">
+                deleted
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            #{id},
+            <if test="patientId != null">
+                #{patientId},
+            </if>
+            <if test="onsetTime != null">
+                #{onsetTime},
+            </if>
+            <if test="toHospitalTime != null">
+                #{toHospitalTime},
+            </if>
+            <if test="hospitalizationTime != null">
+                #{hospitalizationTime},
+            </if>
+            <if test="description != null">
+                #{description},
+            </if>
+            <if test="dischargeTime != null">
+                #{dischargeTime},
+            </if>
+            <if test="status != null">
+                #{status},
+            </if>
+            <if test="createTime != null">
+                #{createTime},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime},
+            </if>
+            <if test="deleted != null">
+                #{deleted},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.nickel.medicalrecord.model.entity.HospitalRecords">
+        update hospital_records
+        <set>
+            <if test="patientId != null">
+                patientId = #{patientId},
+            </if>
+            <if test="onsetTime != null">
+                onsetTime = #{onsetTime},
+            </if>
+            <if test="toHospitalTime != null">
+                toHospitalTime = #{toHospitalTime},
+            </if>
+            <if test="hospitalizationTime != null">
+                hospitalizationTime = #{hospitalizationTime},
+            </if>
+            <if test="description != null">
+                description = #{description},
+            </if>
+            <if test="dischargeTime != null">
+                dischargeTime = #{dischargeTime},
+            </if>
+            <if test="status != null">
+                `status` = #{status},
+            </if>
+            <if test="updateTime != null">
+                updateTime = #{updateTime},
+            </if>
+            <if test="deleted != null">
+                deleted = #{deleted},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.nickel.medicalrecord.model.entity.HospitalRecords">
+        update hospital_records
+        set patientId           = #{patientId},
+            onsetTime           = #{onsetTime},
+            toHospitalTime      = #{toHospitalTime},
+            hospitalizationTime = #{hospitalizationTime},
+            description         = #{description},
+            dischargeTime       = #{dischargeTime},
+            `status`            = #{status},
+            updateTime          = #{updateTime},
+            deleted             = #{deleted}
+        where id = #{id}
+    </update>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete
+        from hospital_records
+        where id = #{id}
+    </delete>
+
+</mapper>

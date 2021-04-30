@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nickel.medicalrecord.repository.IDetectThyroidFunctionMapper">
+    <sql id="Base_Column_List">
+        id, patientId, `type`, dataId, freeT3, freeT3Outcome, freeT4, freeT4Outcome, thyrotropin,
+    thyrotropinOutcome, peroxidaseAntibody, peroxidaseAntibodyOutcome, images, checkTime, 
+    createTime
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+            resultType="com.nickel.medicalrecord.model.entity.DetectThyroidFunction">
+        select
+        <include refid="Base_Column_List"/>
+        from detect_thyroid_function
+        where id = #{id}
+    </select>
+    <select id="selectList" resultType="com.nickel.medicalrecord.model.entity.DetectThyroidFunction">
+        select
+        <include refid="Base_Column_List"/>
+        from detect_thyroid_function
+        where `type` = #{type}
+        and dataId = #{dataId}
+        ORDER BY checkTime
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from detect_thyroid_function
+        where id = #{id}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id"
+            parameterType="com.nickel.medicalrecord.model.entity.DetectThyroidFunction" useGeneratedKeys="true">
+        insert into detect_thyroid_function (patientId, `type`, dataId,
+                                             freeT3, freeT3Outcome, freeT4,
+                                             freeT4Outcome, thyrotropin, thyrotropinOutcome,
+                                             peroxidaseAntibody, peroxidaseAntibodyOutcome,
+                                             images, checkTime, createTime)
+        values (#{patientId}, #{type}, #{dataId},
+                #{freeT3}, #{freeT3Outcome}, #{freeT4},
+                #{freeT4Outcome}, #{thyrotropin},
+                #{thyrotropinOutcome},
+                #{peroxidaseAntibody}, #{peroxidaseAntibodyOutcome},
+                #{images}, #{checkTime}, #{createTime})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id"
+            parameterType="com.nickel.medicalrecord.model.entity.DetectThyroidFunction" useGeneratedKeys="true">
+        insert into detect_thyroid_function
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="patientId != null">
+                patientId,
+            </if>
+            <if test="type != null">
+                `type`,
+            </if>
+            <if test="dataId != null">
+                dataId,
+            </if>
+            <if test="freeT3 != null">
+                freeT3,
+            </if>
+            <if test="freeT3Outcome != null">
+                freeT3Outcome,
+            </if>
+            <if test="freeT4 != null">
+                freeT4,
+            </if>
+            <if test="freeT4Outcome != null">
+                freeT4Outcome,
+            </if>
+            <if test="thyrotropin != null">
+                thyrotropin,
+            </if>
+            <if test="thyrotropinOutcome != null">
+                thyrotropinOutcome,
+            </if>
+            <if test="peroxidaseAntibody != null">
+                peroxidaseAntibody,
+            </if>
+            <if test="peroxidaseAntibodyOutcome != null">
+                peroxidaseAntibodyOutcome,
+            </if>
+            <if test="images != null">
+                images,
+            </if>
+            <if test="checkTime != null">
+                checkTime,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="patientId != null">
+                #{patientId},
+            </if>
+            <if test="type != null">
+                #{type},
+            </if>
+            <if test="dataId != null">
+                #{dataId},
+            </if>
+            <if test="freeT3 != null">
+                #{freeT3},
+            </if>
+            <if test="freeT3Outcome != null">
+                #{freeT3Outcome},
+            </if>
+            <if test="freeT4 != null">
+                #{freeT4},
+            </if>
+            <if test="freeT4Outcome != null">
+                #{freeT4Outcome},
+            </if>
+            <if test="thyrotropin != null">
+                #{thyrotropin},
+            </if>
+            <if test="thyrotropinOutcome != null">
+                #{thyrotropinOutcome},
+            </if>
+            <if test="peroxidaseAntibody != null">
+                #{peroxidaseAntibody},
+            </if>
+            <if test="peroxidaseAntibodyOutcome != null">
+                #{peroxidaseAntibodyOutcome},
+            </if>
+            <if test="images != null">
+                #{images},
+            </if>
+            <if test="checkTime != null">
+                #{checkTime},
+            </if>
+            <if test="createTime != null">
+                #{createTime},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective"
+            parameterType="com.nickel.medicalrecord.model.entity.DetectThyroidFunction">
+        update detect_thyroid_function
+        <set>
+            <if test="patientId != null">
+                patientId = #{patientId},
+            </if>
+            <if test="type != null">
+                `type` = #{type},
+            </if>
+            <if test="dataId != null">
+                dataId = #{dataId},
+            </if>
+            <if test="freeT3 != null">
+                freeT3 = #{freeT3},
+            </if>
+            <if test="freeT3Outcome != null">
+                freeT3Outcome = #{freeT3Outcome},
+            </if>
+            <if test="freeT4 != null">
+                freeT4 = #{freeT4},
+            </if>
+            <if test="freeT4Outcome != null">
+                freeT4Outcome = #{freeT4Outcome},
+            </if>
+            <if test="thyrotropin != null">
+                thyrotropin = #{thyrotropin},
+            </if>
+            <if test="thyrotropinOutcome != null">
+                thyrotropinOutcome = #{thyrotropinOutcome},
+            </if>
+            <if test="peroxidaseAntibody != null">
+                peroxidaseAntibody = #{peroxidaseAntibody},
+            </if>
+            <if test="peroxidaseAntibodyOutcome != null">
+                peroxidaseAntibodyOutcome = #{peroxidaseAntibodyOutcome},
+            </if>
+            <if test="images != null">
+                images = #{images},
+            </if>
+            <if test="checkTime != null">
+                checkTime = #{checkTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.nickel.medicalrecord.model.entity.DetectThyroidFunction">
+        update detect_thyroid_function
+        set patientId                 = #{patientId},
+            `type`                    = #{type},
+            dataId                    = #{dataId},
+            freeT3                    = #{freeT3},
+            freeT3Outcome             = #{freeT3Outcome},
+            freeT4                    = #{freeT4},
+            freeT4Outcome             = #{freeT4Outcome},
+            thyrotropin               = #{thyrotropin},
+            thyrotropinOutcome        = #{thyrotropinOutcome},
+            peroxidaseAntibody        = #{peroxidaseAntibody},
+            peroxidaseAntibodyOutcome = #{peroxidaseAntibodyOutcome},
+            images                    = #{images},
+            checkTime                 = #{checkTime}
+        where id = #{id}
+    </update>
+</mapper>

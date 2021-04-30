@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nickel.medicalrecord.repository.IDetectItemMapper">
+
+    <sql id="Base_Column_List">
+        id, patientId, `type`, dataId, detectType, `value`, single, multiple, multipleSingle, 
+    outcome, images, checkTime, createTime
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+            resultType="com.nickel.medicalrecord.model.entity.DetectItem">
+        select id,
+               patientId,
+               `type`,
+               dataId,
+               detectType,
+               `value`,
+               single,
+               multiple,
+               multipleSingle,
+               outcome,
+               images,
+               checkTime,
+               createTime
+        from detect_Item
+        where id = #{id}
+    </select>
+    <select id="selectList" resultType="com.nickel.medicalrecord.model.entity.DetectItem">
+        select id,
+               patientId,
+               `type`,
+               dataId,
+               detectType,
+               `value`,
+               single,
+               multiple,
+               multipleSingle,
+               outcome,
+               images,
+               checkTime,
+               createTime
+        from detect_Item
+        where `type` = #{type}
+          and dataId = #{dataId}
+          and detectType = #{detectType}
+        ORDER BY checkTime
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from detect_Item
+        where id = #{id}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.nickel.medicalrecord.model.entity.DetectItem"
+            useGeneratedKeys="true">
+        insert into detect_Item (patientId, `type`, dataId,
+                                 detectType, `value`, single,
+                                 multiple, multipleSingle, outcome,
+                                 images, checkTime, createTime)
+        values (#{patientId}, #{type}, #{dataId},
+                #{detectType}, #{value}, #{single},
+                #{multiple}, #{multipleSingle}, #{outcome},
+                #{images}, #{checkTime}, #{createTime})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id"
+            parameterType="com.nickel.medicalrecord.model.entity.DetectItem" useGeneratedKeys="true">
+        insert into detect_Item
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="patientId != null">
+                patientId,
+            </if>
+            <if test="type != null">
+                `type`,
+            </if>
+            <if test="dataId != null">
+                dataId,
+            </if>
+            <if test="detectType != null">
+                detectType,
+            </if>
+            <if test="value != null">
+                `value`,
+            </if>
+            <if test="single != null">
+                single,
+            </if>
+            <if test="multiple != null">
+                multiple,
+            </if>
+            <if test="multipleSingle != null">
+                multipleSingle,
+            </if>
+            <if test="outcome != null">
+                outcome,
+            </if>
+            <if test="images != null">
+                images,
+            </if>
+            <if test="checkTime != null">
+                checkTime,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="patientId != null">
+                #{patientId},
+            </if>
+            <if test="type != null">
+                #{type},
+            </if>
+            <if test="dataId != null">
+                #{dataId},
+            </if>
+            <if test="detectType != null">
+                #{detectType},
+            </if>
+            <if test="value != null">
+                #{value},
+            </if>
+            <if test="single != null">
+                #{single},
+            </if>
+            <if test="multiple != null">
+                #{multiple},
+            </if>
+            <if test="multipleSingle != null">
+                #{multipleSingle},
+            </if>
+            <if test="outcome != null">
+                #{outcome},
+            </if>
+            <if test="images != null">
+                #{images},
+            </if>
+            <if test="checkTime != null">
+                #{checkTime},
+            </if>
+            <if test="createTime != null">
+                #{createTime},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.nickel.medicalrecord.model.entity.DetectItem">
+        update detect_Item
+        <set>
+            <if test="patientId != null">
+                patientId = #{patientId},
+            </if>
+            <if test="type != null">
+                `type` = #{type},
+            </if>
+            <if test="dataId != null">
+                dataId = #{dataId},
+            </if>
+            <if test="detectType != null">
+                detectType = #{detectType},
+            </if>
+            <if test="value != null">
+                `value` = #{value},
+            </if>
+            <if test="single != null">
+                single = #{single},
+            </if>
+            <if test="multiple != null">
+                multiple = #{multiple},
+            </if>
+            <if test="multipleSingle != null">
+                multipleSingle = #{multipleSingle},
+            </if>
+            <if test="outcome != null">
+                outcome = #{outcome},
+            </if>
+            <if test="images != null">
+                images = #{images},
+            </if>
+            <if test="checkTime != null">
+                checkTime = #{checkTime},
+            </if>
+            <if test="createTime != null">
+                createTime = #{createTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.nickel.medicalrecord.model.entity.DetectItem">
+        update detect_Item
+        set patientId      = #{patientId},
+            `type`         = #{type},
+            dataId         = #{dataId},
+            detectType     = #{detectType},
+            `value`        = #{value},
+            single         = #{single},
+            multiple       = #{multiple},
+            multipleSingle = #{multipleSingle},
+            outcome        = #{outcome},
+            images         = #{images},
+            checkTime      = #{checkTime},
+            createTime     = #{createTime}
+        where id = #{id}
+    </update>
+</mapper>

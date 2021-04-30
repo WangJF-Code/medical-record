@@ -1,0 +1,521 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nickel.medicalrecord.repository.IPatientFamilyHistoryMapper">
+
+    <sql id="Base_Column_List">
+        id,
+        patientId,
+        priorStroke,
+        priorStrokePatient,
+        priorStrokeText,
+        hypertension,
+        hypertensionPatient,
+        hypertensionText,
+        diabetes,
+        diabetesPatient,
+        diabetesText,
+        hyperlipemia,
+        hyperlipemiaPatient,
+        hyperlipemiaText,
+        cardiovascular,
+        cardiovascularPatient,
+        cardiovascularText,
+        dementia,
+        dementiaPatient,
+        dementiaText,
+        migraine,
+        migrainePatient,
+        migraineText,
+        immunity,
+        immunityPatient,
+        immunityText,
+        other,
+        otherPatient,
+        otherText,
+        createTime,
+        updateTime,
+        deleted
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+            resultType="com.nickel.medicalrecord.model.entity.PatientFamilyHistory">
+        select
+        <include refid="Base_Column_List"/>
+        from patient_family_history
+        where id = #{id}
+    </select>
+
+    <select id="findList" resultType="com.nickel.medicalrecord.model.entity.PatientFamilyHistory">
+        select
+        <include refid="Base_Column_List"/>
+        from patient_family_history
+        where deleted = #{deleted}
+        <if test="patientId != null">
+            #{patientId}
+        </if>
+        <if test="priorStroke != null">
+            #{priorStroke}
+        </if>
+        <if test="priorStrokePatient != null">
+            #{priorStrokePatient}
+        </if>
+        <if test="hypertension != null">
+            #{hypertension}
+        </if>
+        <if test="hypertensionPatient != null">
+            #{hypertensionPatient}
+        </if>
+        <if test="diabetes != null">
+            #{diabetes}
+        </if>
+        <if test="diabetesPatient != null">
+            #{diabetesPatient}
+        </if>
+        <if test="hyperlipemia != null">
+            #{hyperlipemia}
+        </if>
+        <if test="hyperlipemiaPatient != null">
+            #{hyperlipemiaPatient}
+        </if>
+        <if test="cardiovascular != null">
+            #{cardiovascular}
+        </if>
+        <if test="cardiovascularPatient != null">
+            #{cardiovascularPatient}
+        </if>
+        <if test="dementia != null">
+            #{dementia}
+        </if>
+        <if test="dementiaPatient != null">
+            #{dementiaPatient}
+        </if>
+        <if test="migraine != null">
+            #{migraine}
+        </if>
+        <if test="migrainePatient != null">
+            #{migrainePatient}
+        </if>
+        <if test="immunity != null">
+            #{immunity}
+        </if>
+        <if test="immunityPatient != null">
+            #{immunityPatient}
+        </if>
+        <if test="other != null">
+            #{other}
+        </if>
+        <if test="otherPatient != null">
+            #{otherPatient}
+        </if>
+        ORDER BY createTime DESC
+    </select>
+    <select id="findListByPatientId" resultType="com.nickel.medicalrecord.model.entity.PatientFamilyHistory"
+            parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from patient_family_history
+        where deleted = 0
+        and patientId = #{patientId}
+        ORDER BY createTime DESC
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from patient_family_history
+        where id = #{id}
+    </delete>
+
+    <insert id="insert" keyColumn="id" keyProperty="id"
+            parameterType="com.nickel.medicalrecord.model.entity.PatientFamilyHistory"
+            useGeneratedKeys="true">
+        insert into patient_family_history (patientId,
+                                            priorStroke,
+                                            priorStrokePatient,
+                                            priorStrokeText,
+                                            hypertension,
+                                            hypertensionPatient,
+                                            hypertensionText,
+                                            diabetes,
+                                            diabetesPatient,
+                                            diabetesText,
+                                            hyperlipemia,
+                                            hyperlipemiaPatient,
+                                            hyperlipemiaText,
+                                            cardiovascular,
+                                            cardiovascularPatient,
+                                            cardiovascularText,
+                                            dementia,
+                                            dementiaPatient,
+                                            dementiaText,
+                                            migraine,
+                                            migrainePatient,
+                                            migraineText,
+                                            immunity,
+                                            immunityPatient,
+                                            immunityText,
+                                            other,
+                                            otherPatient,
+                                            otherText,
+                                            createTime,
+                                            updateTime,
+                                            deleted)
+        values (#{patientId},
+                #{priorStroke},
+                #{priorStrokePatient},
+                #{priorStrokeText},
+                #{hypertension},
+                #{hypertensionPatient},
+                #{hypertensionText},
+                #{diabetes},
+                #{diabetesPatient},
+                #{diabetesText},
+                #{hyperlipemia},
+                #{hyperlipemiaPatient},
+                #{hyperlipemiaText},
+                #{cardiovascular},
+                #{cardiovascularPatient},
+                #{cardiovascularText},
+                #{dementia},
+                #{dementiaPatient},
+                #{dementiaText},
+                #{migraine},
+                #{migrainePatient},
+                #{migraineText},
+                #{immunity},
+                #{immunityPatient},
+                #{immunityText},
+                #{other},
+                #{otherPatient},
+                #{otherText},
+                #{createTime},
+                #{updateTime},
+                #{deleted})
+    </insert>
+
+    <insert id="insertSelective" keyColumn="id" keyProperty="id"
+            parameterType="com.nickel.medicalrecord.model.entity.PatientFamilyHistory" useGeneratedKeys="true">
+        insert into patient_family_history
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="patientId != null">
+                patientId,
+            </if>
+            <if test="priorStroke != null">
+                priorStroke,
+            </if>
+            <if test="priorStrokePatient != null">
+                priorStrokePatient,
+            </if>
+            <if test="priorStrokeText != null">
+                priorStrokeText,
+            </if>
+            <if test="hypertension != null">
+                hypertension,
+            </if>
+            <if test="hypertensionPatient != null">
+                hypertensionPatient,
+            </if>
+            <if test="hypertensionText != null">
+                hypertensionText,
+            </if>
+            <if test="diabetes != null">
+                diabetes,
+            </if>
+            <if test="diabetesPatient != null">
+                diabetesPatient,
+            </if>
+            <if test="diabetesText != null">
+                diabetesText,
+            </if>
+            <if test="hyperlipemia != null">
+                hyperlipemia,
+            </if>
+            <if test="hyperlipemiaPatient != null">
+                hyperlipemiaPatient,
+            </if>
+            <if test="hyperlipemiaText != null">
+                hyperlipemiaText,
+            </if>
+            <if test="cardiovascular != null">
+                cardiovascular,
+            </if>
+            <if test="cardiovascularPatient != null">
+                cardiovascularPatient,
+            </if>
+            <if test="cardiovascularText != null">
+                cardiovascularText,
+            </if>
+            <if test="dementia != null">
+                dementia,
+            </if>
+            <if test="dementiaPatient != null">
+                dementiaPatient,
+            </if>
+            <if test="dementiaText != null">
+                dementiaText,
+            </if>
+            <if test="migraine != null">
+                migraine,
+            </if>
+            <if test="migrainePatient != null">
+                migrainePatient,
+            </if>
+            <if test="migraineText != null">
+                migraineText,
+            </if>
+            <if test="immunity != null">
+                immunity,
+            </if>
+            <if test="immunityPatient != null">
+                immunityPatient,
+            </if>
+            <if test="immunityText != null">
+                immunityText,
+            </if>
+            <if test="other != null">
+                other,
+            </if>
+            <if test="otherPatient != null">
+                otherPatient,
+            </if>
+            <if test="otherText != null">
+                otherText,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+            <if test="updateTime != null">
+                updateTime,
+            </if>
+            <if test="deleted != null">
+                deleted,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="patientId != null">
+                #{patientId},
+            </if>
+            <if test="priorStroke != null">
+                #{priorStroke},
+            </if>
+            <if test="priorStrokePatient != null">
+                #{priorStrokePatient},
+            </if>
+            <if test="priorStrokeText != null">
+                #{priorStrokeText},
+            </if>
+            <if test="hypertension != null">
+                #{hypertension},
+            </if>
+            <if test="hypertensionPatient != null">
+                #{hypertensionPatient},
+            </if>
+            <if test="hypertensionText != null">
+                #{hypertensionText},
+            </if>
+            <if test="diabetes != null">
+                #{diabetes},
+            </if>
+            <if test="diabetesPatient != null">
+                #{diabetesPatient},
+            </if>
+            <if test="diabetesText != null">
+                #{diabetesText},
+            </if>
+            <if test="hyperlipemia != null">
+                #{hyperlipemia},
+            </if>
+            <if test="hyperlipemiaPatient != null">
+                #{hyperlipemiaPatient},
+            </if>
+            <if test="hyperlipemiaText != null">
+                #{hyperlipemiaText},
+            </if>
+            <if test="cardiovascular != null">
+                #{cardiovascular},
+            </if>
+            <if test="cardiovascularPatient != null">
+                #{cardiovascularPatient},
+            </if>
+            <if test="cardiovascularText != null">
+                #{cardiovascularText},
+            </if>
+            <if test="dementia != null">
+                #{dementia},
+            </if>
+            <if test="dementiaPatient != null">
+                #{dementiaPatient},
+            </if>
+            <if test="dementiaText != null">
+                #{dementiaText},
+            </if>
+            <if test="migraine != null">
+                #{migraine},
+            </if>
+            <if test="migrainePatient != null">
+                #{migrainePatient},
+            </if>
+            <if test="migraineText != null">
+                #{migraineText},
+            </if>
+            <if test="immunity != null">
+                #{immunity},
+            </if>
+            <if test="immunityPatient != null">
+                #{immunityPatient},
+            </if>
+            <if test="immunityText != null">
+                #{immunityText},
+            </if>
+            <if test="other != null">
+                #{other},
+            </if>
+            <if test="otherPatient != null">
+                #{otherPatient},
+            </if>
+            <if test="otherText != null">
+                #{otherText},
+            </if>
+            <if test="createTime != null">
+                #{createTime},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime},
+            </if>
+            <if test="deleted != null">
+                #{deleted},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.nickel.medicalrecord.model.entity.PatientFamilyHistory">
+        update patient_family_history
+        <set>
+            <if test="patientId != null">
+                patientId = #{patientId},
+            </if>
+            <if test="priorStroke != null">
+                priorStroke = #{priorStroke},
+            </if>
+            <if test="priorStrokePatient != null">
+                priorStrokePatient = #{priorStrokePatient},
+            </if>
+            <if test="priorStrokeText != null">
+                priorStrokeText = #{priorStrokeText},
+            </if>
+            <if test="hypertension != null">
+                hypertension = #{hypertension},
+            </if>
+            <if test="hypertensionPatient != null">
+                hypertensionPatient = #{hypertensionPatient},
+            </if>
+            <if test="hypertensionText != null">
+                hypertensionText = #{hypertensionText},
+            </if>
+            <if test="diabetes != null">
+                diabetes = #{diabetes},
+            </if>
+            <if test="diabetesPatient != null">
+                diabetesPatient = #{diabetesPatient},
+            </if>
+            <if test="diabetesText != null">
+                diabetesText = #{diabetesText},
+            </if>
+            <if test="hyperlipemia != null">
+                hyperlipemia = #{hyperlipemia},
+            </if>
+            <if test="hyperlipemiaPatient != null">
+                hyperlipemiaPatient = #{hyperlipemiaPatient},
+            </if>
+            <if test="hyperlipemiaText != null">
+                hyperlipemiaText = #{hyperlipemiaText},
+            </if>
+            <if test="cardiovascular != null">
+                cardiovascular = #{cardiovascular},
+            </if>
+            <if test="cardiovascularPatient != null">
+                cardiovascularPatient = #{cardiovascularPatient},
+            </if>
+            <if test="cardiovascularText != null">
+                cardiovascularText = #{cardiovascularText},
+            </if>
+            <if test="dementia != null">
+                dementia = #{dementia},
+            </if>
+            <if test="dementiaPatient != null">
+                dementiaPatient = #{dementiaPatient},
+            </if>
+            <if test="dementiaText != null">
+                dementiaText = #{dementiaText},
+            </if>
+            <if test="migraine != null">
+                migraine = #{migraine},
+            </if>
+            <if test="migrainePatient != null">
+                migrainePatient = #{migrainePatient},
+            </if>
+            <if test="migraineText != null">
+                migraineText = #{migraineText},
+            </if>
+            <if test="immunity != null">
+                immunity = #{immunity},
+            </if>
+            <if test="immunityPatient != null">
+                immunityPatient = #{immunityPatient},
+            </if>
+            <if test="immunityText != null">
+                immunityText = #{immunityText},
+            </if>
+            <if test="other != null">
+                other = #{other},
+            </if>
+            <if test="otherPatient != null">
+                otherPatient = #{otherPatient},
+            </if>
+            <if test="otherText != null">
+                otherText = #{otherText},
+            </if>
+            <if test="updateTime != null">
+                updateTime = #{updateTime},
+            </if>
+            <if test="deleted != null">
+                deleted = #{deleted},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.nickel.medicalrecord.model.entity.PatientFamilyHistory">
+        update patient_family_history
+        set patientId             = #{patientId},
+            priorStroke           = #{priorStroke},
+            priorStrokePatient    = #{priorStrokePatient},
+            priorStrokeText       = #{priorStrokeText},
+            hypertension          = #{hypertension},
+            hypertensionPatient   = #{hypertensionPatient},
+            hypertensionText      = #{hypertensionText},
+            diabetes              = #{diabetes},
+            diabetesPatient       = #{diabetesPatient},
+            diabetesText          = #{diabetesText},
+            hyperlipemia          = #{hyperlipemia},
+            hyperlipemiaPatient   = #{hyperlipemiaPatient},
+            hyperlipemiaText      = #{hyperlipemiaText},
+            cardiovascular        = #{cardiovascular},
+            cardiovascularPatient = #{cardiovascularPatient},
+            cardiovascularText    = #{cardiovascularText},
+            dementia              = #{dementia},
+            dementiaPatient       = #{dementiaPatient},
+            dementiaText          = #{dementiaText},
+            migraine              = #{migraine},
+            migrainePatient       = #{migrainePatient},
+            migraineText          = #{migraineText},
+            immunity              = #{immunity},
+            immunityPatient       = #{immunityPatient},
+            immunityText          = #{immunityText},
+            other                 = #{other},
+            otherPatient          = #{otherPatient},
+            otherText             = #{otherText},
+            updateTime            = #{updateTime},
+            deleted               = #{deleted}
+        where id = #{id}
+    </update>
+</mapper>

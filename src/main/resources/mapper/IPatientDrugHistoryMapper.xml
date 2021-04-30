@@ -1,0 +1,634 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nickel.medicalrecord.repository.IPatientDrugHistoryMapper">
+    <resultMap id="BaseResultMap" type="com.nickel.medicalrecord.model.entity.PatientDrugHistory">
+        <id column="id" property="id"/>
+        <result column="patientId" property="patientId"/>
+        <result column="antiplatelet" property="antiplatelet"/>
+        <result column="antiplateletText" property="antiplateletText"/>
+        <result column="antiplateletDrugType" property="antiplateletDrugType"/>
+        <result column="antiplateletDrugText" property="antiplateletDrugText"/>
+        <result column="anticoagulant" property="anticoagulant"/>
+        <result column="anticoagulantDrugType" property="anticoagulantDrugType"/>
+        <result column="anticoagulantText" property="anticoagulantText"/>
+        <result column="anticoagulantDrugText" property="anticoagulantDrugText"/>
+        <result column="lowerBloodPressure" property="lowerBloodPressure"/>
+        <result column="lowerBloodPressureText" property="lowerBloodPressureText"/>
+        <result column="lowerBloodPressureDrugType" property="lowerBloodPressureDrugType"/>
+        <result column="lowerBloodPressureDrugText" property="lowerBloodPressureDrugText"/>
+        <result column="lipidRegulator" property="lipidRegulator"/>
+        <result column="lipidRegulatorText" property="lipidRegulatorText"/>
+        <result column="lipidRegulatorDrugType" property="lipidRegulatorDrugType"/>
+        <result column="lipidRegulatorDrugText" property="lipidRegulatorDrugText"/>
+        <result column="hypoglycemic" property="hypoglycemic"/>
+        <result column="hypoglycemicText" property="hypoglycemicText"/>
+        <result column="hypoglycemicDrugType" property="hypoglycemicDrugType"/>
+        <result column="hypoglycemicDrugText" property="hypoglycemicDrugText"/>
+        <result column="probiotics" property="probiotics"/>
+        <result column="probioticsText" property="probioticsText"/>
+        <result column="probioticsDrugText" property="probioticsDrugText"/>
+        <result column="gastrointestinalMotivation" property="gastrointestinalMotivation"/>
+        <result column="gastrointestinalMotivationText" property="gastrointestinalMotivationText"/>
+        <result column="gastrointestinalMotivationDrugText"
+                property="gastrointestinalMotivationDrugText"/>
+        <result column="laxative" property="laxative"/>
+        <result column="laxativeText" property="laxativeText"/>
+        <result column="laxativeDrugText" property="laxativeDrugText"/>
+        <result column="acidSuppression" property="acidSuppression"/>
+        <result column="acidSuppressionText" property="acidSuppressionText"/>
+        <result column="acidSuppressionDrugType" property="acidSuppressionDrugType"/>
+        <result column="expandTheCrown" property="expandTheCrown"/>
+        <result column="expandTheCrownText" property="expandTheCrownText"/>
+        <result column="expandTheCrownDrugType" property="expandTheCrownDrugType"/>
+        <result column="expandBloodVessels" property="expandBloodVessels"/>
+        <result column="expandBloodVesselsText" property="expandBloodVesselsText"/>
+        <result column="expandBloodVesselsDrugType" property="expandBloodVesselsDrugType"/>
+        <result column="createTime" property="createTime"/>
+        <result column="updateTime" property="updateTime"/>
+        <result column="deleted" property="deleted"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, patientId, antiplatelet, antiplateletText, antiplateletDrugType, antiplateletDrugText,
+    anticoagulant, anticoagulantDrugType, anticoagulantText, anticoagulantDrugText, lowerBloodPressure, 
+    lowerBloodPressureText, lowerBloodPressureDrugType, lowerBloodPressureDrugText, lipidRegulator, 
+    lipidRegulatorText, lipidRegulatorDrugType, lipidRegulatorDrugText, hypoglycemic, 
+    hypoglycemicText, hypoglycemicDrugType, hypoglycemicDrugText, probiotics, probioticsText, 
+    probioticsDrugText, gastrointestinalMotivation, gastrointestinalMotivationText, gastrointestinalMotivationDrugText, 
+    laxative, laxativeText, laxativeDrugText, acidSuppression, acidSuppressionText, acidSuppressionDrugType, 
+    expandTheCrown, expandTheCrownText, expandTheCrownDrugType, expandBloodVessels, expandBloodVesselsText, 
+    expandBloodVesselsDrugType, createTime, updateTime, deleted
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+            resultType="com.nickel.medicalrecord.model.entity.PatientDrugHistory">
+        select
+        <include refid="Base_Column_List"/>
+        from patient_drug_history
+        where id = #{id}
+    </select>
+    <select id="findListByPatientId" resultType="com.nickel.medicalrecord.model.entity.PatientDrugHistory"
+            parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from patient_drug_history
+        where deleted = 0
+        and patientId = #{patientId}
+        ORDER BY createTime DESC
+    </select>
+    <select id="findList" resultType="com.nickel.medicalrecord.model.entity.PatientDrugHistory"
+            parameterType="com.nickel.medicalrecord.model.entity.PatientDrugHistory">
+        select
+        <include refid="Base_Column_List"/>
+        from patient_drug_history
+        where deleted = #{deleted}
+        <if test="patientId != null">
+            and patientId = #{patientId}
+        </if>
+        <if test="antiplatelet != null">
+            and antiplatelet = #{antiplatelet}
+        </if>
+        <if test="antiplateletDrugType != null">
+            and antiplateletDrugType = #{antiplateletDrugType}
+        </if>
+        <if test="anticoagulant != null">
+            and anticoagulant = #{anticoagulant}
+        </if>
+        <if test="anticoagulantDrugType != null">
+            and anticoagulantDrugType = #{anticoagulantDrugType}
+        </if>
+        <if test="lowerBloodPressure != null">
+            and lowerBloodPressure = #{lowerBloodPressure}
+        </if>
+        <if test="lowerBloodPressureDrugType != null">
+            and lowerBloodPressureDrugType = #{lowerBloodPressureDrugType}
+        </if>
+        <if test="lipidRegulator != null">
+            and lipidRegulator = #{lipidRegulator}
+        </if>
+        <if test="lipidRegulatorText != null">
+            and lipidRegulatorText = #{lipidRegulatorText}
+        </if>
+        <if test="lipidRegulatorDrugType != null">
+            and lipidRegulatorDrugType = #{lipidRegulatorDrugType}
+        </if>
+        <if test="hypoglycemic != null">
+            and hypoglycemic = #{hypoglycemic}
+        </if>
+        <if test="hypoglycemicDrugType != null">
+            and hypoglycemicDrugType = #{hypoglycemicDrugType}
+        </if>
+        <if test="probiotics != null">
+            and probiotics = #{probiotics}
+        </if>
+        <if test="gastrointestinalMotivation != null">
+            and gastrointestinalMotivation = #{gastrointestinalMotivation}
+        </if>
+        <if test="laxative != null">
+            and laxative = #{laxative}
+        </if>
+        <if test="acidSuppression != null">
+            and acidSuppression = #{acidSuppression}
+        </if>
+        <if test="acidSuppressionDrugType != null">
+            and acidSuppressionDrugType = #{acidSuppressionDrugType}
+        </if>
+        <if test="expandTheCrown != null">
+            and expandTheCrown = #{expandTheCrown}
+        </if>
+        <if test="expandTheCrownDrugType != null">
+            and expandTheCrownDrugType = #{expandTheCrownDrugType}
+        </if>
+        <if test="expandBloodVessels != null">
+            and expandBloodVessels = #{expandBloodVessels}
+        </if>
+        <if test="expandBloodVesselsDrugType != null">
+            and expandBloodVesselsDrugType = #{expandBloodVesselsDrugType}
+        </if>
+        ORDER BY createTime DESC
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from patient_drug_history
+        where id = #{id}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id"
+            parameterType="com.nickel.medicalrecord.model.entity.PatientDrugHistory"
+            useGeneratedKeys="true">
+        insert into patient_drug_history (patientId, antiplatelet, antiplateletText,
+                                          antiplateletDrugType, antiplateletDrugText,
+                                          anticoagulant, anticoagulantDrugType, anticoagulantText,
+                                          anticoagulantDrugText, lowerBloodPressure,
+                                          lowerBloodPressureText, lowerBloodPressureDrugType,
+                                          lowerBloodPressureDrugText, lipidRegulator,
+                                          lipidRegulatorText, lipidRegulatorDrugType,
+                                          lipidRegulatorDrugText, hypoglycemic, hypoglycemicText,
+                                          hypoglycemicDrugType, hypoglycemicDrugText,
+                                          probiotics, probioticsText, probioticsDrugText,
+                                          gastrointestinalMotivation, gastrointestinalMotivationText,
+                                          gastrointestinalMotivationDrugText, laxative,
+                                          laxativeText, laxativeDrugText, acidSuppression,
+                                          acidSuppressionText, acidSuppressionDrugType,
+                                          expandTheCrown, expandTheCrownText, expandTheCrownDrugType,
+                                          expandBloodVessels, expandBloodVesselsText,
+                                          expandBloodVesselsDrugType, createTime,
+                                          updateTime, deleted)
+        values (#{patientId}, #{antiplatelet}, #{antiplateletText},
+                #{antiplateletDrugType}, #{antiplateletDrugText},
+                #{anticoagulant}, #{anticoagulantDrugType},
+                #{anticoagulantText},
+                #{anticoagulantDrugText}, #{lowerBloodPressure},
+                #{lowerBloodPressureText}, #{lowerBloodPressureDrugType},
+                #{lowerBloodPressureDrugText}, #{lipidRegulator},
+                #{lipidRegulatorText}, #{lipidRegulatorDrugType},
+                #{lipidRegulatorDrugText}, #{hypoglycemic},
+                #{hypoglycemicText},
+                #{hypoglycemicDrugType}, #{hypoglycemicDrugText},
+                #{probiotics}, #{probioticsText},
+                #{probioticsDrugText},
+                #{gastrointestinalMotivation}, #{gastrointestinalMotivationText},
+                #{gastrointestinalMotivationDrugText}, #{laxative},
+                #{laxativeText}, #{laxativeDrugText},
+                #{acidSuppression},
+                #{acidSuppressionText}, #{acidSuppressionDrugType},
+                #{expandTheCrown}, #{expandTheCrownText},
+                #{expandTheCrownDrugType},
+                #{expandBloodVessels}, #{expandBloodVesselsText},
+                #{expandBloodVesselsDrugType}, #{createTime},
+                #{updateTime}, #{deleted})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id"
+            parameterType="com.nickel.medicalrecord.model.entity.PatientDrugHistory"
+            useGeneratedKeys="true">
+        insert into patient_drug_history
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="patientId != null">
+                patientId,
+            </if>
+            <if test="antiplatelet != null">
+                antiplatelet,
+            </if>
+            <if test="antiplateletText != null">
+                antiplateletText,
+            </if>
+            <if test="antiplateletDrugType != null">
+                antiplateletDrugType,
+            </if>
+            <if test="antiplateletDrugText != null">
+                antiplateletDrugText,
+            </if>
+            <if test="anticoagulant != null">
+                anticoagulant,
+            </if>
+            <if test="anticoagulantDrugType != null">
+                anticoagulantDrugType,
+            </if>
+            <if test="anticoagulantText != null">
+                anticoagulantText,
+            </if>
+            <if test="anticoagulantDrugText != null">
+                anticoagulantDrugText,
+            </if>
+            <if test="lowerBloodPressure != null">
+                lowerBloodPressure,
+            </if>
+            <if test="lowerBloodPressureText != null">
+                lowerBloodPressureText,
+            </if>
+            <if test="lowerBloodPressureDrugType != null">
+                lowerBloodPressureDrugType,
+            </if>
+            <if test="lowerBloodPressureDrugText != null">
+                lowerBloodPressureDrugText,
+            </if>
+            <if test="lipidRegulator != null">
+                lipidRegulator,
+            </if>
+            <if test="lipidRegulatorText != null">
+                lipidRegulatorText,
+            </if>
+            <if test="lipidRegulatorDrugType != null">
+                lipidRegulatorDrugType,
+            </if>
+            <if test="lipidRegulatorDrugText != null">
+                lipidRegulatorDrugText,
+            </if>
+            <if test="hypoglycemic != null">
+                hypoglycemic,
+            </if>
+            <if test="hypoglycemicText != null">
+                hypoglycemicText,
+            </if>
+            <if test="hypoglycemicDrugType != null">
+                hypoglycemicDrugType,
+            </if>
+            <if test="hypoglycemicDrugText != null">
+                hypoglycemicDrugText,
+            </if>
+            <if test="probiotics != null">
+                probiotics,
+            </if>
+            <if test="probioticsText != null">
+                probioticsText,
+            </if>
+            <if test="probioticsDrugText != null">
+                probioticsDrugText,
+            </if>
+            <if test="gastrointestinalMotivation != null">
+                gastrointestinalMotivation,
+            </if>
+            <if test="gastrointestinalMotivationText != null">
+                gastrointestinalMotivationText,
+            </if>
+            <if test="gastrointestinalMotivationDrugText != null">
+                gastrointestinalMotivationDrugText,
+            </if>
+            <if test="laxative != null">
+                laxative,
+            </if>
+            <if test="laxativeText != null">
+                laxativeText,
+            </if>
+            <if test="laxativeDrugText != null">
+                laxativeDrugText,
+            </if>
+            <if test="acidSuppression != null">
+                acidSuppression,
+            </if>
+            <if test="acidSuppressionText != null">
+                acidSuppressionText,
+            </if>
+            <if test="acidSuppressionDrugType != null">
+                acidSuppressionDrugType,
+            </if>
+            <if test="expandTheCrown != null">
+                expandTheCrown,
+            </if>
+            <if test="expandTheCrownText != null">
+                expandTheCrownText,
+            </if>
+            <if test="expandTheCrownDrugType != null">
+                expandTheCrownDrugType,
+            </if>
+            <if test="expandBloodVessels != null">
+                expandBloodVessels,
+            </if>
+            <if test="expandBloodVesselsText != null">
+                expandBloodVesselsText,
+            </if>
+            <if test="expandBloodVesselsDrugType != null">
+                expandBloodVesselsDrugType,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+            <if test="updateTime != null">
+                updateTime,
+            </if>
+            <if test="deleted != null">
+                deleted,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="patientId != null">
+                #{patientId},
+            </if>
+            <if test="antiplatelet != null">
+                #{antiplatelet},
+            </if>
+            <if test="antiplateletText != null">
+                #{antiplateletText},
+            </if>
+            <if test="antiplateletDrugType != null">
+                #{antiplateletDrugType},
+            </if>
+            <if test="antiplateletDrugText != null">
+                #{antiplateletDrugText},
+            </if>
+            <if test="anticoagulant != null">
+                #{anticoagulant},
+            </if>
+            <if test="anticoagulantDrugType != null">
+                #{anticoagulantDrugType},
+            </if>
+            <if test="anticoagulantText != null">
+                #{anticoagulantText},
+            </if>
+            <if test="anticoagulantDrugText != null">
+                #{anticoagulantDrugText},
+            </if>
+            <if test="lowerBloodPressure != null">
+                #{lowerBloodPressure},
+            </if>
+            <if test="lowerBloodPressureText != null">
+                #{lowerBloodPressureText},
+            </if>
+            <if test="lowerBloodPressureDrugType != null">
+                #{lowerBloodPressureDrugType},
+            </if>
+            <if test="lowerBloodPressureDrugText != null">
+                #{lowerBloodPressureDrugText},
+            </if>
+            <if test="lipidRegulator != null">
+                #{lipidRegulator},
+            </if>
+            <if test="lipidRegulatorText != null">
+                #{lipidRegulatorText},
+            </if>
+            <if test="lipidRegulatorDrugType != null">
+                #{lipidRegulatorDrugType},
+            </if>
+            <if test="lipidRegulatorDrugText != null">
+                #{lipidRegulatorDrugText},
+            </if>
+            <if test="hypoglycemic != null">
+                #{hypoglycemic},
+            </if>
+            <if test="hypoglycemicText != null">
+                #{hypoglycemicText},
+            </if>
+            <if test="hypoglycemicDrugType != null">
+                #{hypoglycemicDrugType},
+            </if>
+            <if test="hypoglycemicDrugText != null">
+                #{hypoglycemicDrugText},
+            </if>
+            <if test="probiotics != null">
+                #{probiotics},
+            </if>
+            <if test="probioticsText != null">
+                #{probioticsText},
+            </if>
+            <if test="probioticsDrugText != null">
+                #{probioticsDrugText},
+            </if>
+            <if test="gastrointestinalMotivation != null">
+                #{gastrointestinalMotivation},
+            </if>
+            <if test="gastrointestinalMotivationText != null">
+                #{gastrointestinalMotivationText},
+            </if>
+            <if test="gastrointestinalMotivationDrugText != null">
+                #{gastrointestinalMotivationDrugText},
+            </if>
+            <if test="laxative != null">
+                #{laxative},
+            </if>
+            <if test="laxativeText != null">
+                #{laxativeText},
+            </if>
+            <if test="laxativeDrugText != null">
+                #{laxativeDrugText},
+            </if>
+            <if test="acidSuppression != null">
+                #{acidSuppression},
+            </if>
+            <if test="acidSuppressionText != null">
+                #{acidSuppressionText},
+            </if>
+            <if test="acidSuppressionDrugType != null">
+                #{acidSuppressionDrugType},
+            </if>
+            <if test="expandTheCrown != null">
+                #{expandTheCrown},
+            </if>
+            <if test="expandTheCrownText != null">
+                #{expandTheCrownText},
+            </if>
+            <if test="expandTheCrownDrugType != null">
+                #{expandTheCrownDrugType},
+            </if>
+            <if test="expandBloodVessels != null">
+                #{expandBloodVessels},
+            </if>
+            <if test="expandBloodVesselsText != null">
+                #{expandBloodVesselsText},
+            </if>
+            <if test="expandBloodVesselsDrugType != null">
+                #{expandBloodVesselsDrugType},
+            </if>
+            <if test="createTime != null">
+                #{createTime},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime},
+            </if>
+            <if test="deleted != null">
+                #{deleted},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.nickel.medicalrecord.model.entity.PatientDrugHistory">
+        update patient_drug_history
+        <set>
+            <if test="patientId != null">
+                patientId = #{patientId},
+            </if>
+            <if test="antiplatelet != null">
+                antiplatelet = #{antiplatelet},
+            </if>
+            <if test="antiplateletText != null">
+                antiplateletText = #{antiplateletText},
+            </if>
+            <if test="antiplateletDrugType != null">
+                antiplateletDrugType = #{antiplateletDrugType},
+            </if>
+            <if test="antiplateletDrugText != null">
+                antiplateletDrugText = #{antiplateletDrugText},
+            </if>
+            <if test="anticoagulant != null">
+                anticoagulant = #{anticoagulant},
+            </if>
+            <if test="anticoagulantDrugType != null">
+                anticoagulantDrugType = #{anticoagulantDrugType},
+            </if>
+            <if test="anticoagulantText != null">
+                anticoagulantText = #{anticoagulantText},
+            </if>
+            <if test="anticoagulantDrugText != null">
+                anticoagulantDrugText = #{anticoagulantDrugText},
+            </if>
+            <if test="lowerBloodPressure != null">
+                lowerBloodPressure = #{lowerBloodPressure},
+            </if>
+            <if test="lowerBloodPressureText != null">
+                lowerBloodPressureText = #{lowerBloodPressureText},
+            </if>
+            <if test="lowerBloodPressureDrugType != null">
+                lowerBloodPressureDrugType = #{lowerBloodPressureDrugType},
+            </if>
+            <if test="lowerBloodPressureDrugText != null">
+                lowerBloodPressureDrugText = #{lowerBloodPressureDrugText},
+            </if>
+            <if test="lipidRegulator != null">
+                lipidRegulator = #{lipidRegulator},
+            </if>
+            <if test="lipidRegulatorText != null">
+                lipidRegulatorText = #{lipidRegulatorText},
+            </if>
+            <if test="lipidRegulatorDrugType != null">
+                lipidRegulatorDrugType = #{lipidRegulatorDrugType},
+            </if>
+            <if test="lipidRegulatorDrugText != null">
+                lipidRegulatorDrugText = #{lipidRegulatorDrugText},
+            </if>
+            <if test="hypoglycemic != null">
+                hypoglycemic = #{hypoglycemic},
+            </if>
+            <if test="hypoglycemicText != null">
+                hypoglycemicText = #{hypoglycemicText},
+            </if>
+            <if test="hypoglycemicDrugType != null">
+                hypoglycemicDrugType = #{hypoglycemicDrugType},
+            </if>
+            <if test="hypoglycemicDrugText != null">
+                hypoglycemicDrugText = #{hypoglycemicDrugText},
+            </if>
+            <if test="probiotics != null">
+                probiotics = #{probiotics},
+            </if>
+            <if test="probioticsText != null">
+                probioticsText = #{probioticsText},
+            </if>
+            <if test="probioticsDrugText != null">
+                probioticsDrugText = #{probioticsDrugText},
+            </if>
+            <if test="gastrointestinalMotivation != null">
+                gastrointestinalMotivation = #{gastrointestinalMotivation},
+            </if>
+            <if test="gastrointestinalMotivationText != null">
+                gastrointestinalMotivationText = #{gastrointestinalMotivationText},
+            </if>
+            <if test="gastrointestinalMotivationDrugText != null">
+                gastrointestinalMotivationDrugText = #{gastrointestinalMotivationDrugText},
+            </if>
+            <if test="laxative != null">
+                laxative = #{laxative},
+            </if>
+            <if test="laxativeText != null">
+                laxativeText = #{laxativeText},
+            </if>
+            <if test="laxativeDrugText != null">
+                laxativeDrugText = #{laxativeDrugText},
+            </if>
+            <if test="acidSuppression != null">
+                acidSuppression = #{acidSuppression},
+            </if>
+            <if test="acidSuppressionText != null">
+                acidSuppressionText = #{acidSuppressionText},
+            </if>
+            <if test="acidSuppressionDrugType != null">
+                acidSuppressionDrugType = #{acidSuppressionDrugType},
+            </if>
+            <if test="expandTheCrown != null">
+                expandTheCrown = #{expandTheCrown},
+            </if>
+            <if test="expandTheCrownText != null">
+                expandTheCrownText = #{expandTheCrownText},
+            </if>
+            <if test="expandTheCrownDrugType != null">
+                expandTheCrownDrugType = #{expandTheCrownDrugType},
+            </if>
+            <if test="expandBloodVessels != null">
+                expandBloodVessels = #{expandBloodVessels},
+            </if>
+            <if test="expandBloodVesselsText != null">
+                expandBloodVesselsText = #{expandBloodVesselsText},
+            </if>
+            <if test="expandBloodVesselsDrugType != null">
+                expandBloodVesselsDrugType = #{expandBloodVesselsDrugType},
+            </if>
+            <if test="updateTime != null">
+                updateTime = #{updateTime},
+            </if>
+            <if test="deleted != null">
+                deleted = #{deleted},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.nickel.medicalrecord.model.entity.PatientDrugHistory">
+        update patient_drug_history
+        set patientId                          = #{patientId},
+            antiplatelet                       = #{antiplatelet},
+            antiplateletText                   = #{antiplateletText},
+            antiplateletDrugType               = #{antiplateletDrugType},
+            antiplateletDrugText               = #{antiplateletDrugText},
+            anticoagulant                      = #{anticoagulant},
+            anticoagulantDrugType              = #{anticoagulantDrugType},
+            anticoagulantText                  = #{anticoagulantText},
+            anticoagulantDrugText              = #{anticoagulantDrugText},
+            lowerBloodPressure                 = #{lowerBloodPressure},
+            lowerBloodPressureText             = #{lowerBloodPressureText},
+            lowerBloodPressureDrugType         = #{lowerBloodPressureDrugType},
+            lowerBloodPressureDrugText         = #{lowerBloodPressureDrugText},
+            lipidRegulator                     = #{lipidRegulator},
+            lipidRegulatorText                 = #{lipidRegulatorText},
+            lipidRegulatorDrugType             = #{lipidRegulatorDrugType},
+            lipidRegulatorDrugText             = #{lipidRegulatorDrugText},
+            hypoglycemic                       = #{hypoglycemic},
+            hypoglycemicText                   = #{hypoglycemicText},
+            hypoglycemicDrugType               = #{hypoglycemicDrugType},
+            hypoglycemicDrugText               = #{hypoglycemicDrugText},
+            probiotics                         = #{probiotics},
+            probioticsText                     = #{probioticsText},
+            probioticsDrugText                 = #{probioticsDrugText},
+            gastrointestinalMotivation         = #{gastrointestinalMotivation},
+            gastrointestinalMotivationText     = #{gastrointestinalMotivationText},
+            gastrointestinalMotivationDrugText = #{gastrointestinalMotivationDrugText},
+            laxative                           = #{laxative},
+            laxativeText                       = #{laxativeText},
+            laxativeDrugText                   = #{laxativeDrugText},
+            acidSuppression                    = #{acidSuppression},
+            acidSuppressionText                = #{acidSuppressionText},
+            acidSuppressionDrugType            = #{acidSuppressionDrugType},
+            expandTheCrown                     = #{expandTheCrown},
+            expandTheCrownText                 = #{expandTheCrownText},
+            expandTheCrownDrugType             = #{expandTheCrownDrugType},
+            expandBloodVessels                 = #{expandBloodVessels},
+            expandBloodVesselsText             = #{expandBloodVesselsText},
+            expandBloodVesselsDrugType         = #{expandBloodVesselsDrugType},
+            createTime                         = #{createTime},
+            updateTime                         = #{updateTime},
+            deleted                            = #{deleted}
+        where id = #{id}
+    </update>
+</mapper>

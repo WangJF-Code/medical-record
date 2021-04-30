@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nickel.medicalrecord.repository.IDetectBiochemicalFullItemMapper">
+    <sql id="Base_Column_List">
+        id, patientId, `type`, dataId, aspartateAminotransferase, aspartateAminotransferaseOutcome,
+    alanineAminotransferase, alanineAminotransferaseOutcome, lowDensityLipoproteins, 
+    lowDensityLipoproteinsOutcome, highDensityLipoprotein, highDensityLipoproteinOutcome, 
+    totalCholesterol, totalCholesterolOutcome, triglycerides, triglyceridesOutcome, uricAcid, 
+    uricAcidOutcome, creatinine, creatinineOutcome, ureaNitrogen, ureaNitrogenOutcome, 
+    fastingBloodSugar, fastingBloodSugarOutcome, homocysteine, homocysteineOutcome, creatineKinase, 
+    creatineKinaseOutcome, CKMB, CKMBOutcome, images, checkTime, createTime
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+            resultType="com.nickel.medicalrecord.model.entity.DetectBiochemicalFullItem">
+        select id,
+               patientId,
+               `type`,
+               dataId,
+               aspartateAminotransferase,
+               aspartateAminotransferaseOutcome,
+               alanineAminotransferase,
+               alanineAminotransferaseOutcome,
+               lowDensityLipoproteins,
+               lowDensityLipoproteinsOutcome,
+               highDensityLipoprotein,
+               highDensityLipoproteinOutcome,
+               totalCholesterol,
+               totalCholesterolOutcome,
+               triglycerides,
+               triglyceridesOutcome,
+               uricAcid,
+               uricAcidOutcome,
+               creatinine,
+               creatinineOutcome,
+               ureaNitrogen,
+               ureaNitrogenOutcome,
+               fastingBloodSugar,
+               fastingBloodSugarOutcome,
+               homocysteine,
+               homocysteineOutcome,
+               creatineKinase,
+               creatineKinaseOutcome,
+               CKMB,
+               CKMBOutcome,
+               images,
+               checkTime,
+               createTime
+        from detect_biochemical_full_item
+        where id = #{id}
+    </select>
+    <select id="selectList" resultType="com.nickel.medicalrecord.model.entity.DetectBiochemicalFullItem">
+        select id,
+               patientId,
+               `type`,
+               dataId,
+               aspartateAminotransferase,
+               aspartateAminotransferaseOutcome,
+               alanineAminotransferase,
+               alanineAminotransferaseOutcome,
+               lowDensityLipoproteins,
+               lowDensityLipoproteinsOutcome,
+               highDensityLipoprotein,
+               highDensityLipoproteinOutcome,
+               totalCholesterol,
+               totalCholesterolOutcome,
+               triglycerides,
+               triglyceridesOutcome,
+               uricAcid,
+               uricAcidOutcome,
+               creatinine,
+               creatinineOutcome,
+               ureaNitrogen,
+               ureaNitrogenOutcome,
+               fastingBloodSugar,
+               fastingBloodSugarOutcome,
+               homocysteine,
+               homocysteineOutcome,
+               creatineKinase,
+               creatineKinaseOutcome,
+               CKMB,
+               CKMBOutcome,
+               images,
+               checkTime,
+               createTime
+        from detect_biochemical_full_item
+        where `type` = #{type}
+          and dataId = #{dataId}
+        ORDER BY checkTime
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from detect_biochemical_full_item
+        where id = #{id}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id"
+            parameterType="com.nickel.medicalrecord.model.entity.DetectBiochemicalFullItem" useGeneratedKeys="true">
+        insert into detect_biochemical_full_item (patientId, `type`, dataId,
+                                                  aspartateAminotransferase, aspartateAminotransferaseOutcome,
+                                                  alanineAminotransferase, alanineAminotransferaseOutcome,
+                                                  lowDensityLipoproteins, lowDensityLipoproteinsOutcome,
+                                                  highDensityLipoprotein, highDensityLipoproteinOutcome,
+                                                  totalCholesterol, totalCholesterolOutcome,
+                                                  triglycerides, triglyceridesOutcome, uricAcid,
+                                                  uricAcidOutcome, creatinine, creatinineOutcome,
+                                                  ureaNitrogen, ureaNitrogenOutcome, fastingBloodSugar,
+                                                  fastingBloodSugarOutcome, homocysteine,
+                                                  homocysteineOutcome, creatineKinase, creatineKinaseOutcome,
+                                                  CKMB, CKMBOutcome, images,
+                                                  checkTime, createTime)
+        values (#{patientId}, #{type}, #{dataId},
+                #{aspartateAminotransferase,jdbcType=DOUBLE}, #{aspartateAminotransferaseOutcome},
+                #{alanineAminotransferase,jdbcType=DOUBLE}, #{alanineAminotransferaseOutcome},
+                #{lowDensityLipoproteins,jdbcType=DOUBLE}, #{lowDensityLipoproteinsOutcome},
+                #{highDensityLipoprotein,jdbcType=DOUBLE}, #{highDensityLipoproteinOutcome},
+                #{totalCholesterol,jdbcType=DOUBLE}, #{totalCholesterolOutcome},
+                #{triglycerides,jdbcType=DOUBLE}, #{triglyceridesOutcome}, #{uricAcid,jdbcType=DOUBLE},
+                #{uricAcidOutcome}, #{creatinine,jdbcType=DOUBLE},
+                #{creatinineOutcome},
+                #{ureaNitrogen,jdbcType=DOUBLE}, #{ureaNitrogenOutcome},
+                #{fastingBloodSugar,jdbcType=DOUBLE},
+                #{fastingBloodSugarOutcome}, #{homocysteine,jdbcType=DOUBLE},
+                #{homocysteineOutcome}, #{creatineKinase,jdbcType=DOUBLE},
+                #{creatineKinaseOutcome},
+                #{CKMB,jdbcType=DOUBLE}, #{CKMBOutcome}, #{images},
+                #{checkTime}, #{createTime})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id"
+            parameterType="com.nickel.medicalrecord.model.entity.DetectBiochemicalFullItem" useGeneratedKeys="true">
+        insert into detect_biochemical_full_item
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="patientId != null">
+                patientId,
+            </if>
+            <if test="type != null">
+                `type`,
+            </if>
+            <if test="dataId != null">
+                dataId,
+            </if>
+            <if test="aspartateAminotransferase != null">
+                aspartateAminotransferase,
+            </if>
+            <if test="aspartateAminotransferaseOutcome != null">
+                aspartateAminotransferaseOutcome,
+            </if>
+            <if test="alanineAminotransferase != null">
+                alanineAminotransferase,
+            </if>
+            <if test="alanineAminotransferaseOutcome != null">
+                alanineAminotransferaseOutcome,
+            </if>
+            <if test="lowDensityLipoproteins != null">
+                lowDensityLipoproteins,
+            </if>
+            <if test="lowDensityLipoproteinsOutcome != null">
+                lowDensityLipoproteinsOutcome,
+            </if>
+            <if test="highDensityLipoprotein != null">
+                highDensityLipoprotein,
+            </if>
+            <if test="highDensityLipoproteinOutcome != null">
+                highDensityLipoproteinOutcome,
+            </if>
+            <if test="totalCholesterol != null">
+                totalCholesterol,
+            </if>
+            <if test="totalCholesterolOutcome != null">
+                totalCholesterolOutcome,
+            </if>
+            <if test="triglycerides != null">
+                triglycerides,
+            </if>
+            <if test="triglyceridesOutcome != null">
+                triglyceridesOutcome,
+            </if>
+            <if test="uricAcid != null">
+                uricAcid,
+            </if>
+            <if test="uricAcidOutcome != null">
+                uricAcidOutcome,
+            </if>
+            <if test="creatinine != null">
+                creatinine,
+            </if>
+            <if test="creatinineOutcome != null">
+                creatinineOutcome,
+            </if>
+            <if test="ureaNitrogen != null">
+                ureaNitrogen,
+            </if>
+            <if test="ureaNitrogenOutcome != null">
+                ureaNitrogenOutcome,
+            </if>
+            <if test="fastingBloodSugar != null">
+                fastingBloodSugar,
+            </if>
+            <if test="fastingBloodSugarOutcome != null">
+                fastingBloodSugarOutcome,
+            </if>
+            <if test="homocysteine != null">
+                homocysteine,
+            </if>
+            <if test="homocysteineOutcome != null">
+                homocysteineOutcome,
+            </if>
+            <if test="creatineKinase != null">
+                creatineKinase,
+            </if>
+            <if test="creatineKinaseOutcome != null">
+                creatineKinaseOutcome,
+            </if>
+            <if test="CKMB != null">
+                CKMB,
+            </if>
+            <if test="CKMBOutcome != null">
+                CKMBOutcome,
+            </if>
+            <if test="images != null">
+                images,
+            </if>
+            <if test="checkTime != null">
+                checkTime,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="patientId != null">
+                #{patientId},
+            </if>
+            <if test="type != null">
+                #{type},
+            </if>
+            <if test="dataId != null">
+                #{dataId},
+            </if>
+            <if test="aspartateAminotransferase != null">
+                #{aspartateAminotransferase,jdbcType=DOUBLE},
+            </if>
+            <if test="aspartateAminotransferaseOutcome != null">
+                #{aspartateAminotransferaseOutcome},
+            </if>
+            <if test="alanineAminotransferase != null">
+                #{alanineAminotransferase,jdbcType=DOUBLE},
+            </if>
+            <if test="alanineAminotransferaseOutcome != null">
+                #{alanineAminotransferaseOutcome},
+            </if>
+            <if test="lowDensityLipoproteins != null">
+                #{lowDensityLipoproteins,jdbcType=DOUBLE},
+            </if>
+            <if test="lowDensityLipoproteinsOutcome != null">
+                #{lowDensityLipoproteinsOutcome},
+            </if>
+            <if test="highDensityLipoprotein != null">
+                #{highDensityLipoprotein,jdbcType=DOUBLE},
+            </if>
+            <if test="highDensityLipoproteinOutcome != null">
+                #{highDensityLipoproteinOutcome},
+            </if>
+            <if test="totalCholesterol != null">
+                #{totalCholesterol,jdbcType=DOUBLE},
+            </if>
+            <if test="totalCholesterolOutcome != null">
+                #{totalCholesterolOutcome},
+            </if>
+            <if test="triglycerides != null">
+                #{triglycerides,jdbcType=DOUBLE},
+            </if>
+            <if test="triglyceridesOutcome != null">
+                #{triglyceridesOutcome},
+            </if>
+            <if test="uricAcid != null">
+                #{uricAcid,jdbcType=DOUBLE},
+            </if>
+            <if test="uricAcidOutcome != null">
+                #{uricAcidOutcome},
+            </if>
+            <if test="creatinine != null">
+                #{creatinine,jdbcType=DOUBLE},
+            </if>
+            <if test="creatinineOutcome != null">
+                #{creatinineOutcome},
+            </if>
+            <if test="ureaNitrogen != null">
+                #{ureaNitrogen,jdbcType=DOUBLE},
+            </if>
+            <if test="ureaNitrogenOutcome != null">
+                #{ureaNitrogenOutcome},
+            </if>
+            <if test="fastingBloodSugar != null">
+                #{fastingBloodSugar,jdbcType=DOUBLE},
+            </if>
+            <if test="fastingBloodSugarOutcome != null">
+                #{fastingBloodSugarOutcome},
+            </if>
+            <if test="homocysteine != null">
+                #{homocysteine,jdbcType=DOUBLE},
+            </if>
+            <if test="homocysteineOutcome != null">
+                #{homocysteineOutcome},
+            </if>
+            <if test="creatineKinase != null">
+                #{creatineKinase,jdbcType=DOUBLE},
+            </if>
+            <if test="creatineKinaseOutcome != null">
+                #{creatineKinaseOutcome},
+            </if>
+            <if test="CKMB != null">
+                #{CKMB,jdbcType=DOUBLE},
+            </if>
+            <if test="CKMBOutcome != null">
+                #{CKMBOutcome},
+            </if>
+            <if test="images != null">
+                #{images},
+            </if>
+            <if test="checkTime != null">
+                #{checkTime},
+            </if>
+            <if test="createTime != null">
+                #{createTime},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective"
+            parameterType="com.nickel.medicalrecord.model.entity.DetectBiochemicalFullItem">
+        update detect_biochemical_full_item
+        <set>
+            <if test="patientId != null">
+                patientId = #{patientId},
+            </if>
+            <if test="type != null">
+                `type` = #{type},
+            </if>
+            <if test="dataId != null">
+                dataId = #{dataId},
+            </if>
+            <if test="aspartateAminotransferase != null">
+                aspartateAminotransferase = #{aspartateAminotransferase,jdbcType=DOUBLE},
+            </if>
+            <if test="aspartateAminotransferaseOutcome != null">
+                aspartateAminotransferaseOutcome = #{aspartateAminotransferaseOutcome},
+            </if>
+            <if test="alanineAminotransferase != null">
+                alanineAminotransferase = #{alanineAminotransferase,jdbcType=DOUBLE},
+            </if>
+            <if test="alanineAminotransferaseOutcome != null">
+                alanineAminotransferaseOutcome = #{alanineAminotransferaseOutcome},
+            </if>
+            <if test="lowDensityLipoproteins != null">
+                lowDensityLipoproteins = #{lowDensityLipoproteins,jdbcType=DOUBLE},
+            </if>
+            <if test="lowDensityLipoproteinsOutcome != null">
+                lowDensityLipoproteinsOutcome = #{lowDensityLipoproteinsOutcome},
+            </if>
+            <if test="highDensityLipoprotein != null">
+                highDensityLipoprotein = #{highDensityLipoprotein,jdbcType=DOUBLE},
+            </if>
+            <if test="highDensityLipoproteinOutcome != null">
+                highDensityLipoproteinOutcome = #{highDensityLipoproteinOutcome},
+            </if>
+            <if test="totalCholesterol != null">
+                totalCholesterol = #{totalCholesterol,jdbcType=DOUBLE},
+            </if>
+            <if test="totalCholesterolOutcome != null">
+                totalCholesterolOutcome = #{totalCholesterolOutcome},
+            </if>
+            <if test="triglycerides != null">
+                triglycerides = #{triglycerides,jdbcType=DOUBLE},
+            </if>
+            <if test="triglyceridesOutcome != null">
+                triglyceridesOutcome = #{triglyceridesOutcome},
+            </if>
+            <if test="uricAcid != null">
+                uricAcid = #{uricAcid,jdbcType=DOUBLE},
+            </if>
+            <if test="uricAcidOutcome != null">
+                uricAcidOutcome = #{uricAcidOutcome},
+            </if>
+            <if test="creatinine != null">
+                creatinine = #{creatinine,jdbcType=DOUBLE},
+            </if>
+            <if test="creatinineOutcome != null">
+                creatinineOutcome = #{creatinineOutcome},
+            </if>
+            <if test="ureaNitrogen != null">
+                ureaNitrogen = #{ureaNitrogen,jdbcType=DOUBLE},
+            </if>
+            <if test="ureaNitrogenOutcome != null">
+                ureaNitrogenOutcome = #{ureaNitrogenOutcome},
+            </if>
+            <if test="fastingBloodSugar != null">
+                fastingBloodSugar = #{fastingBloodSugar,jdbcType=DOUBLE},
+            </if>
+            <if test="fastingBloodSugarOutcome != null">
+                fastingBloodSugarOutcome = #{fastingBloodSugarOutcome},
+            </if>
+            <if test="homocysteine != null">
+                homocysteine = #{homocysteine,jdbcType=DOUBLE},
+            </if>
+            <if test="homocysteineOutcome != null">
+                homocysteineOutcome = #{homocysteineOutcome},
+            </if>
+            <if test="creatineKinase != null">
+                creatineKinase = #{creatineKinase,jdbcType=DOUBLE},
+            </if>
+            <if test="creatineKinaseOutcome != null">
+                creatineKinaseOutcome = #{creatineKinaseOutcome},
+            </if>
+            <if test="CKMB != null">
+                CKMB = #{CKMB,jdbcType=DOUBLE},
+            </if>
+            <if test="CKMBOutcome != null">
+                CKMBOutcome = #{CKMBOutcome},
+            </if>
+            <if test="images != null">
+                images = #{images},
+            </if>
+            <if test="checkTime != null">
+                checkTime = #{checkTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.nickel.medicalrecord.model.entity.DetectBiochemicalFullItem">
+        update detect_biochemical_full_item
+        set patientId                        = #{patientId},
+            `type`                           = #{type},
+            dataId                           = #{dataId},
+            aspartateAminotransferase        = #{aspartateAminotransferase,jdbcType=DOUBLE},
+            aspartateAminotransferaseOutcome = #{aspartateAminotransferaseOutcome},
+            alanineAminotransferase          = #{alanineAminotransferase,jdbcType=DOUBLE},
+            alanineAminotransferaseOutcome   = #{alanineAminotransferaseOutcome},
+            lowDensityLipoproteins           = #{lowDensityLipoproteins,jdbcType=DOUBLE},
+            lowDensityLipoproteinsOutcome    = #{lowDensityLipoproteinsOutcome},
+            highDensityLipoprotein           = #{highDensityLipoprotein,jdbcType=DOUBLE},
+            highDensityLipoproteinOutcome    = #{highDensityLipoproteinOutcome},
+            totalCholesterol                 = #{totalCholesterol,jdbcType=DOUBLE},
+            totalCholesterolOutcome          = #{totalCholesterolOutcome},
+            triglycerides                    = #{triglycerides,jdbcType=DOUBLE},
+            triglyceridesOutcome             = #{triglyceridesOutcome},
+            uricAcid                         = #{uricAcid,jdbcType=DOUBLE},
+            uricAcidOutcome                  = #{uricAcidOutcome},
+            creatinine                       = #{creatinine,jdbcType=DOUBLE},
+            creatinineOutcome                = #{creatinineOutcome},
+            ureaNitrogen                     = #{ureaNitrogen,jdbcType=DOUBLE},
+            ureaNitrogenOutcome              = #{ureaNitrogenOutcome},
+            fastingBloodSugar                = #{fastingBloodSugar,jdbcType=DOUBLE},
+            fastingBloodSugarOutcome         = #{fastingBloodSugarOutcome},
+            homocysteine                     = #{homocysteine,jdbcType=DOUBLE},
+            homocysteineOutcome              = #{homocysteineOutcome},
+            creatineKinase                   = #{creatineKinase,jdbcType=DOUBLE},
+            creatineKinaseOutcome            = #{creatineKinaseOutcome},
+            CKMB                             = #{CKMB,jdbcType=DOUBLE},
+            CKMBOutcome                      = #{CKMBOutcome},
+            images                           = #{images},
+            checkTime                        = #{checkTime}
+        where id = #{id}
+    </update>
+</mapper>

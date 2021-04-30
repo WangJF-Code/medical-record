@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nickel.medicalrecord.repository.IDetectSwiMapper">
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+            resultType="com.nickel.medicalrecord.model.entity.DetectSwi">
+        select id,
+               patientId,
+               `type`,
+               dataId,
+               microHemorrhage,
+               cortex,
+               underCortex,
+               images,
+               checkTime,
+               createTime
+        from detect_swi
+        where id = #{id}
+    </select>
+    <select id="selectList" resultType="com.nickel.medicalrecord.model.entity.DetectSwi">
+        select id,
+               patientId,
+               `type`,
+               dataId,
+               microHemorrhage,
+               cortex,
+               underCortex,
+               images,
+               checkTime,
+               createTime
+        from detect_swi
+        where `type` = #{type}
+          and dataId = #{dataId}
+        ORDER BY checkTime
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from detect_swi
+        where id = #{id}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.nickel.medicalrecord.model.entity.DetectSwi"
+            useGeneratedKeys="true">
+        insert into detect_swi (patientId, `type`, dataId,
+                                microHemorrhage, cortex, underCortex,
+                                images, checkTime, createTime)
+        values (#{patientId}, #{type}, #{dataId},
+                #{microHemorrhage}, #{cortex}, #{underCortex},
+                #{images}, #{checkTime}, #{createTime})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id"
+            parameterType="com.nickel.medicalrecord.model.entity.DetectSwi" useGeneratedKeys="true">
+        insert into detect_swi
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="patientId != null">
+                patientId,
+            </if>
+            <if test="type != null">
+                `type`,
+            </if>
+            <if test="dataId != null">
+                dataId,
+            </if>
+            <if test="microHemorrhage != null">
+                microHemorrhage,
+            </if>
+            <if test="cortex != null">
+                cortex,
+            </if>
+            <if test="underCortex != null">
+                underCortex,
+            </if>
+            <if test="images != null">
+                images,
+            </if>
+            <if test="checkTime != null">
+                checkTime,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="patientId != null">
+                #{patientId},
+            </if>
+            <if test="type != null">
+                #{type},
+            </if>
+            <if test="dataId != null">
+                #{dataId},
+            </if>
+            <if test="microHemorrhage != null">
+                #{microHemorrhage},
+            </if>
+            <if test="cortex != null">
+                #{cortex},
+            </if>
+            <if test="underCortex != null">
+                #{underCortex},
+            </if>
+            <if test="images != null">
+                #{images},
+            </if>
+            <if test="checkTime != null">
+                #{checkTime},
+            </if>
+            <if test="createTime != null">
+                #{createTime},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.nickel.medicalrecord.model.entity.DetectSwi">
+        update detect_swi
+        <set>
+            <if test="patientId != null">
+                patientId = #{patientId},
+            </if>
+            <if test="type != null">
+                `type` = #{type},
+            </if>
+            <if test="dataId != null">
+                dataId = #{dataId},
+            </if>
+            <if test="microHemorrhage != null">
+                microHemorrhage = #{microHemorrhage},
+            </if>
+            <if test="cortex != null">
+                cortex = #{cortex},
+            </if>
+            <if test="underCortex != null">
+                underCortex = #{underCortex},
+            </if>
+            <if test="images != null">
+                images = #{images},
+            </if>
+            <if test="checkTime != null">
+                checkTime = #{checkTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.nickel.medicalrecord.model.entity.DetectSwi">
+        update detect_swi
+        set patientId       = #{patientId},
+            `type`          = #{type},
+            dataId          = #{dataId},
+            microHemorrhage = #{microHemorrhage},
+            cortex          = #{cortex},
+            underCortex     = #{underCortex},
+            images          = #{images},
+            checkTime       = #{checkTime}
+        where id = #{id}
+    </update>
+</mapper>

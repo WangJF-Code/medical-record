@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nickel.medicalrecord.repository.ICheckBodyIndexMapper">
+
+    <sql id="Base_Column_List">
+        id,
+        patientId,
+        height,
+        weight,
+        abdominalCircumference,
+        bmi,
+        heartRate,
+        horizontalLeftSystolic,
+        horizontalRightSystolic,
+        verticalLeftSystolic,
+        verticalRightSystolic,
+        horizontalLeftDiastolic,
+        horizontalRightDiastolic,
+        verticalLeftDiastolic,
+        verticalRightDiastolic,
+        leftAndRight,
+        urinaryIncontinence,
+        images,
+        checkTime,
+        createTime
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+            resultType="com.nickel.medicalrecord.model.entity.CheckBodyIndex">
+        select
+        <include refid="Base_Column_List"/>
+        from check_body_index
+        where id = #{id}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from check_body_index
+        where id = #{id}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id"
+            parameterType="com.nickel.medicalrecord.model.entity.CheckBodyIndex" useGeneratedKeys="true">
+        insert into check_body_index (patientId, height, weight,
+                                      abdominalCircumference, bmi, heartRate,
+                                      horizontalLeftSystolic, horizontalRightSystolic,
+                                      verticalLeftSystolic, verticalRightSystolic,
+                                      horizontalLeftDiastolic, horizontalRightDiastolic,
+                                      verticalLeftDiastolic, verticalRightDiastolic,
+                                      leftAndRight, urinaryIncontinence, images,
+                                      checkTime, createTime)
+        values (#{patientId}, #{height}, #{weight},
+                #{abdominalCircumference}, #{bmi}, #{heartRate},
+                #{horizontalLeftSystolic}, #{horizontalRightSystolic},
+                #{verticalLeftSystolic}, #{verticalRightSystolic},
+                #{horizontalLeftDiastolic}, #{horizontalRightDiastolic},
+                #{verticalLeftDiastolic}, #{verticalRightDiastolic},
+                #{leftAndRight}, #{urinaryIncontinence}, #{images},
+                #{checkTime}, #{createTime})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id"
+            parameterType="com.nickel.medicalrecord.model.entity.CheckBodyIndex" useGeneratedKeys="true">
+        insert into check_body_index
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="patientId != null">
+                patientId,
+            </if>
+            <if test="height != null">
+                height,
+            </if>
+            <if test="weight != null">
+                weight,
+            </if>
+            <if test="abdominalCircumference != null">
+                abdominalCircumference,
+            </if>
+            <if test="bmi != null">
+                bmi,
+            </if>
+            <if test="heartRate != null">
+                heartRate,
+            </if>
+            <if test="horizontalLeftSystolic != null">
+                horizontalLeftSystolic,
+            </if>
+            <if test="horizontalRightSystolic != null">
+                horizontalRightSystolic,
+            </if>
+            <if test="verticalLeftSystolic != null">
+                verticalLeftSystolic,
+            </if>
+            <if test="verticalRightSystolic != null">
+                verticalRightSystolic,
+            </if>
+            <if test="horizontalLeftDiastolic != null">
+                horizontalLeftDiastolic,
+            </if>
+            <if test="horizontalRightDiastolic != null">
+                horizontalRightDiastolic,
+            </if>
+            <if test="verticalLeftDiastolic != null">
+                verticalLeftDiastolic,
+            </if>
+            <if test="verticalRightDiastolic != null">
+                verticalRightDiastolic,
+            </if>
+            <if test="leftAndRight != null">
+                leftAndRight,
+            </if>
+            <if test="urinaryIncontinence != null">
+                urinaryIncontinence,
+            </if>
+            <if test="images != null">
+                images,
+            </if>
+            <if test="checkTime != null">
+                checkTime,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="patientId != null">
+                #{patientId},
+            </if>
+            <if test="height != null">
+                #{height},
+            </if>
+            <if test="weight != null">
+                #{weight},
+            </if>
+            <if test="abdominalCircumference != null">
+                #{abdominalCircumference},
+            </if>
+            <if test="bmi != null">
+                #{bmi},
+            </if>
+            <if test="heartRate != null">
+                #{heartRate},
+            </if>
+            <if test="horizontalLeftSystolic != null">
+                #{horizontalLeftSystolic},
+            </if>
+            <if test="horizontalRightSystolic != null">
+                #{horizontalRightSystolic},
+            </if>
+            <if test="verticalLeftSystolic != null">
+                #{verticalLeftSystolic},
+            </if>
+            <if test="verticalRightSystolic != null">
+                #{verticalRightSystolic},
+            </if>
+            <if test="horizontalLeftDiastolic != null">
+                #{horizontalLeftDiastolic},
+            </if>
+            <if test="horizontalRightDiastolic != null">
+                #{horizontalRightDiastolic},
+            </if>
+            <if test="verticalLeftDiastolic != null">
+                #{verticalLeftDiastolic},
+            </if>
+            <if test="verticalRightDiastolic != null">
+                #{verticalRightDiastolic},
+            </if>
+            <if test="leftAndRight != null">
+                #{leftAndRight},
+            </if>
+            <if test="urinaryIncontinence != null">
+                #{urinaryIncontinence},
+            </if>
+            <if test="images != null">
+                #{images},
+            </if>
+            <if test="checkTime != null">
+                #{checkTime},
+            </if>
+            <if test="createTime != null">
+                #{createTime},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.nickel.medicalrecord.model.entity.CheckBodyIndex">
+        update check_body_index
+        <set>
+            <if test="patientId != null">
+                patientId = #{patientId},
+            </if>
+            <if test="height != null">
+                height = #{height},
+            </if>
+            <if test="weight != null">
+                weight = #{weight},
+            </if>
+            <if test="abdominalCircumference != null">
+                abdominalCircumference = #{abdominalCircumference},
+            </if>
+            <if test="bmi != null">
+                bmi = #{bmi},
+            </if>
+            <if test="heartRate != null">
+                heartRate = #{heartRate},
+            </if>
+            <if test="horizontalLeftSystolic != null">
+                horizontalLeftSystolic = #{horizontalLeftSystolic},
+            </if>
+            <if test="horizontalRightSystolic != null">
+                horizontalRightSystolic = #{horizontalRightSystolic},
+            </if>
+            <if test="verticalLeftSystolic != null">
+                verticalLeftSystolic = #{verticalLeftSystolic},
+            </if>
+            <if test="verticalRightSystolic != null">
+                verticalRightSystolic = #{verticalRightSystolic},
+            </if>
+            <if test="horizontalLeftDiastolic != null">
+                horizontalLeftDiastolic = #{horizontalLeftDiastolic},
+            </if>
+            <if test="horizontalRightDiastolic != null">
+                horizontalRightDiastolic = #{horizontalRightDiastolic},
+            </if>
+            <if test="verticalLeftDiastolic != null">
+                verticalLeftDiastolic = #{verticalLeftDiastolic},
+            </if>
+            <if test="verticalRightDiastolic != null">
+                verticalRightDiastolic = #{verticalRightDiastolic},
+            </if>
+            <if test="leftAndRight != null">
+                leftAndRight = #{leftAndRight},
+            </if>
+            <if test="urinaryIncontinence != null">
+                urinaryIncontinence = #{urinaryIncontinence},
+            </if>
+            <if test="images != null">
+                images = #{images},
+            </if>
+            <if test="checkTime != null">
+                checkTime = #{checkTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.nickel.medicalrecord.model.entity.CheckBodyIndex">
+        update check_body_index
+        set patientId                = #{patientId},
+            height                   = #{height},
+            weight                   = #{weight},
+            abdominalCircumference   = #{abdominalCircumference},
+            bmi                      = #{bmi},
+            heartRate                = #{heartRate},
+            horizontalLeftSystolic   = #{horizontalLeftSystolic},
+            horizontalRightSystolic  = #{horizontalRightSystolic},
+            verticalLeftSystolic     = #{verticalLeftSystolic},
+            verticalRightSystolic    = #{verticalRightSystolic},
+            horizontalLeftDiastolic  = #{horizontalLeftDiastolic},
+            horizontalRightDiastolic = #{horizontalRightDiastolic},
+            verticalLeftDiastolic    = #{verticalLeftDiastolic},
+            verticalRightDiastolic   = #{verticalRightDiastolic},
+            leftAndRight             = #{leftAndRight},
+            urinaryIncontinence      = #{urinaryIncontinence},
+            images                   = #{images},
+            checkTime                = #{checkTime},
+            createTime               = #{createTime}
+        where id = #{id}
+    </update>
+</mapper>

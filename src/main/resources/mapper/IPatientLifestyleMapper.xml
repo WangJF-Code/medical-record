@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nickel.medicalrecord.repository.IPatientLifestyleMapper">
+
+    <sql id="Base_Column_List">
+        id, patientId, smokingType, smokingNum, smokingYear, quitSmokingYear, drinkingType, drinkingNum, drinkingYear,
+    averageExercise, createTime, updateTime, deleted
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+            resultType="com.nickel.medicalrecord.model.entity.PatientLifestyle">
+        select
+        <include refid="Base_Column_List"/>
+        from patient_lifestyle
+        where id = #{id}
+    </select>
+    <select id="findListByPatientId" resultType="com.nickel.medicalrecord.model.entity.PatientLifestyle"
+            parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from patient_lifestyle
+        where deleted = 0
+        and patientId = #{patientId}
+        ORDER BY createTime DESC
+    </select>
+    <select id="findList" resultType="com.nickel.medicalrecord.model.entity.PatientLifestyle"
+            parameterType="com.nickel.medicalrecord.model.entity.PatientLifestyle">
+        select
+        <include refid="Base_Column_List"/>
+        from patient_lifestyle
+        where deleted = #{deleted}
+        <if test="patientId != null">
+            and #{patientId}
+        </if>
+        <if test="smokingType != null">
+            and #{smokingType}
+        </if>
+        <if test="smokingNum != null">
+            and #{smokingNum}
+        </if>
+        <if test="smokingYear != null">
+            and #{smokingYear}
+        </if>
+        <if test="quitSmokingYear != null">
+            and #{quitSmokingYear}
+        </if>
+        <if test="drinkingType != null">
+            and #{drinkingType}
+        </if>
+        <if test="drinkingNum != null">
+            and #{drinkingNum}
+        </if>
+        <if test="drinkingYear != null">
+            and #{drinkingYear}
+        </if>
+        <if test="averageExercise != null">
+            and #{averageExercise}
+        </if>
+        ORDER BY createTime DESC
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from patient_lifestyle
+        where id = #{id}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id"
+            parameterType="com.nickel.medicalrecord.model.entity.PatientLifestyle"
+            useGeneratedKeys="true">
+        insert into patient_lifestyle (patientId, smokingType, smokingNum,
+                                       smokingYear, quitSmokingYear, drinkingType, drinkingNum,
+                                       drinkingYear, averageExercise, createTime,
+                                       updateTime, deleted)
+        values (#{patientId}, #{smokingType}, #{smokingNum},
+                #{smokingYear}, #{quitSmokingYear}, #{drinkingType}, #{drinkingNum},
+                #{drinkingYear}, #{averageExercise}, #{createTime},
+                #{updateTime}, #{deleted})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id"
+            parameterType="com.nickel.medicalrecord.model.entity.PatientLifestyle" useGeneratedKeys="true">
+        insert into patient_lifestyle
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="patientId != null">
+                patientId,
+            </if>
+            <if test="smokingType != null">
+                smokingType,
+            </if>
+            <if test="smokingNum != null">
+                smokingNum,
+            </if>
+            <if test="smokingYear != null">
+                smokingYear,
+            </if>
+            <if test="quitSmokingYear != null">
+                quitSmokingYear,
+            </if>
+            <if test="drinkingType != null">
+                drinkingType,
+            </if>
+            <if test="drinkingNum != null">
+                drinkingNum,
+            </if>
+            <if test="drinkingYear != null">
+                drinkingYear,
+            </if>
+            <if test="averageExercise != null">
+                averageExercise,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+            <if test="updateTime != null">
+                updateTime,
+            </if>
+            <if test="deleted != null">
+                deleted,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="patientId != null">
+                #{patientId},
+            </if>
+            <if test="smokingType != null">
+                #{smokingType},
+            </if>
+            <if test="smokingNum != null">
+                #{smokingNum},
+            </if>
+            <if test="smokingYear != null">
+                #{smokingYear},
+            </if>
+            <if test="quitSmokingYear != null">
+                #{quitSmokingYear},
+            </if>
+            <if test="drinkingType != null">
+                #{drinkingType},
+            </if>
+            <if test="drinkingNum != null">
+                #{drinkingNum},
+            </if>
+            <if test="drinkingYear != null">
+                #{drinkingYear},
+            </if>
+            <if test="averageExercise != null">
+                #{averageExercise},
+            </if>
+            <if test="createTime != null">
+                #{createTime},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime},
+            </if>
+            <if test="deleted != null">
+                #{deleted},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.nickel.medicalrecord.model.entity.PatientLifestyle">
+        update patient_lifestyle
+        <set>
+            <if test="patientId != null">
+                patientId = #{patientId},
+            </if>
+            <if test="smokingType != null">
+                smokingType = #{smokingType},
+            </if>
+            <if test="smokingNum != null">
+                smokingNum = #{smokingNum},
+            </if>
+            <if test="smokingYear != null">
+                smokingYear = #{smokingYear},
+            </if>
+            <if test="quitSmokingYear != null">
+                quitSmokingYear = #{quitSmokingYear},
+            </if>
+            <if test="drinkingType != null">
+                drinkingType = #{drinkingType},
+            </if>
+            <if test="drinkingNum != null">
+                drinkingNum = #{drinkingNum},
+            </if>
+            <if test="drinkingYear != null">
+                drinkingYear = #{drinkingYear},
+            </if>
+            <if test="averageExercise != null">
+                averageExercise = #{averageExercise},
+            </if>
+            <if test="updateTime != null">
+                updateTime = #{updateTime},
+            </if>
+            <if test="deleted != null">
+                deleted = #{deleted},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.nickel.medicalrecord.model.entity.PatientLifestyle">
+        update patient_lifestyle
+        set patientId       = #{patientId},
+            smokingType     = #{smokingType},
+            smokingNum      = #{smokingNum},
+            smokingYear     = #{smokingYear},
+            quitSmokingYear = #{quitSmokingYear},
+            drinkingType    = #{drinkingType},
+            drinkingNum     = #{drinkingNum},
+            drinkingYear    = #{drinkingYear},
+            averageExercise = #{averageExercise},
+            updateTime      = #{updateTime},
+            deleted         = #{deleted}
+        where id = #{id}
+    </update>
+</mapper>

@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nickel.medicalrecord.repository.IHospitalDiagnosticRecordsMapper">
+
+    <sql id="Base_Column_List">
+        id, patientId, hospitalRecordsId, `type`, cerebralInfarction, cerebralInfarctionTOAST,
+    cerebralInfarctionPossibility, cerebralHaemorrhage, vascularCognitiveImpairment, 
+    cerebralCerebrovascularDisease, intracranialArteryStenosis, cervicalArteryStenosis, 
+    vertebralArteryStenosis, coronaryHeartDisease, atrialFibrillation, hypertension, 
+    diabetes, hyperlipidemia, homocysteineemia, hyperuricAcidemia, chronicObstructivePulmonaryDisease, 
+    progressiveStroke, cobwebSubcavityBleeding, angina, myocardialInfarction, lowerLimbArtery, 
+    lowerLimbVeins, lungInfections, urinaryTractInfection, stressUlcers, description, 
+    createTime
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+            resultType="com.nickel.medicalrecord.model.dto.HospitalDiagnosticRecordsDTO">
+        select
+        <include refid="Base_Column_List"/>
+        from hospital_diagnostic_records
+        where id = #{id}
+    </select>
+    <select id="selectByHospitalRecordsId"
+            resultType="com.nickel.medicalrecord.model.dto.HospitalDiagnosticRecordsDTO">
+        select
+        <include refid="Base_Column_List"/>
+        from hospital_diagnostic_records
+        where hospitalRecordsId = #{hospitalRecordsId}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from hospital_diagnostic_records
+        where id = #{id}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id"
+            parameterType="com.nickel.medicalrecord.model.entity.HospitalDiagnosticRecords" useGeneratedKeys="true">
+        insert into hospital_diagnostic_records (patientId, hospitalRecordsId, `type`,
+                                                 cerebralInfarction, cerebralInfarctionTOAST,
+                                                 cerebralInfarctionPossibility, cerebralHaemorrhage,
+                                                 vascularCognitiveImpairment, cerebralCerebrovascularDisease,
+                                                 intracranialArteryStenosis, cervicalArteryStenosis,
+                                                 vertebralArteryStenosis, coronaryHeartDisease,
+                                                 atrialFibrillation, hypertension, diabetes,
+                                                 hyperlipidemia, homocysteineemia, hyperuricAcidemia,
+                                                 chronicObstructivePulmonaryDisease, progressiveStroke,
+                                                 cobwebSubcavityBleeding, angina, myocardialInfarction,
+                                                 lowerLimbArtery, lowerLimbVeins, lungInfections,
+                                                 urinaryTractInfection, stressUlcers, description,
+                                                 createTime)
+        values (#{patientId}, #{hospitalRecordsId}, #{type},
+                #{cerebralInfarction}, #{cerebralInfarctionTOAST},
+                #{cerebralInfarctionPossibility}, #{cerebralHaemorrhage},
+                #{vascularCognitiveImpairment}, #{cerebralCerebrovascularDisease},
+                #{intracranialArteryStenosis}, #{cervicalArteryStenosis},
+                #{vertebralArteryStenosis}, #{coronaryHeartDisease},
+                #{atrialFibrillation}, #{hypertension}, #{diabetes},
+                #{hyperlipidemia}, #{homocysteineemia},
+                #{hyperuricAcidemia},
+                #{chronicObstructivePulmonaryDisease}, #{progressiveStroke},
+                #{cobwebSubcavityBleeding}, #{angina},
+                #{myocardialInfarction},
+                #{lowerLimbArtery}, #{lowerLimbVeins},
+                #{lungInfections},
+                #{urinaryTractInfection}, #{stressUlcers},
+                #{description},
+                #{createTime})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id"
+            parameterType="com.nickel.medicalrecord.model.entity.HospitalDiagnosticRecords" useGeneratedKeys="true">
+        insert into hospital_diagnostic_records
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="patientId != null">
+                patientId,
+            </if>
+            <if test="hospitalRecordsId != null">
+                hospitalRecordsId,
+            </if>
+            <if test="type != null">
+                `type`,
+            </if>
+            <if test="cerebralInfarction != null">
+                cerebralInfarction,
+            </if>
+            <if test="cerebralInfarctionTOAST != null">
+                cerebralInfarctionTOAST,
+            </if>
+            <if test="cerebralInfarctionPossibility != null">
+                cerebralInfarctionPossibility,
+            </if>
+            <if test="cerebralHaemorrhage != null">
+                cerebralHaemorrhage,
+            </if>
+            <if test="vascularCognitiveImpairment != null">
+                vascularCognitiveImpairment,
+            </if>
+            <if test="cerebralCerebrovascularDisease != null">
+                cerebralCerebrovascularDisease,
+            </if>
+            <if test="intracranialArteryStenosis != null">
+                intracranialArteryStenosis,
+            </if>
+            <if test="cervicalArteryStenosis != null">
+                cervicalArteryStenosis,
+            </if>
+            <if test="vertebralArteryStenosis != null">
+                vertebralArteryStenosis,
+            </if>
+            <if test="coronaryHeartDisease != null">
+                coronaryHeartDisease,
+            </if>
+            <if test="atrialFibrillation != null">
+                atrialFibrillation,
+            </if>
+            <if test="hypertension != null">
+                hypertension,
+            </if>
+            <if test="diabetes != null">
+                diabetes,
+            </if>
+            <if test="hyperlipidemia != null">
+                hyperlipidemia,
+            </if>
+            <if test="homocysteineemia != null">
+                homocysteineemia,
+            </if>
+            <if test="hyperuricAcidemia != null">
+                hyperuricAcidemia,
+            </if>
+            <if test="chronicObstructivePulmonaryDisease != null">
+                chronicObstructivePulmonaryDisease,
+            </if>
+            <if test="progressiveStroke != null">
+                progressiveStroke,
+            </if>
+            <if test="cobwebSubcavityBleeding != null">
+                cobwebSubcavityBleeding,
+            </if>
+            <if test="angina != null">
+                angina,
+            </if>
+            <if test="myocardialInfarction != null">
+                myocardialInfarction,
+            </if>
+            <if test="lowerLimbArtery != null">
+                lowerLimbArtery,
+            </if>
+            <if test="lowerLimbVeins != null">
+                lowerLimbVeins,
+            </if>
+            <if test="lungInfections != null">
+                lungInfections,
+            </if>
+            <if test="urinaryTractInfection != null">
+                urinaryTractInfection,
+            </if>
+            <if test="stressUlcers != null">
+                stressUlcers,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="createTime != null">
+                createTime
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="patientId != null">
+                #{patientId},
+            </if>
+            <if test="hospitalRecordsId != null">
+                #{hospitalRecordsId},
+            </if>
+            <if test="type != null">
+                #{type},
+            </if>
+            <if test="cerebralInfarction != null">
+                #{cerebralInfarction},
+            </if>
+            <if test="cerebralInfarctionTOAST != null">
+                #{cerebralInfarctionTOAST},
+            </if>
+            <if test="cerebralInfarctionPossibility != null">
+                #{cerebralInfarctionPossibility},
+            </if>
+            <if test="cerebralHaemorrhage != null">
+                #{cerebralHaemorrhage},
+            </if>
+            <if test="vascularCognitiveImpairment != null">
+                #{vascularCognitiveImpairment},
+            </if>
+            <if test="cerebralCerebrovascularDisease != null">
+                #{cerebralCerebrovascularDisease},
+            </if>
+            <if test="intracranialArteryStenosis != null">
+                #{intracranialArteryStenosis},
+            </if>
+            <if test="cervicalArteryStenosis != null">
+                #{cervicalArteryStenosis},
+            </if>
+            <if test="vertebralArteryStenosis != null">
+                #{vertebralArteryStenosis},
+            </if>
+            <if test="coronaryHeartDisease != null">
+                #{coronaryHeartDisease},
+            </if>
+            <if test="atrialFibrillation != null">
+                #{atrialFibrillation},
+            </if>
+            <if test="hypertension != null">
+                #{hypertension},
+            </if>
+            <if test="diabetes != null">
+                #{diabetes},
+            </if>
+            <if test="hyperlipidemia != null">
+                #{hyperlipidemia},
+            </if>
+            <if test="homocysteineemia != null">
+                #{homocysteineemia},
+            </if>
+            <if test="hyperuricAcidemia != null">
+                #{hyperuricAcidemia},
+            </if>
+            <if test="chronicObstructivePulmonaryDisease != null">
+                #{chronicObstructivePulmonaryDisease},
+            </if>
+            <if test="progressiveStroke != null">
+                #{progressiveStroke},
+            </if>
+            <if test="cobwebSubcavityBleeding != null">
+                #{cobwebSubcavityBleeding},
+            </if>
+            <if test="angina != null">
+                #{angina},
+            </if>
+            <if test="myocardialInfarction != null">
+                #{myocardialInfarction},
+            </if>
+            <if test="lowerLimbArtery != null">
+                #{lowerLimbArtery},
+            </if>
+            <if test="lowerLimbVeins != null">
+                #{lowerLimbVeins},
+            </if>
+            <if test="lungInfections != null">
+                #{lungInfections},
+            </if>
+            <if test="urinaryTractInfection != null">
+                #{urinaryTractInfection},
+            </if>
+            <if test="stressUlcers != null">
+                #{stressUlcers},
+            </if>
+            <if test="description != null">
+                #{description},
+            </if>
+            <if test="createTime != null">
+                #{createTime}
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective"
+            parameterType="com.nickel.medicalrecord.model.entity.HospitalDiagnosticRecords">
+        update hospital_diagnostic_records
+        <set>
+            <if test="patientId != null">
+                patientId = #{patientId},
+            </if>
+            <if test="hospitalRecordsId != null">
+                hospitalRecordsId = #{hospitalRecordsId},
+            </if>
+            <if test="type != null">
+                `type` = #{type},
+            </if>
+            <if test="cerebralInfarction != null">
+                cerebralInfarction = #{cerebralInfarction},
+            </if>
+            <if test="cerebralInfarctionTOAST != null">
+                cerebralInfarctionTOAST = #{cerebralInfarctionTOAST},
+            </if>
+            <if test="cerebralInfarctionPossibility != null">
+                cerebralInfarctionPossibility = #{cerebralInfarctionPossibility},
+            </if>
+            <if test="cerebralHaemorrhage != null">
+                cerebralHaemorrhage = #{cerebralHaemorrhage},
+            </if>
+            <if test="vascularCognitiveImpairment != null">
+                vascularCognitiveImpairment = #{vascularCognitiveImpairment},
+            </if>
+            <if test="cerebralCerebrovascularDisease != null">
+                cerebralCerebrovascularDisease = #{cerebralCerebrovascularDisease},
+            </if>
+            <if test="intracranialArteryStenosis != null">
+                intracranialArteryStenosis = #{intracranialArteryStenosis},
+            </if>
+            <if test="cervicalArteryStenosis != null">
+                cervicalArteryStenosis = #{cervicalArteryStenosis},
+            </if>
+            <if test="vertebralArteryStenosis != null">
+                vertebralArteryStenosis = #{vertebralArteryStenosis},
+            </if>
+            <if test="coronaryHeartDisease != null">
+                coronaryHeartDisease = #{coronaryHeartDisease},
+            </if>
+            <if test="atrialFibrillation != null">
+                atrialFibrillation = #{atrialFibrillation},
+            </if>
+            <if test="hypertension != null">
+                hypertension = #{hypertension},
+            </if>
+            <if test="diabetes != null">
+                diabetes = #{diabetes},
+            </if>
+            <if test="hyperlipidemia != null">
+                hyperlipidemia = #{hyperlipidemia},
+            </if>
+            <if test="homocysteineemia != null">
+                homocysteineemia = #{homocysteineemia},
+            </if>
+            <if test="hyperuricAcidemia != null">
+                hyperuricAcidemia = #{hyperuricAcidemia},
+            </if>
+            <if test="chronicObstructivePulmonaryDisease != null">
+                chronicObstructivePulmonaryDisease = #{chronicObstructivePulmonaryDisease},
+            </if>
+            <if test="progressiveStroke != null">
+                progressiveStroke = #{progressiveStroke},
+            </if>
+            <if test="cobwebSubcavityBleeding != null">
+                cobwebSubcavityBleeding = #{cobwebSubcavityBleeding},
+            </if>
+            <if test="angina != null">
+                angina = #{angina},
+            </if>
+            <if test="myocardialInfarction != null">
+                myocardialInfarction = #{myocardialInfarction},
+            </if>
+            <if test="lowerLimbArtery != null">
+                lowerLimbArtery = #{lowerLimbArtery},
+            </if>
+            <if test="lowerLimbVeins != null">
+                lowerLimbVeins = #{lowerLimbVeins},
+            </if>
+            <if test="lungInfections != null">
+                lungInfections = #{lungInfections},
+            </if>
+            <if test="urinaryTractInfection != null">
+                urinaryTractInfection = #{urinaryTractInfection},
+            </if>
+            <if test="stressUlcers != null">
+                stressUlcers = #{stressUlcers},
+            </if>
+            <if test="description != null">
+                description = #{description}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.nickel.medicalrecord.model.entity.HospitalDiagnosticRecords">
+        update hospital_diagnostic_records
+        set patientId                          = #{patientId},
+            hospitalRecordsId                  = #{hospitalRecordsId},
+            `type`                             = #{type},
+            cerebralInfarction                 = #{cerebralInfarction},
+            cerebralInfarctionTOAST            = #{cerebralInfarctionTOAST},
+            cerebralInfarctionPossibility      = #{cerebralInfarctionPossibility},
+            cerebralHaemorrhage                = #{cerebralHaemorrhage},
+            vascularCognitiveImpairment        = #{vascularCognitiveImpairment},
+            cerebralCerebrovascularDisease     = #{cerebralCerebrovascularDisease},
+            intracranialArteryStenosis         = #{intracranialArteryStenosis},
+            cervicalArteryStenosis             = #{cervicalArteryStenosis},
+            vertebralArteryStenosis            = #{vertebralArteryStenosis},
+            coronaryHeartDisease               = #{coronaryHeartDisease},
+            atrialFibrillation                 = #{atrialFibrillation},
+            hypertension                       = #{hypertension},
+            diabetes                           = #{diabetes},
+            hyperlipidemia                     = #{hyperlipidemia},
+            homocysteineemia                   = #{homocysteineemia},
+            hyperuricAcidemia                  = #{hyperuricAcidemia},
+            chronicObstructivePulmonaryDisease = #{chronicObstructivePulmonaryDisease},
+            progressiveStroke                  = #{progressiveStroke},
+            cobwebSubcavityBleeding            = #{cobwebSubcavityBleeding},
+            angina                             = #{angina},
+            myocardialInfarction               = #{myocardialInfarction},
+            lowerLimbArtery                    = #{lowerLimbArtery},
+            lowerLimbVeins                     = #{lowerLimbVeins},
+            lungInfections                     = #{lungInfections},
+            urinaryTractInfection              = #{urinaryTractInfection},
+            stressUlcers                       = #{stressUlcers},
+            description                        = #{description}
+        where id = #{id}
+    </update>
+</mapper>

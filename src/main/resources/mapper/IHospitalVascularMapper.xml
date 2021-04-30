@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nickel.medicalrecord.repository.IHospitalVascularMapper">
+
+    <resultMap id="ResultHospitalVascularDTO" type="com.nickel.medicalrecord.model.dto.HospitalVascularDTO">
+        <id column="id" property="id"/>
+        <result column="patientId" property="patientId"/>
+        <result column="hospitalRecordsId" property="hospitalRecordsId"/>
+        <result column="description" property="description"/>
+        <result column="createTime" property="createTime"/>
+        <collection property="eventList" ofType="com.nickel.medicalrecord.model.dto.HospitalVascularEventDTO">
+            <id column="event_id" property="id"/>
+            <result column="id" property="hospitalVascularId"/>
+            <result column="eventType" property="eventType"/>
+            <result column="onsetTimes" property="onsetTimes"/>
+        </collection>
+    </resultMap>
+
+    <select id="selectByPrimaryKey" resultMap="ResultHospitalVascularDTO">
+        SELECT hospital_vascular.id,
+               hospital_vascular.patientId,
+               hospital_vascular.hospitalRecordsId,
+               hospital_vascular.description,
+               hospital_vascular.createTime,
+               hospital_vascular_event.id AS event_id,
+               hospital_vascular_event.eventType,
+               hospital_vascular_event.onsetTimes
+        FROM hospital_vascular
+                 LEFT JOIN hospital_vascular_event ON hospital_vascular_event.hospitalVascularId = hospital_vascular.id
+        WHERE hospital_vascular.id = #{id}
+    </select>
+    <select id="selectByHospitalRecordsId" resultMap="ResultHospitalVascularDTO">
+        SELECT hospital_vascular.id,
+               hospital_vascular.patientId,
+               hospital_vascular.hospitalRecordsId,
+               hospital_vascular.description,
+               hospital_vascular.createTime,
+               hospital_vascular_event.id AS event_id,
+               hospital_vascular_event.eventType,
+               hospital_vascular_event.onsetTimes
+        FROM hospital_vascular
+                 LEFT JOIN hospital_vascular_event ON hospital_vascular_event.hospitalVascularId = hospital_vascular.id
+        WHERE hospital_vascular.hospitalRecordsId = #{hospitalRecordsId}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from hospital_vascular
+        where id = #{id}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id"
+            parameterType="com.nickel.medicalrecord.model.entity.HospitalVascularEvent" useGeneratedKeys="true">
+        insert into hospital_vascular (patientId, hospitalRecordsId, description, createTime)
+        values (#{patientId}, #{hospitalRecordsId}, #{description}, #{createTime})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id"
+            parameterType="com.nickel.medicalrecord.model.entity.HospitalVascularEvent" useGeneratedKeys="true">
+        insert into hospital_vascular
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="patientId != null">
+                patientId,
+            </if>
+            <if test="hospitalRecordsId != null">
+                hospitalRecordsId,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="patientId != null">
+                #{patientId},
+            </if>
+            <if test="hospitalRecordsId != null">
+                #{hospitalRecordsId},
+            </if>
+            <if test="description != null">
+                #{description},
+            </if>
+            <if test="createTime != null">
+                #{createTime},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective"
+            parameterType="com.nickel.medicalrecord.model.entity.HospitalVascularEvent">
+        update hospital_vascular
+        <set>
+            <if test="patientId != null">
+                patientId = #{patientId},
+            </if>
+            <if test="hospitalRecordsId != null">
+                hospitalRecordsId = #{hospitalRecordsId},
+            </if>
+            <if test="description != null">
+                description = #{description},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.nickel.medicalrecord.model.entity.HospitalVascularEvent">
+        update hospital_vascular
+        set patientId         = #{patientId},
+            hospitalRecordsId = #{hospitalRecordsId},
+            description       = #{description}
+        where id = #{id}
+    </update>
+</mapper>

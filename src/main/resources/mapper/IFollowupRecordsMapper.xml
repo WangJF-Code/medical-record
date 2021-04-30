@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nickel.medicalrecord.repository.IFollowupRecordsMapper">
+
+    <resultMap id="BaseResultMap" type="com.nickel.medicalrecord.model.entity.FollowupRecords">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="patientId" jdbcType="VARCHAR" property="patientId"/>
+        <result column="hospitalRecordsId" jdbcType="VARCHAR" property="hospitalRecordsId"/>
+        <result column="followupType" jdbcType="INTEGER" property="followupType"/>
+        <result column="cycle" jdbcType="INTEGER" property="cycle"/>
+        <result column="cycleUnit" jdbcType="INTEGER" property="cycleUnit"/>
+        <result column="cycleFloat" jdbcType="INTEGER" property="cycleFloat"/>
+        <result column="dead" jdbcType="INTEGER" property="dead"/>
+        <result column="deadTime" jdbcType="BIGINT" property="deadTime"/>
+        <result column="causeOfDeath" jdbcType="VARCHAR" property="causeOfDeath"/>
+        <result column="livingStatus" jdbcType="INTEGER" property="livingStatus"/>
+        <result column="city" jdbcType="VARCHAR" property="city"/>
+        <result column="address" jdbcType="VARCHAR" property="address"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="createTime" jdbcType="BIGINT" property="createTime"/>
+        <result column="updateTime" jdbcType="BIGINT" property="updateTime"/>
+        <result column="deleted" jdbcType="INTEGER" property="deleted"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, patientId, hospitalRecordsId, followupType, `cycle`, cycleUnit, cycleFloat, dead,
+    deadTime, causeOfDeath, livingStatus, city, address, description, createTime, updateTime, 
+    deleted
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from followup_records
+        where id = #{id}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from followup_records
+        where id = #{id}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id"
+            parameterType="com.nickel.medicalrecord.model.entity.FollowupRecords" useGeneratedKeys="true">
+        insert into followup_records (patientId, hospitalRecordsId, followupType,
+                                      `cycle`, cycleUnit, cycleFloat,
+                                      dead, deadTime, causeOfDeath,
+                                      livingStatus, city, address,
+                                      description, createTime, updateTime,
+                                      deleted)
+        values (#{patientId}, #{hospitalRecordsId}, #{followupType},
+                #{cycle}, #{cycleUnit}, #{cycleFloat},
+                #{dead}, #{deadTime}, #{causeOfDeath},
+                #{livingStatus}, #{city}, #{address},
+                #{description}, #{createTime}, #{updateTime},
+                #{deleted})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id"
+            parameterType="com.nickel.medicalrecord.model.entity.FollowupRecords" useGeneratedKeys="true">
+        insert into followup_records
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="patientId != null">
+                patientId,
+            </if>
+            <if test="hospitalRecordsId != null">
+                hospitalRecordsId,
+            </if>
+            <if test="followupType != null">
+                followupType,
+            </if>
+            <if test="cycle != null">
+                `cycle`,
+            </if>
+            <if test="cycleUnit != null">
+                cycleUnit,
+            </if>
+            <if test="cycleFloat != null">
+                cycleFloat,
+            </if>
+            <if test="dead != null">
+                dead,
+            </if>
+            <if test="deadTime != null">
+                deadTime,
+            </if>
+            <if test="causeOfDeath != null">
+                causeOfDeath,
+            </if>
+            <if test="livingStatus != null">
+                livingStatus,
+            </if>
+            <if test="city != null">
+                city,
+            </if>
+            <if test="address != null">
+                address,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+            <if test="updateTime != null">
+                updateTime,
+            </if>
+            <if test="deleted != null">
+                deleted,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="patientId != null">
+                #{patientId},
+            </if>
+            <if test="hospitalRecordsId != null">
+                #{hospitalRecordsId},
+            </if>
+            <if test="followupType != null">
+                #{followupType},
+            </if>
+            <if test="cycle != null">
+                #{cycle},
+            </if>
+            <if test="cycleUnit != null">
+                #{cycleUnit},
+            </if>
+            <if test="cycleFloat != null">
+                #{cycleFloat},
+            </if>
+            <if test="dead != null">
+                #{dead},
+            </if>
+            <if test="deadTime != null">
+                #{deadTime},
+            </if>
+            <if test="causeOfDeath != null">
+                #{causeOfDeath},
+            </if>
+            <if test="livingStatus != null">
+                #{livingStatus},
+            </if>
+            <if test="city != null">
+                #{city},
+            </if>
+            <if test="address != null">
+                #{address},
+            </if>
+            <if test="description != null">
+                #{description},
+            </if>
+            <if test="createTime != null">
+                #{createTime},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime},
+            </if>
+            <if test="deleted != null">
+                #{deleted},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.nickel.medicalrecord.model.entity.FollowupRecords">
+        update followup_records
+        <set>
+            <if test="patientId != null">
+                patientId = #{patientId},
+            </if>
+            <if test="hospitalRecordsId != null">
+                hospitalRecordsId = #{hospitalRecordsId},
+            </if>
+            <if test="followupType != null">
+                followupType = #{followupType},
+            </if>
+            <if test="cycle != null">
+                `cycle` = #{cycle},
+            </if>
+            <if test="cycleUnit != null">
+                cycleUnit = #{cycleUnit},
+            </if>
+            <if test="cycleFloat != null">
+                cycleFloat = #{cycleFloat},
+            </if>
+            <if test="dead != null">
+                dead = #{dead},
+            </if>
+            <if test="deadTime != null">
+                deadTime = #{deadTime},
+            </if>
+            <if test="causeOfDeath != null">
+                causeOfDeath = #{causeOfDeath},
+            </if>
+            <if test="livingStatus != null">
+                livingStatus = #{livingStatus},
+            </if>
+            <if test="city != null">
+                city = #{city},
+            </if>
+            <if test="address != null">
+                address = #{address},
+            </if>
+            <if test="description != null">
+                description = #{description},
+            </if>
+            <if test="updateTime != null">
+                updateTime = #{updateTime},
+            </if>
+            <if test="deleted != null">
+                deleted = #{deleted},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.nickel.medicalrecord.model.entity.FollowupRecords">
+        update followup_records
+        set patientId         = #{patientId},
+            hospitalRecordsId = #{hospitalRecordsId},
+            followupType      = #{followupType},
+            `cycle`           = #{cycle},
+            cycleUnit         = #{cycleUnit},
+            cycleFloat        = #{cycleFloat},
+            dead              = #{dead},
+            deadTime          = #{deadTime},
+            causeOfDeath      = #{causeOfDeath},
+            livingStatus      = #{livingStatus},
+            city              = #{city},
+            address           = #{address},
+            description       = #{description},
+            updateTime        = #{updateTime},
+            deleted           = #{deleted}
+        where id = #{id}
+    </update>
+</mapper>

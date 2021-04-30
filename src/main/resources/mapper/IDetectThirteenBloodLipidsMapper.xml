@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nickel.medicalrecord.repository.IDetectThirteenBloodLipidsMapper">
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+            resultType="com.nickel.medicalrecord.model.entity.DetectThirteenBloodLipids">
+        select id,
+               patientId,
+               `type`,
+               dataId,
+               detectOne,
+               detectOneOutcome,
+               detectTwo,
+               detectTwoOutcome,
+               detectThree,
+               detectThreeOutcome,
+               detectFour,
+               detectFourOutcome,
+               detectFive,
+               detectFiveOutcome,
+               detectSix,
+               detectSixOutcome,
+               detectSeven,
+               detectSevenOutcome,
+               detectThreeToSeven,
+               detectThreeToSevenOutcome,
+               LDLCholesterol,
+               LDLCholesterolOutcome,
+               totalCholesterol,
+               totalCholesterolOutcome,
+               images,
+               checkTime,
+               createTime
+        from detect_thirteen_blood_lipids
+        where id = #{id}
+    </select>
+    <select id="selectList" resultType="com.nickel.medicalrecord.model.entity.DetectThirteenBloodLipids">
+        select id,
+               patientId,
+               `type`,
+               dataId,
+               detectOne,
+               detectOneOutcome,
+               detectTwo,
+               detectTwoOutcome,
+               detectThree,
+               detectThreeOutcome,
+               detectFour,
+               detectFourOutcome,
+               detectFive,
+               detectFiveOutcome,
+               detectSix,
+               detectSixOutcome,
+               detectSeven,
+               detectSevenOutcome,
+               detectThreeToSeven,
+               detectThreeToSevenOutcome,
+               LDLCholesterol,
+               LDLCholesterolOutcome,
+               totalCholesterol,
+               totalCholesterolOutcome,
+               images,
+               checkTime,
+               createTime
+        from detect_thirteen_blood_lipids
+        where `type` = #{type}
+          and dataId = #{dataId}
+        ORDER BY checkTime
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from detect_thirteen_blood_lipids
+        where id = #{id}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id"
+            parameterType="com.nickel.medicalrecord.model.entity.DetectThirteenBloodLipids" useGeneratedKeys="true">
+        insert into detect_thirteen_blood_lipids (patientId, `type`, dataId,
+                                                  detectOne, detectOneOutcome, detectTwo,
+                                                  detectTwoOutcome, detectThree, detectThreeOutcome,
+                                                  detectFour, detectFourOutcome, detectFive,
+                                                  detectFiveOutcome, detectSix, detectSixOutcome,
+                                                  detectSeven, detectSevenOutcome, detectThreeToSeven,
+                                                  detectThreeToSevenOutcome, LDLCholesterol,
+                                                  LDLCholesterolOutcome, totalCholesterol,
+                                                  totalCholesterolOutcome, images, checkTime,
+                                                  createTime)
+        values (#{patientId}, #{type}, #{dataId},
+                #{detectOne}, #{detectOneOutcome}, #{detectTwo},
+                #{detectTwoOutcome}, #{detectThree},
+                #{detectThreeOutcome},
+                #{detectFour}, #{detectFourOutcome}, #{detectFive},
+                #{detectFiveOutcome}, #{detectSix},
+                #{detectSixOutcome},
+                #{detectSeven}, #{detectSevenOutcome},
+                #{detectThreeToSeven},
+                #{detectThreeToSevenOutcome}, #{LDLCholesterol},
+                #{LDLCholesterolOutcome}, #{totalCholesterol},
+                #{totalCholesterolOutcome}, #{images},
+                #{checkTime},
+                #{createTime})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id"
+            parameterType="com.nickel.medicalrecord.model.entity.DetectThirteenBloodLipids" useGeneratedKeys="true">
+        insert into detect_thirteen_blood_lipids
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="patientId != null">
+                patientId,
+            </if>
+            <if test="type != null">
+                `type`,
+            </if>
+            <if test="dataId != null">
+                dataId,
+            </if>
+            <if test="detectOne != null">
+                detectOne,
+            </if>
+            <if test="detectOneOutcome != null">
+                detectOneOutcome,
+            </if>
+            <if test="detectTwo != null">
+                detectTwo,
+            </if>
+            <if test="detectTwoOutcome != null">
+                detectTwoOutcome,
+            </if>
+            <if test="detectThree != null">
+                detectThree,
+            </if>
+            <if test="detectThreeOutcome != null">
+                detectThreeOutcome,
+            </if>
+            <if test="detectFour != null">
+                detectFour,
+            </if>
+            <if test="detectFourOutcome != null">
+                detectFourOutcome,
+            </if>
+            <if test="detectFive != null">
+                detectFive,
+            </if>
+            <if test="detectFiveOutcome != null">
+                detectFiveOutcome,
+            </if>
+            <if test="detectSix != null">
+                detectSix,
+            </if>
+            <if test="detectSixOutcome != null">
+                detectSixOutcome,
+            </if>
+            <if test="detectSeven != null">
+                detectSeven,
+            </if>
+            <if test="detectSevenOutcome != null">
+                detectSevenOutcome,
+            </if>
+            <if test="detectThreeToSeven != null">
+                detectThreeToSeven,
+            </if>
+            <if test="detectThreeToSevenOutcome != null">
+                detectThreeToSevenOutcome,
+            </if>
+            <if test="LDLCholesterol != null">
+                LDLCholesterol,
+            </if>
+            <if test="LDLCholesterolOutcome != null">
+                LDLCholesterolOutcome,
+            </if>
+            <if test="totalCholesterol != null">
+                totalCholesterol,
+            </if>
+            <if test="totalCholesterolOutcome != null">
+                totalCholesterolOutcome,
+            </if>
+            <if test="images != null">
+                images,
+            </if>
+            <if test="checkTime != null">
+                checkTime,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="patientId != null">
+                #{patientId},
+            </if>
+            <if test="type != null">
+                #{type},
+            </if>
+            <if test="dataId != null">
+                #{dataId},
+            </if>
+            <if test="detectOne != null">
+                #{detectOne},
+            </if>
+            <if test="detectOneOutcome != null">
+                #{detectOneOutcome},
+            </if>
+            <if test="detectTwo != null">
+                #{detectTwo},
+            </if>
+            <if test="detectTwoOutcome != null">
+                #{detectTwoOutcome},
+            </if>
+            <if test="detectThree != null">
+                #{detectThree},
+            </if>
+            <if test="detectThreeOutcome != null">
+                #{detectThreeOutcome},
+            </if>
+            <if test="detectFour != null">
+                #{detectFour},
+            </if>
+            <if test="detectFourOutcome != null">
+                #{detectFourOutcome},
+            </if>
+            <if test="detectFive != null">
+                #{detectFive},
+            </if>
+            <if test="detectFiveOutcome != null">
+                #{detectFiveOutcome},
+            </if>
+            <if test="detectSix != null">
+                #{detectSix},
+            </if>
+            <if test="detectSixOutcome != null">
+                #{detectSixOutcome},
+            </if>
+            <if test="detectSeven != null">
+                #{detectSeven},
+            </if>
+            <if test="detectSevenOutcome != null">
+                #{detectSevenOutcome},
+            </if>
+            <if test="detectThreeToSeven != null">
+                #{detectThreeToSeven},
+            </if>
+            <if test="detectThreeToSevenOutcome != null">
+                #{detectThreeToSevenOutcome},
+            </if>
+            <if test="LDLCholesterol != null">
+                #{LDLCholesterol},
+            </if>
+            <if test="LDLCholesterolOutcome != null">
+                #{LDLCholesterolOutcome},
+            </if>
+            <if test="totalCholesterol != null">
+                #{totalCholesterol},
+            </if>
+            <if test="totalCholesterolOutcome != null">
+                #{totalCholesterolOutcome},
+            </if>
+            <if test="images != null">
+                #{images},
+            </if>
+            <if test="checkTime != null">
+                #{checkTime},
+            </if>
+            <if test="createTime != null">
+                #{createTime},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective"
+            parameterType="com.nickel.medicalrecord.model.entity.DetectThirteenBloodLipids">
+        update detect_thirteen_blood_lipids
+        <set>
+            <if test="patientId != null">
+                patientId = #{patientId},
+            </if>
+            <if test="type != null">
+                `type` = #{type},
+            </if>
+            <if test="dataId != null">
+                dataId = #{dataId},
+            </if>
+            <if test="detectOne != null">
+                detectOne = #{detectOne},
+            </if>
+            <if test="detectOneOutcome != null">
+                detectOneOutcome = #{detectOneOutcome},
+            </if>
+            <if test="detectTwo != null">
+                detectTwo = #{detectTwo},
+            </if>
+            <if test="detectTwoOutcome != null">
+                detectTwoOutcome = #{detectTwoOutcome},
+            </if>
+            <if test="detectThree != null">
+                detectThree = #{detectThree},
+            </if>
+            <if test="detectThreeOutcome != null">
+                detectThreeOutcome = #{detectThreeOutcome},
+            </if>
+            <if test="detectFour != null">
+                detectFour = #{detectFour},
+            </if>
+            <if test="detectFourOutcome != null">
+                detectFourOutcome = #{detectFourOutcome},
+            </if>
+            <if test="detectFive != null">
+                detectFive = #{detectFive},
+            </if>
+            <if test="detectFiveOutcome != null">
+                detectFiveOutcome = #{detectFiveOutcome},
+            </if>
+            <if test="detectSix != null">
+                detectSix = #{detectSix},
+            </if>
+            <if test="detectSixOutcome != null">
+                detectSixOutcome = #{detectSixOutcome},
+            </if>
+            <if test="detectSeven != null">
+                detectSeven = #{detectSeven},
+            </if>
+            <if test="detectSevenOutcome != null">
+                detectSevenOutcome = #{detectSevenOutcome},
+            </if>
+            <if test="detectThreeToSeven != null">
+                detectThreeToSeven = #{detectThreeToSeven},
+            </if>
+            <if test="detectThreeToSevenOutcome != null">
+                detectThreeToSevenOutcome = #{detectThreeToSevenOutcome},
+            </if>
+            <if test="LDLCholesterol != null">
+                LDLCholesterol = #{LDLCholesterol},
+            </if>
+            <if test="LDLCholesterolOutcome != null">
+                LDLCholesterolOutcome = #{LDLCholesterolOutcome},
+            </if>
+            <if test="totalCholesterol != null">
+                totalCholesterol = #{totalCholesterol},
+            </if>
+            <if test="totalCholesterolOutcome != null">
+                totalCholesterolOutcome = #{totalCholesterolOutcome},
+            </if>
+            <if test="images != null">
+                images = #{images},
+            </if>
+            <if test="checkTime != null">
+                checkTime = #{checkTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.nickel.medicalrecord.model.entity.DetectThirteenBloodLipids">
+        update detect_thirteen_blood_lipids
+        set patientId                 = #{patientId},
+            `type`                    = #{type},
+            dataId                    = #{dataId},
+            detectOne                 = #{detectOne},
+            detectOneOutcome          = #{detectOneOutcome},
+            detectTwo                 = #{detectTwo},
+            detectTwoOutcome          = #{detectTwoOutcome},
+            detectThree               = #{detectThree},
+            detectThreeOutcome        = #{detectThreeOutcome},
+            detectFour                = #{detectFour},
+            detectFourOutcome         = #{detectFourOutcome},
+            detectFive                = #{detectFive},
+            detectFiveOutcome         = #{detectFiveOutcome},
+            detectSix                 = #{detectSix},
+            detectSixOutcome          = #{detectSixOutcome},
+            detectSeven               = #{detectSeven},
+            detectSevenOutcome        = #{detectSevenOutcome},
+            detectThreeToSeven        = #{detectThreeToSeven},
+            detectThreeToSevenOutcome = #{detectThreeToSevenOutcome},
+            LDLCholesterol            = #{LDLCholesterol},
+            LDLCholesterolOutcome     = #{LDLCholesterolOutcome},
+            totalCholesterol          = #{totalCholesterol},
+            totalCholesterolOutcome   = #{totalCholesterolOutcome},
+            images                    = #{images},
+            checkTime                 = #{checkTime}
+        where id = #{id}
+    </update>
+</mapper>

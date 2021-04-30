@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nickel.medicalrecord.repository.IMedicationDrugRecordMapper">
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+            resultType="com.nickel.medicalrecord.model.entity.MedicationDrugRecord">
+        select id, medicationRecordId, drugType, drug, dosage, frequency, ordersDrug
+        from medication_drug_record
+        where id = #{id}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from medication_drug_record
+        where id = #{id}
+    </delete>
+    <delete id="deleteByMedicationRecordId">
+        DELETE
+        FROM medication_drug_record
+        WHERE medicationRecordId = #{medicationRecordId}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id"
+            parameterType="com.nickel.medicalrecord.model.entity.MedicationDrugRecord" useGeneratedKeys="true">
+        insert into medication_drug_record (medicationRecordId, drugType, drug,
+                                            dosage, frequency, ordersDrug)
+        values (#{medicationRecordId}, #{drugType}, #{drug},
+                #{dosage}, #{frequency}, #{ordersDrug})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id"
+            parameterType="com.nickel.medicalrecord.model.entity.MedicationDrugRecord" useGeneratedKeys="true">
+        insert into medication_drug_record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="medicationRecordId != null">
+                medicationRecordId,
+            </if>
+            <if test="drugType != null">
+                drugType,
+            </if>
+            <if test="drug != null">
+                drug,
+            </if>
+            <if test="dosage != null">
+                dosage,
+            </if>
+            <if test="frequency != null">
+                frequency,
+            </if>
+            <if test="ordersDrug != null">
+                ordersDrug,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="medicationRecordId != null">
+                #{medicationRecordId},
+            </if>
+            <if test="drugType != null">
+                #{drugType},
+            </if>
+            <if test="drug != null">
+                #{drug},
+            </if>
+            <if test="dosage != null">
+                #{dosage},
+            </if>
+            <if test="frequency != null">
+                #{frequency},
+            </if>
+            <if test="ordersDrug != null">
+                #{ordersDrug},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.nickel.medicalrecord.model.entity.MedicationDrugRecord">
+        update medication_drug_record
+        <set>
+            <if test="medicationRecordId != null">
+                medicationRecordId = #{medicationRecordId},
+            </if>
+            <if test="drugType != null">
+                drugType = #{drugType},
+            </if>
+            <if test="drug != null">
+                drug = #{drug},
+            </if>
+            <if test="dosage != null">
+                dosage = #{dosage},
+            </if>
+            <if test="frequency != null">
+                frequency = #{frequency},
+            </if>
+            <if test="ordersDrug != null">
+                ordersDrug = #{ordersDrug},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.nickel.medicalrecord.model.entity.MedicationDrugRecord">
+        update medication_drug_record
+        set medicationRecordId = #{medicationRecordId},
+            drugType           = #{drugType},
+            drug               = #{drug},
+            dosage             = #{dosage},
+            frequency          = #{frequency},
+            ordersDrug         = #{ordersDrug}
+        where id = #{id}
+    </update>
+</mapper>
