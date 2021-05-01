@@ -2,6 +2,8 @@ package com.nickel.medicalrecord.service.impl;
 
 import com.nickel.medicalrecord.model.dto.MedicationDrugRecordDTO;
 import com.nickel.medicalrecord.model.dto.MedicationRecordDTO;
+import com.nickel.medicalrecord.model.entity.MedicationDrugRecord;
+import com.nickel.medicalrecord.model.entity.MedicationRecord;
 import com.nickel.medicalrecord.repository.IMedicationDrugRecordMapper;
 import com.nickel.medicalrecord.repository.IMedicationRecordMapper;
 import com.nickel.medicalrecord.service.IMedicationRecordService;
@@ -55,16 +57,21 @@ public class MedicationRecordService implements IMedicationRecordService {
         drugRecordMapper.deleteByMedicationRecordId(updateDTO.getId());
         mapper.updateByPrimaryKeySelective(EntityTransformUtils.transform(updateDTO));
         for (MedicationDrugRecordDTO drugRecordDTO : updateDTO.getDrugRecordDTOList()) {
-            drugRecordMapper.insert(EntityTransformUtils.transform(drugRecordDTO));
+            MedicationDrugRecord drugRecord = EntityTransformUtils.transform(drugRecordDTO);
+            drugRecord.setMedicationRecordId(updateDTO.getId());
+            drugRecordMapper.insert(drugRecord);
         }
     }
 
     @Override
     @Transactional
     public void create(MedicationRecordDTO createDTO) {
-        mapper.insert(EntityTransformUtils.transform(createDTO));
+        MedicationRecord medicationRecord = EntityTransformUtils.transform(createDTO);
+        mapper.insert(medicationRecord);
         for (MedicationDrugRecordDTO drugRecordDTO : createDTO.getDrugRecordDTOList()) {
-            drugRecordMapper.insert(EntityTransformUtils.transform(drugRecordDTO));
+            MedicationDrugRecord drugRecord = EntityTransformUtils.transform(drugRecordDTO);
+            drugRecord.setMedicationRecordId(medicationRecord.getId());
+            drugRecordMapper.insert(drugRecord);
         }
     }
 }

@@ -2,6 +2,7 @@ package com.nickel.medicalrecord.service.impl;
 
 import com.nickel.medicalrecord.model.dto.HospitalVascularDTO;
 import com.nickel.medicalrecord.model.dto.HospitalVascularEventDTO;
+import com.nickel.medicalrecord.model.entity.HospitalVascular;
 import com.nickel.medicalrecord.model.entity.HospitalVascularEvent;
 import com.nickel.medicalrecord.repository.IHospitalVascularEventMapper;
 import com.nickel.medicalrecord.repository.IHospitalVascularMapper;
@@ -12,9 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * 类描述：
@@ -59,6 +58,8 @@ public class HospitalVascularService implements IHospitalVascularService {
         eventMapper.deleteByHospitalVascularId(updateDTO.getId());
         mapper.updateByPrimaryKeySelective(EntityTransformUtils.transform(updateDTO));
         for (HospitalVascularEventDTO hospitalVascularEventDTO : updateDTO.getEventList()) {
+            HospitalVascularEvent vascularEvent = EntityTransformUtils.transform(hospitalVascularEventDTO);
+            vascularEvent.setHospitalVascularId(updateDTO.getId());
             eventMapper.insert(EntityTransformUtils.transform(hospitalVascularEventDTO));
         }
     }
@@ -66,9 +67,12 @@ public class HospitalVascularService implements IHospitalVascularService {
     @Override
     @Transactional
     public void create(HospitalVascularDTO createDTO) {
-        mapper.insert(EntityTransformUtils.transform(createDTO));
+        HospitalVascular hospitalVascular = EntityTransformUtils.transform(createDTO);
+        mapper.insert(hospitalVascular);
         for (HospitalVascularEventDTO hospitalVascularEventDTO : createDTO.getEventList()) {
-            eventMapper.insert(EntityTransformUtils.transform(hospitalVascularEventDTO));
+            HospitalVascularEvent vascularEvent = EntityTransformUtils.transform(hospitalVascularEventDTO);
+            vascularEvent.setHospitalVascularId(hospitalVascular.getId());
+            eventMapper.insert(vascularEvent);
         }
     }
 

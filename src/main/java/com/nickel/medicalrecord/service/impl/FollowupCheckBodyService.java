@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @Slf4j
@@ -48,10 +49,12 @@ public class FollowupCheckBodyService implements IFollowupCheckBodyService {
     @Transactional
     public void update(FollowupCheckBodyUpdateDTO updateDTO) {
         mapper.updateByPrimaryKeySelective(EntityTransformUtils.transform(updateDTO));
-        CheckBodyIndex bodyIndex = EntityTransformUtils.transform(updateDTO.getBodyIndex());
-        bodyIndex.setId(updateDTO.getCheckBodyIndexId());
-        bodyIndex.setPatientId(updateDTO.getPatientId());
-        bodyIndexMapper.updateByPrimaryKeySelective(bodyIndex);
+        if (Objects.nonNull(updateDTO.getBodyIndex()) && Objects.nonNull(updateDTO.getCheckBodyIndexId())) {
+            CheckBodyIndex bodyIndex = EntityTransformUtils.transform(updateDTO.getBodyIndex());
+            bodyIndex.setId(updateDTO.getCheckBodyIndexId());
+            bodyIndex.setPatientId(updateDTO.getPatientId());
+            bodyIndexMapper.updateByPrimaryKeySelective(bodyIndex);
+        }
     }
 
     @Override

@@ -171,4 +171,15 @@ public class EntityTransformUtils {
         return entity;
     }
 
+    public static FollowupVascularEventRecord transform(FollowupVascularEventRecordCreateDTO createDTO) {
+        FollowupVascularEventRecord entity = FollowupVascularEventRecord.builder().build();
+        BeanUtils.copyProperties(createDTO, entity);
+        return entity;
+    }
+
+    public static FollowupVascularEventRecord transform(FollowupVascularEventRecordUpdateDTO updateDTO) {
+        FollowupVascularEventRecord entity = FollowupVascularEventRecord.builder().build();
+        BeanUtils.copyProperties(updateDTO, entity);
+        return entity;
+    }
 }

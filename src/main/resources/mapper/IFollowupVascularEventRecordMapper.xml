@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.nickel.medicalrecord.repository.IFollowupVascularEventRecordMapper">
-    <resultMap id="BaseResultMap" type="com.nickel.medicalrecord.model.entity.FollowupVascularEventRecord">
+
+    <resultMap id="FollowupVascularEventRecordDTOResultMap"
+               type="com.nickel.medicalrecord.model.dto.FollowupVascularEventRecordDTO">
         <id column="id" property="id"/>
         <result column="patientId" property="patientId"/>
         <result column="followupRecordsId" property="followupRecordsId"/>
@@ -11,16 +13,111 @@
         <result column="checkEvaluationIndexId" property="checkEvaluationIndexId"/>
         <result column="description" property="description"/>
         <result column="createTime" property="createTime"/>
+        <association property="evaluationIndex" javaType="com.nickel.medicalrecord.model.dto.CheckEvaluationIndexDTO">
+            <id column="checkEvaluationIndexId" property="id"/>
+            <result column="patientId" property="patientId"/>
+            <result column="NIHSS" property="NIHSS"/>
+            <result column="ABCD2" property="ABCD2"/>
+            <result column="CDR" property="CDR"/>
+            <result column="ADL" property="ADL"/>
+            <result column="EQ5D" property="EQ5D"/>
+            <result column="MMSE" property="MMSE"/>
+            <result column="MoCA" property="moCA"/>
+            <result column="DS" property="DS"/>
+            <result column="stroop" property="stroop"/>
+            <result column="CTT" property="CTT"/>
+            <result column="VFT" property="VFT"/>
+            <result column="BNT" property="BNT"/>
+            <result column="rey" property="rey"/>
+            <result column="AVLT" property="AVLT"/>
+            <result column="HAMDAnxiety" property="HAMDAnxiety"/>
+            <result column="HAMDDepression" property="HAMDDepression"/>
+            <result column="oneStepExperiment" property="oneStepExperiment"/>
+            <result column="sixMeterWalking" property="sixMeterWalking"/>
+            <result column="balance" property="balance"/>
+            <result column="fingers" property="fingers"/>
+            <result column="quickSitUp" property="quickSitUp"/>
+            <result column="constipation" property="constipation"/>
+            <result column="bladderHyperactivityDisorder" property="bladderHyperactivityDisorder"/>
+            <result column="prostate" property="prostate"/>
+            <result column="mRS" property="mRS"/>
+            <result column="nutritionScreening" property="nutritionScreening"/>
+            <result column="drinkingWater" property="drinkingWater"/>
+            <result column="images" property="images"/>
+            <result column="checkTime" property="checkTime"/>
+        </association>
     </resultMap>
-    <sql id="Base_Column_List">
-        id, patientId, followupRecordsId, cerebrovascularEvent, `TOAST`, possibility, checkEvaluationIndexId,
-    description, createTime
+    <sql id="FollowupVascularEventRecordDTO_Column_List">
+        followup_vascular_event_record.id,
+        followup_vascular_event_record.patientId,
+        followup_vascular_event_record.followupRecordsId,
+        followup_vascular_event_record.cerebrovascularEvent,
+        followup_vascular_event_record.TOAST,
+        followup_vascular_event_record.possibility,
+        followup_vascular_event_record.checkEvaluationIndexId,
+        followup_vascular_event_record.description,
+        followup_vascular_event_record.createTime,
+        check_evaluation_index.NIHSS,
+        check_evaluation_index.ABCD2,
+        check_evaluation_index.CDR,
+        check_evaluation_index.ADL,
+        check_evaluation_index.EQ5D,
+        check_evaluation_index.MMSE,
+        check_evaluation_index.MoCA,
+        check_evaluation_index.DS,
+        check_evaluation_index.stroop,
+        check_evaluation_index.CTT,
+        check_evaluation_index.VFT,
+        check_evaluation_index.BNT,
+        check_evaluation_index.rey,
+        check_evaluation_index.AVLT,
+        check_evaluation_index.HAMDAnxiety,
+        check_evaluation_index.HAMDDepression,
+        check_evaluation_index.oneStepExperiment,
+        check_evaluation_index.sixMeterWalking,
+        check_evaluation_index.balance,
+        check_evaluation_index.fingers,
+        check_evaluation_index.quickSitUp,
+        check_evaluation_index.constipation,
+        check_evaluation_index.bladderHyperactivityDisorder,
+        check_evaluation_index.prostate,
+        check_evaluation_index.mRS,
+        check_evaluation_index.nutritionScreening,
+        check_evaluation_index.drinkingWater,
+        check_evaluation_index.images,
+        check_evaluation_index.checkTime
     </sql>
-    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+            resultType="com.nickel.medicalrecord.model.entity.FollowupVascularEventRecord">
+        select id,
+               patientId,
+               followupRecordsId,
+               cerebrovascularEvent,
+               `TOAST`,
+               possibility,
+               checkEvaluationIndexId,
+               description,
+               createTime
         from followup_vascular_event_record
         where id = #{id}
+    </select>
+    <select id="selectInfo" resultMap="FollowupVascularEventRecordDTOResultMap">
+        SELECT
+        <include refid="FollowupVascularEventRecordDTO_Column_List"/>
+        FROM
+        followup_vascular_event_record
+        LEFT JOIN check_evaluation_index ON check_evaluation_index.id =
+        followup_vascular_event_record.checkEvaluationIndexId
+        WHERE followup_vascular_event_record.id = #{id}
+    </select>
+    <select id="selectList" resultMap="FollowupVascularEventRecordDTOResultMap">
+        SELECT
+        <include refid="FollowupVascularEventRecordDTO_Column_List"/>
+        FROM
+        followup_vascular_event_record
+        LEFT JOIN check_evaluation_index ON check_evaluation_index.id =
+        followup_vascular_event_record.checkEvaluationIndexId
+        WHERE followup_vascular_event_record.followupRecordsId = #{followupRecordsId}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
         delete

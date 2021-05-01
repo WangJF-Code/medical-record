@@ -1,5 +1,6 @@
 package com.nickel.medicalrecord.repository;
 
+import com.nickel.medicalrecord.model.dto.FollowupOnsetRecordDTO;
 import com.nickel.medicalrecord.model.entity.FollowupOnsetRecord;
 
 public interface IFollowupOnsetRecordMapper {
@@ -14,4 +15,8 @@ public interface IFollowupOnsetRecordMapper {
     int updateByPrimaryKeySelective(FollowupOnsetRecord record);
 
     int updateByPrimaryKey(FollowupOnsetRecord record);
+
+    void deleteByFollowupRecordsId(String followupRecordsId);
+
+    FollowupOnsetRecordDTO selectByFollowupRecordsId(String followupRecordsId);
 }

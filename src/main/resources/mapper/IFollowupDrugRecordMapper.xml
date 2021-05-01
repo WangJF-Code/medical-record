@@ -1,32 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.nickel.medicalrecord.repository.IFollowupDrugRecordMapper">
-    <resultMap id="BaseResultMap" type="com.nickel.medicalrecord.model.entity.FollowupDrugRecord">
-        <id column="id" property="id"/>
+    <resultMap id="FollowupDrugRecordDTOResultMap" type="com.nickel.medicalrecord.model.dto.FollowupDrugRecordDTO">
         <result column="patientId" property="patientId"/>
         <result column="followupRecordsId" property="followupRecordsId"/>
         <result column="eatDrug" property="eatDrug"/>
-        <result column="eatDrugType" property="eatDrugType"/>
-        <result column="eatDrugText" property="eatDrugText"/>
         <result column="description" property="description"/>
         <result column="createTime" property="createTime"/>
+        <collection property="drugTypeDTOList" ofType="com.nickel.medicalrecord.model.dto.FollowupDrugTypeDTO">
+            <result column="eatDrugType" property="eatDrugType"/>
+            <result column="eatDrugText" property="eatDrugText"/>
+        </collection>
     </resultMap>
     <sql id="Base_Column_List">
         id, patientId, followupRecordsId, eatDrug, eatDrugType, eatDrugText, description,
     createTime
     </sql>
-    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+            resultType="com.nickel.medicalrecord.model.entity.FollowupDrugRecord">
         select
         <include refid="Base_Column_List"/>
         from followup_drug_record
         where id = #{id}
+    </select>
+    <select id="selectByFollowupRecordsId" resultMap="FollowupDrugRecordDTOResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from followup_drug_record
+        where followupRecordsId = #{followupRecordsId}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
         delete
         from followup_drug_record
         where id = #{id}
     </delete>
-    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.nickel.medicalrecord.model.entity.FollowupDrugRecord"
+    <delete id="deleteByFollowupRecordsId">
+        delete
+        from followup_drug_record
+        where followupRecordsId = #{followupRecordsId}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id"
+            parameterType="com.nickel.medicalrecord.model.entity.FollowupDrugRecord"
             useGeneratedKeys="true">
         insert into followup_drug_record (patientId, followupRecordsId, eatDrug,
                                           eatDrugType, eatDrugText, description,
@@ -35,7 +49,8 @@
                 #{eatDrugType}, #{eatDrugText}, #{description},
                 #{createTime})
     </insert>
-    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.nickel.medicalrecord.model.entity.FollowupDrugRecord"
+    <insert id="insertSelective" keyColumn="id" keyProperty="id"
+            parameterType="com.nickel.medicalrecord.model.entity.FollowupDrugRecord"
             useGeneratedKeys="true">
         insert into followup_drug_record
         <trim prefix="(" suffix=")" suffixOverrides=",">
