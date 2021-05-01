@@ -64,9 +64,9 @@ public class HospitalCheckBodyCreateDTO {
     private String description;
 
     @ApiModelProperty(value = "查体指标")
-    private CheckBodyIndexDTO bodyIndex;
+    private CheckBodyIndexSaveDTO bodyIndex;
 
     @ApiModelProperty(value = "测评指标")
-    private CheckEvaluationIndexDTO evaluationIndex;
+    private CheckEvaluationIndexSaveDTO evaluationIndex;
 
 }

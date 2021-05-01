@@ -24,7 +24,7 @@ public class HospitalRecordsCreateDTO {
     /**
      * 患者ID
      */
-    @ApiModelProperty(value = "患者ID")
+    @ApiModelProperty(value = "患者ID", required = true)
     private String patientId;
 
     /**

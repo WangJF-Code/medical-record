@@ -81,7 +81,7 @@ public class HospitalRecordsConditionDTO {
     /**
      * 删除状态
      */
-    @ApiModelProperty(value = "删除状态")
+    @ApiModelProperty(value = "删除状态", required = true)
     private Integer deleted = 0;
 
 }

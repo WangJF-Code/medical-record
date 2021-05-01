@@ -25,13 +25,13 @@ public class HospitalRecordsUpdateDTO {
     /**
      * 电子病历ID
      */
-    @ApiModelProperty(value = "电子病历ID")
+    @ApiModelProperty(value = "电子病历ID", required = true)
     private String id;
 
     /**
      * 患者ID
      */
-    @ApiModelProperty(value = "患者ID")
+    @ApiModelProperty(value = "患者ID", required = true)
     private String patientId;
 
     /**
@@ -73,7 +73,7 @@ public class HospitalRecordsUpdateDTO {
     /**
      * 删除状态
      */
-    @ApiModelProperty(value = "删除状态")
+    @ApiModelProperty(value = "删除状态", required = true)
     private Integer deleted = 0;
 
 }

@@ -21,7 +21,7 @@ import java.util.List;
  * @Date 2021/4/27 18:23
  * @Version 1.0
  */
-@Api(tags = "治疗记录相关接口")
+@Api(tags = "病例-治疗记录相关接口")
 @RestController
 @RequestMapping("/api/hospitalTreatment")
 public class HospitalTreatmentController {

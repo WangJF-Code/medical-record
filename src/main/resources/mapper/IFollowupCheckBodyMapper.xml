@@ -1,22 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.nickel.medicalrecord.repository.IFollowupCheckBodyMapper">
-    <resultMap id="BaseResultMap" type="com.nickel.medicalrecord.model.entity.FollowupCheckBody">
+    <resultMap id="FollowupCheckBodyDTOResultMap" type="com.nickel.medicalrecord.model.dto.FollowupCheckBodyDTO">
         <id column="id" property="id"/>
         <result column="patientId" property="patientId"/>
         <result column="followupRecordsId" property="followupRecordsId"/>
         <result column="checkBodyIndexId" property="checkBodyIndexId"/>
         <result column="createTime" property="createTime"/>
+        <association property="bodyIndexDTO" javaType="com.nickel.medicalrecord.model.dto.CheckBodyIndexDTO">
+            <id column="checkBodyIndexId" property="id"/>
+            <result column="patientId" property="patientId"/>
+            <result column="height" property="height"/>
+            <result column="weight" property="weight"/>
+            <result column="abdominalCircumference" property="abdominalCircumference"/>
+            <result column="bmi" property="bmi"/>
+            <result column="heartRate" property="heartRate"/>
+            <result column="horizontalLeftSystolic" property="horizontalLeftSystolic"/>
+            <result column="horizontalRightSystolic" property="horizontalRightSystolic"/>
+            <result column="verticalLeftSystolic" property="verticalLeftSystolic"/>
+            <result column="horizontalRightSystolic" property="horizontalRightSystolic"/>
+            <result column="horizontalLeftDiastolic" property="horizontalLeftDiastolic"/>
+            <result column="horizontalRightDiastolic" property="horizontalRightDiastolic"/>
+            <result column="verticalLeftDiastolic" property="verticalLeftDiastolic"/>
+            <result column="verticalRightDiastolic" property="horizontalRightDiastolic"/>
+            <result column="leftAndRight" property="leftAndRight"/>
+            <result column="urinaryIncontinence" property="urinaryIncontinence"/>
+            <result column="images" property="images"/>
+            <result column="checkTime" property="checkTime"/>
+        </association>
     </resultMap>
-    <sql id="Base_Column_List">
-        id, patientId, followupRecordsId, checkBodyIndexId, createTime
+    <sql id="FollowupCheckBodyDTO_Column_List">
+        followup_check_body.id,
+        followup_check_body.patientId,
+        followup_check_body.followupRecordsId,
+        followup_check_body.checkBodyIndexId,
+        followup_check_body.createTime,
+        check_body_index.height,
+        check_body_index.weight,
+        check_body_index.abdominalCircumference,
+        check_body_index.bmi,
+        check_body_index.heartRate,
+        check_body_index.horizontalLeftSystolic,
+        check_body_index.horizontalRightSystolic,
+        check_body_index.verticalLeftSystolic,
+        check_body_index.verticalRightSystolic,
+        check_body_index.horizontalLeftDiastolic,
+        check_body_index.horizontalRightDiastolic,
+        check_body_index.verticalLeftDiastolic,
+        check_body_index.verticalRightDiastolic,
+        check_body_index.leftAndRight,
+        check_body_index.urinaryIncontinence,
+        check_body_index.images,
+        check_body_index.checkTime
     </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer"
             resultType="com.nickel.medicalrecord.model.entity.FollowupCheckBody">
-        select
-        <include refid="Base_Column_List"/>
+        select id, patientId, followupRecordsId, checkBodyIndexId, createTime
         from followup_check_body
         where id = #{id}
+    </select>
+    <select id="selectInfo" resultMap="FollowupCheckBodyDTOResultMap">
+        SELECT
+        <include refid="FollowupCheckBodyDTO_Column_List"/>
+        FROM
+        followup_check_body
+        LEFT JOIN check_body_index ON check_body_index.id = followup_check_body.checkBodyIndexId
+        WHERE followup_check_body.id = #{id}
+    </select>
+    <select id="selectList" resultMap="FollowupCheckBodyDTOResultMap">
+        SELECT
+        <include refid="FollowupCheckBodyDTO_Column_List"/>
+        FROM
+        followup_check_body
+        LEFT JOIN check_body_index ON check_body_index.id = followup_check_body.checkBodyIndexId
+        WHERE followup_check_body.followupRecordsId = #{followupRecordsId}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
         delete

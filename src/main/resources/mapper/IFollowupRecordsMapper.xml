@@ -2,35 +2,174 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.nickel.medicalrecord.repository.IFollowupRecordsMapper">
 
-    <resultMap id="BaseResultMap" type="com.nickel.medicalrecord.model.entity.FollowupRecords">
-        <id column="id" jdbcType="INTEGER" property="id"/>
-        <result column="patientId" jdbcType="VARCHAR" property="patientId"/>
-        <result column="hospitalRecordsId" jdbcType="VARCHAR" property="hospitalRecordsId"/>
-        <result column="followupType" jdbcType="INTEGER" property="followupType"/>
-        <result column="cycle" jdbcType="INTEGER" property="cycle"/>
-        <result column="cycleUnit" jdbcType="INTEGER" property="cycleUnit"/>
-        <result column="cycleFloat" jdbcType="INTEGER" property="cycleFloat"/>
-        <result column="dead" jdbcType="INTEGER" property="dead"/>
-        <result column="deadTime" jdbcType="BIGINT" property="deadTime"/>
-        <result column="causeOfDeath" jdbcType="VARCHAR" property="causeOfDeath"/>
-        <result column="livingStatus" jdbcType="INTEGER" property="livingStatus"/>
-        <result column="city" jdbcType="VARCHAR" property="city"/>
-        <result column="address" jdbcType="VARCHAR" property="address"/>
-        <result column="description" jdbcType="VARCHAR" property="description"/>
-        <result column="createTime" jdbcType="BIGINT" property="createTime"/>
-        <result column="updateTime" jdbcType="BIGINT" property="updateTime"/>
-        <result column="deleted" jdbcType="INTEGER" property="deleted"/>
+    <resultMap id="ResultMapFollowupRecordsDTO" type="com.nickel.medicalrecord.model.dto.FollowupRecordsDTO">
+        <id column="id" property="id"/>
+        <result column="patientId" property="patientId"/>
+        <result column="hospitalRecordsId" property="hospitalRecordsId"/>
+        <result column="followupType" property="followupType"/>
+        <result column="cycle" property="cycle"/>
+        <result column="cycleUnit" property="cycleUnit"/>
+        <result column="cycleFloat" property="cycleFloat"/>
+        <result column="dead" property="dead"/>
+        <result column="deadTime" property="deadTime"/>
+        <result column="causeOfDeath" property="causeOfDeath"/>
+        <result column="livingStatus" property="livingStatus"/>
+        <result column="city" property="city"/>
+        <result column="address" property="address"/>
+        <result column="description" property="description"/>
+        <result column="createTime" property="createTime"/>
+        <result column="updateTime" property="updateTime"/>
+        <result column="deleted" property="deleted"/>
+        <association property="patient" javaType="com.nickel.medicalrecord.model.dto.PatientDTO">
+            <id column="patientId" property="id"/>
+            <result column="userName" property="userName"/>
+            <result column="sex" property="sex"/>
+            <result column="IDCard" property="IDCard"/>
+            <result column="age" property="age"/>
+            <result column="phoneNumber" property="phoneNumber"/>
+            <result column="nation" property="nation"/>
+            <result column="patient_livingStatus" property="livingStatus"/>
+            <result column="maritalStatus" property="maritalStatus"/>
+            <result column="educationDegree" property="educationDegree"/>
+            <result column="medicalInsuranceType" property="medicalInsuranceType"/>
+            <result column="job" property="job"/>
+            <result column="income" property="income"/>
+            <result column="patient_city" property="city"/>
+            <result column="patient_address" property="address"/>
+        </association>
     </resultMap>
-    <sql id="Base_Column_List">
-        id, patientId, hospitalRecordsId, followupType, `cycle`, cycleUnit, cycleFloat, dead,
-    deadTime, causeOfDeath, livingStatus, city, address, description, createTime, updateTime, 
-    deleted
+    <sql id="FollowupRecordsDTO_Column_List">
+        followup_records.id,
+        followup_records.patientId,
+        followup_records.hospitalRecordsId,
+        followup_records.followupType,
+        followup_records.cycle,
+        followup_records.cycleUnit,
+        followup_records.cycleFloat,
+        followup_records.dead,
+        followup_records.deadTime,
+        followup_records.causeOfDeath,
+        followup_records.livingStatus,
+        followup_records.city,
+        followup_records.address,
+        followup_records.description,
+        followup_records.createTime,
+        followup_records.updateTime,
+        followup_records.deleted,
+        patient.userName,
+        patient.sex,
+        patient.IDCard,
+        patient.age,
+        patient.phoneNumber,
+        patient.nation,
+        patient.livingStatus AS patient_livingStatus,
+        patient.maritalStatus,
+        patient.educationDegree,
+        patient.medicalInsuranceType,
+        patient.job,
+        patient.income,
+        patient.city         AS patient_city,
+        patient.address      AS patient_address
     </sql>
-    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+            resultType="com.nickel.medicalrecord.model.entity.FollowupRecords">
+        select id,
+               patientId,
+               hospitalRecordsId,
+               followupType,
+               `cycle`,
+               cycleUnit,
+               cycleFloat,
+               dead,
+               deadTime,
+               causeOfDeath,
+               livingStatus,
+               city,
+               address,
+               description,
+               createTime,
+               updateTime,
+               deleted
         from followup_records
         where id = #{id}
+    </select>
+    <select id="selectList" resultMap="ResultMapFollowupRecordsDTO"
+            parameterType="com.nickel.medicalrecord.model.dto.FollowupRecordsConditionDTO">
+        SELECT
+        <include refid="FollowupRecordsDTO_Column_List"/>
+        FROM followup_records
+        LEFT JOIN patient ON patient.id = followup_records.patientId
+        WHERE followup_records.deleted = #{deleted}
+        <if test="hospitalRecordsId != null">
+            AND followup_records.hospitalRecordsId = #{hospitalRecordsId}
+        </if>
+        <if test="patientId != null">
+            AND followup_records.patientId = #{patientId}
+        </if>
+        <if test="dead != null">
+            AND followup_records.dead = #{dead}
+        </if>
+        <if test="userName != null">
+            AND patient.userName = #{userName}
+        </if>
+        <if test="sex != null">
+            AND patient.sex = #{sex}
+        </if>
+        ORDER BY followup_records.createTime DESC
+    </select>
+    <select id="selectInfo" resultMap="ResultMapFollowupRecordsDTO">
+        SELECT
+        <include refid="FollowupRecordsDTO_Column_List"/>
+        FROM followup_records
+        LEFT JOIN patient ON patient.id = followup_records.patientId
+        WHERE followup_records.id = #{id}
+    </select>
+    <select id="findCount" resultType="java.lang.Integer"
+            parameterType="com.nickel.medicalrecord.model.dto.FollowupRecordsConditionDTO">
+        SELECT
+        COUNT(followup_records.id)
+        FROM followup_records
+        LEFT JOIN patient ON patient.id = followup_records.patientId
+        WHERE followup_records.deleted = #{deleted}
+        <if test="hospitalRecordsId != null">
+            AND followup_records.hospitalRecordsId = #{hospitalRecordsId}
+        </if>
+        <if test="patientId != null">
+            AND followup_records.patientId = #{patientId}
+        </if>
+        <if test="dead != null">
+            AND followup_records.dead = #{dead}
+        </if>
+        <if test="userName != null">
+            AND patient.userName = #{userName}
+        </if>
+        <if test="sex != null">
+            AND patient.sex = #{sex}
+        </if>
+    </select>
+    <select id="findPage" resultMap="ResultMapFollowupRecordsDTO">
+        SELECT
+        <include refid="FollowupRecordsDTO_Column_List"/>
+        FROM followup_records
+        LEFT JOIN patient ON patient.id = followup_records.patientId
+        WHERE followup_records.deleted = #{conditionDTO.deleted}
+        <if test="conditionDTO.hospitalRecordsId != null">
+            AND followup_records.hospitalRecordsId = #{conditionDTO.hospitalRecordsId}
+        </if>
+        <if test="conditionDTO.patientId != null">
+            AND followup_records.patientId = #{conditionDTO.patientId}
+        </if>
+        <if test="conditionDTO.dead != null">
+            AND followup_records.dead = #{conditionDTO.dead}
+        </if>
+        <if test="conditionDTO.userName != null">
+            AND patient.userName = #{conditionDTO.userName}
+        </if>
+        <if test="conditionDTO.sex != null">
+            AND patient.sex = #{conditionDTO.sex}
+        </if>
+        ORDER BY followup_records.createTime DESC
+        LIMIT #{index}, #{size}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
         delete

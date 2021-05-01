@@ -26,7 +26,7 @@ import java.util.List;
  * @Date 2021/4/27 14:49
  * @Version 1.0
  */
-@Api(tags = "入院查体及出院评估相关接口")
+@Api(tags = "病例-入院查体及出院评估相关接口")
 @RestController
 @RequestMapping("/api/hospitalCheckBody")
 public class HospitalCheckBodyController {

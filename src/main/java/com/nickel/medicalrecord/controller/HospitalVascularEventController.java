@@ -21,7 +21,7 @@ import java.util.List;
  * @Date 2021/4/27 18:44
  * @Version 1.0
  */
-@Api(tags = "血管事件相关接口")
+@Api(tags = "病例-血管事件相关接口")
 @RestController
 @RequestMapping("/api/hospitalVascularEvent")
 public class HospitalVascularEventController {

@@ -38,7 +38,8 @@ public class HospitalVascular {
     /**
      * 创建时间
      */
-    @ApiModelProperty(value="创建时间")
-    private Long createTime;
+    @ApiModelProperty(value = "创建时间")
+    @Builder.Default
+    private Long createTime = System.currentTimeMillis();
 
 }

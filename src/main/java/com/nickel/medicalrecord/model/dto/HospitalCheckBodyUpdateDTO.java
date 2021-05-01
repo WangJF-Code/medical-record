@@ -1,7 +1,5 @@
 package com.nickel.medicalrecord.model.dto;
 
-import com.nickel.medicalrecord.model.entity.CheckBodyIndex;
-import com.nickel.medicalrecord.model.entity.CheckEvaluationIndex;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -71,10 +69,22 @@ public class HospitalCheckBodyUpdateDTO {
     @ApiModelProperty(value = "描述")
     private String description;
 
+    /**
+     * 查体指标ID
+     */
+    @ApiModelProperty(value = "查体指标ID")
+    private Integer checkBodyIndexId;
+
+    /**
+     * 测评指标ID
+     */
+    @ApiModelProperty(value = "测评指标ID")
+    private Integer checkEvaluationIndexId;
+
     @ApiModelProperty(value = "查体指标")
-    private CheckBodyIndexDTO bodyIndex;
+    private CheckBodyIndexSaveDTO bodyIndex;
 
     @ApiModelProperty(value = "测评指标")
-    private CheckEvaluationIndexDTO evaluationIndex;
+    private CheckEvaluationIndexSaveDTO evaluationIndex;
 
 }

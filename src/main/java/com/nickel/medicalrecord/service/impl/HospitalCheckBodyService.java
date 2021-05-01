@@ -67,27 +67,29 @@ public class HospitalCheckBodyService implements IHospitalCheckBodyService {
     @Override
     @Transactional
     public void update(HospitalCheckBodyUpdateDTO updateDTO) {
-        HospitalCheckBodyDTO hospitalCheckBodyDTO = get(updateDTO.getId());
-        if (Objects.nonNull(updateDTO.getBodyIndex())) {
-            updateDTO.getBodyIndex().setId(hospitalCheckBodyDTO.getCheckBodyIndexId());
+        if (Objects.nonNull(updateDTO.getBodyIndex()) && Objects.nonNull(updateDTO.getCheckBodyIndexId())) {
             CheckBodyIndex bodyIndex = EntityTransformUtils.transform(updateDTO.getBodyIndex());
+            bodyIndex.setId(updateDTO.getCheckBodyIndexId());
+            bodyIndex.setPatientId(updateDTO.getPatientId());
             bodyIndexMapper.updateByPrimaryKeySelective(bodyIndex);
         }
-        if (Objects.nonNull(updateDTO.getEvaluationIndex())) {
-            updateDTO.getEvaluationIndex().setId(hospitalCheckBodyDTO.getCheckEvaluationIndexId());
+        if (Objects.nonNull(updateDTO.getEvaluationIndex()) && Objects.nonNull(updateDTO.getCheckEvaluationIndexId())) {
             CheckEvaluationIndex evaluationIndex = EntityTransformUtils.transform(updateDTO.getEvaluationIndex());
+            evaluationIndex.setId(updateDTO.getCheckEvaluationIndexId());
+            evaluationIndex.setPatientId(updateDTO.getPatientId());
             evaluationIndexMapper.updateByPrimaryKeySelective(evaluationIndex);
         }
-        HospitalCheckBody checkBody = EntityTransformUtils.transform(updateDTO);
-        mapper.updateByPrimaryKeySelective(checkBody);
+        mapper.updateByPrimaryKeySelective(EntityTransformUtils.transform(updateDTO));
     }
 
     @Override
     @Transactional
     public void create(HospitalCheckBodyCreateDTO createDTO) {
         CheckBodyIndex bodyIndex = EntityTransformUtils.transform(createDTO.getBodyIndex());
+        bodyIndex.setPatientId(createDTO.getPatientId());
         bodyIndexMapper.insert(bodyIndex);
         CheckEvaluationIndex evaluationIndex = EntityTransformUtils.transform(createDTO.getEvaluationIndex());
+        evaluationIndex.setPatientId(createDTO.getPatientId());
         evaluationIndexMapper.insert(evaluationIndex);
         HospitalCheckBody checkBody = EntityTransformUtils.transform(createDTO);
         checkBody.setCheckBodyIndexId(bodyIndex.getId());

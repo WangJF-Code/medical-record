@@ -45,9 +45,21 @@ public class EntityTransformUtils {
         return entity;
     }
 
+    public static CheckBodyIndex transform(CheckBodyIndexSaveDTO indexSaveDTO) {
+        CheckBodyIndex entity = CheckBodyIndex.builder().build();
+        BeanUtils.copyProperties(indexSaveDTO, entity);
+        return entity;
+    }
+
     public static CheckEvaluationIndex transform(CheckEvaluationIndexDTO indexDTO) {
         CheckEvaluationIndex entity = CheckEvaluationIndex.builder().build();
         BeanUtils.copyProperties(indexDTO, entity);
+        return entity;
+    }
+
+    public static CheckEvaluationIndex transform(CheckEvaluationIndexSaveDTO indexSaveDTO) {
+        CheckEvaluationIndex entity = CheckEvaluationIndex.builder().build();
+        BeanUtils.copyProperties(indexSaveDTO, entity);
         return entity;
     }
 
@@ -134,4 +146,29 @@ public class EntityTransformUtils {
         BeanUtils.copyProperties(createDTO, entity);
         return entity;
     }
+
+    public static FollowupRecords transform(FollowupRecordsCreateDTO createDTO) {
+        FollowupRecords entity = FollowupRecords.builder().build();
+        BeanUtils.copyProperties(createDTO, entity);
+        return entity;
+    }
+
+    public static FollowupRecords transform(FollowupRecordsUpdateDTO updateDTO) {
+        FollowupRecords entity = FollowupRecords.builder().build();
+        BeanUtils.copyProperties(updateDTO, entity);
+        return entity;
+    }
+
+    public static FollowupCheckBody transform(FollowupCheckBodyCreateDTO createDTO) {
+        FollowupCheckBody entity = FollowupCheckBody.builder().build();
+        BeanUtils.copyProperties(createDTO, entity);
+        return entity;
+    }
+
+    public static FollowupCheckBody transform(FollowupCheckBodyUpdateDTO updateDTO) {
+        FollowupCheckBody entity = FollowupCheckBody.builder().build();
+        BeanUtils.copyProperties(updateDTO, entity);
+        return entity;
+    }
+
 }
