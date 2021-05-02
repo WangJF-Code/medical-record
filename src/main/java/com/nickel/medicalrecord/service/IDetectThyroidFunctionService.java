@@ -1,6 +1,8 @@
 package com.nickel.medicalrecord.service;
 
-import com.nickel.medicalrecord.model.entity.DetectThyroidFunction;
+import com.nickel.medicalrecord.model.dto.DetectThyroidFunctionCreateDTO;
+import com.nickel.medicalrecord.model.dto.DetectThyroidFunctionDTO;
+import com.nickel.medicalrecord.model.dto.DetectThyroidFunctionUpdateDTO;
 
 import java.util.List;
 
@@ -14,11 +16,11 @@ import java.util.List;
  * @Version 1.0
  */
 public interface IDetectThyroidFunctionService {
-    List<DetectThyroidFunction> getList(Integer type, String dataId);
+    List<DetectThyroidFunctionDTO> getList(Integer type, String dataId);
 
-    DetectThyroidFunction get(Integer id);
+    DetectThyroidFunctionDTO get(Integer id);
 
-    void update(DetectThyroidFunction updateDTO);
+    void update(DetectThyroidFunctionUpdateDTO updateDTO);
 
-    void create(DetectThyroidFunction createDTO);
+    void create(DetectThyroidFunctionCreateDTO createDTO);
 }

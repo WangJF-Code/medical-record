@@ -1,6 +1,8 @@
 package com.nickel.medicalrecord.service;
 
-import com.nickel.medicalrecord.model.entity.DetectInflammatoryMedia;
+import com.nickel.medicalrecord.model.dto.DetectInflammatoryMediaCreateDTO;
+import com.nickel.medicalrecord.model.dto.DetectInflammatoryMediaDTO;
+import com.nickel.medicalrecord.model.dto.DetectInflammatoryMediaUpdateDTO;
 
 import java.util.List;
 
@@ -14,11 +16,11 @@ import java.util.List;
  * @Version 1.0
  */
 public interface IDetectInflammatoryMediaService {
-    List<DetectInflammatoryMedia> getList(Integer type, String dataId);
+    List<DetectInflammatoryMediaDTO> getList(Integer type, String dataId);
 
-    DetectInflammatoryMedia get(Integer id);
+    DetectInflammatoryMediaDTO get(Integer id);
 
-    void update(DetectInflammatoryMedia updateDTO);
+    void update(DetectInflammatoryMediaUpdateDTO updateDTO);
 
-    void create(DetectInflammatoryMedia createDTO);
+    void create(DetectInflammatoryMediaCreateDTO createDTO);
 }

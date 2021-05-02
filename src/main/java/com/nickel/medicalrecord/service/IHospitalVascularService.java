@@ -1,6 +1,8 @@
 package com.nickel.medicalrecord.service;
 
+import com.nickel.medicalrecord.model.dto.HospitalVascularCreateDTO;
 import com.nickel.medicalrecord.model.dto.HospitalVascularDTO;
+import com.nickel.medicalrecord.model.dto.HospitalVascularUpdateDTO;
 
 import java.util.List;
 
@@ -19,7 +21,7 @@ public interface IHospitalVascularService {
 
     HospitalVascularDTO get(Integer id);
 
-    void update(HospitalVascularDTO updateDTO);
+    void update(HospitalVascularUpdateDTO updateDTO);
 
-    void create(HospitalVascularDTO createDTO);
+    void create(HospitalVascularCreateDTO createDTO);
 }

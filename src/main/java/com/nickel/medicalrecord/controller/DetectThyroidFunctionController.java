@@ -1,7 +1,9 @@
 package com.nickel.medicalrecord.controller;
 
 import com.nickel.medicalrecord.model.api.ApiResult;
-import com.nickel.medicalrecord.model.entity.DetectThyroidFunction;
+import com.nickel.medicalrecord.model.dto.DetectThyroidFunctionCreateDTO;
+import com.nickel.medicalrecord.model.dto.DetectThyroidFunctionDTO;
+import com.nickel.medicalrecord.model.dto.DetectThyroidFunctionUpdateDTO;
 import com.nickel.medicalrecord.service.IDetectThyroidFunctionService;
 import com.nickel.medicalrecord.util.ApiResultUtil;
 import io.swagger.annotations.Api;
@@ -26,29 +28,29 @@ public class DetectThyroidFunctionController {
 
     @ApiOperation("列表信息")
     @PostMapping("/list")
-    public ApiResult<List<DetectThyroidFunction>> list(@ApiParam(required = true, value = "type") Integer type,
-                                                       @ApiParam(required = true, value = "dataId") String dataId) {
-        List<DetectThyroidFunction> list = service.getList(type, dataId);
+    public ApiResult<List<DetectThyroidFunctionDTO>> list(@ApiParam(required = true, value = "type") @RequestParam Integer type,
+                                                          @ApiParam(required = true, value = "dataId") @RequestParam String dataId) {
+        List<DetectThyroidFunctionDTO> list = service.getList(type, dataId);
         return ApiResultUtil.okay(list);
     }
 
     @ApiOperation("详细信息")
     @GetMapping("/{id}")
-    public ApiResult<DetectThyroidFunction> info(@ApiParam(required = true, value = "id") @PathVariable Integer id) {
-        DetectThyroidFunction info = service.get(id);
+    public ApiResult<DetectThyroidFunctionDTO> info(@ApiParam(required = true, value = "id") @PathVariable Integer id) {
+        DetectThyroidFunctionDTO info = service.get(id);
         return ApiResultUtil.okay(info);
     }
 
     @ApiOperation("修改信息")
     @PutMapping
-    public ApiResult update(@RequestBody DetectThyroidFunction updateDTO) {
+    public ApiResult update(@RequestBody DetectThyroidFunctionUpdateDTO updateDTO) {
         service.update(updateDTO);
         return ApiResultUtil.okay();
     }
 
     @ApiOperation("创建信息")
     @PostMapping
-    public ApiResult create(@RequestBody DetectThyroidFunction createDTO) {
+    public ApiResult create(@RequestBody DetectThyroidFunctionCreateDTO createDTO) {
         service.create(createDTO);
         return ApiResultUtil.okay();
     }

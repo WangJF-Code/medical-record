@@ -1,6 +1,8 @@
 package com.nickel.medicalrecord.service;
 
-import com.nickel.medicalrecord.model.entity.DetectSwi;
+import com.nickel.medicalrecord.model.dto.DetectSwiCreateDTO;
+import com.nickel.medicalrecord.model.dto.DetectSwiDTO;
+import com.nickel.medicalrecord.model.dto.DetectSwiUpdateDTO;
 
 import java.util.List;
 
@@ -14,11 +16,11 @@ import java.util.List;
  * @Version 1.0
  */
 public interface IDetectSwiService {
-    List<DetectSwi> getList(Integer type, String dataId);
+    List<DetectSwiDTO> getList(Integer type, String dataId);
 
-    DetectSwi get(Integer id);
+    DetectSwiDTO get(Integer id);
 
-    void update(DetectSwi updateDTO);
+    void update(DetectSwiUpdateDTO updateDTO);
 
-    void create(DetectSwi createDTO);
+    void create(DetectSwiCreateDTO createDTO);
 }

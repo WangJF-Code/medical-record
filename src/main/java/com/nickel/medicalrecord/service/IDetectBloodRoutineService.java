@@ -1,6 +1,8 @@
 package com.nickel.medicalrecord.service;
 
-import com.nickel.medicalrecord.model.entity.DetectBloodRoutine;
+import com.nickel.medicalrecord.model.dto.DetectBloodRoutineCreateDTO;
+import com.nickel.medicalrecord.model.dto.DetectBloodRoutineDTO;
+import com.nickel.medicalrecord.model.dto.DetectBloodRoutineUpdateDTO;
 
 import java.util.List;
 
@@ -14,11 +16,11 @@ import java.util.List;
  * @Version 1.0
  */
 public interface IDetectBloodRoutineService {
-    List<DetectBloodRoutine> getList(Integer type, String dataId);
+    List<DetectBloodRoutineDTO> getList(Integer type, String dataId);
 
-    DetectBloodRoutine get(Integer id);
+    DetectBloodRoutineDTO get(Integer id);
 
-    void update(DetectBloodRoutine updateDTO);
+    void update(DetectBloodRoutineUpdateDTO updateDTO);
 
-    void create(DetectBloodRoutine createDTO);
+    void create(DetectBloodRoutineCreateDTO createDTO);
 }

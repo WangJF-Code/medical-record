@@ -1,7 +1,9 @@
 package com.nickel.medicalrecord.controller;
 
 import com.nickel.medicalrecord.model.api.ApiResult;
-import com.nickel.medicalrecord.model.dto.*;
+import com.nickel.medicalrecord.model.dto.DetectItemMultipleSingleCreateDTO;
+import com.nickel.medicalrecord.model.dto.DetectItemMultipleSingleDTO;
+import com.nickel.medicalrecord.model.dto.DetectItemMultipleSingleUpdateDTO;
 import com.nickel.medicalrecord.service.IDetectItemService;
 import com.nickel.medicalrecord.util.ApiResultUtil;
 import io.swagger.annotations.Api;
@@ -35,9 +37,9 @@ public class DetectItemMultipleSingleController {
 
     @ApiOperation("列表信息")
     @PostMapping("/list")
-    public ApiResult<List<DetectItemMultipleSingleDTO>> list(@ApiParam(required = true, value = "type") Integer type,
-                                                             @ApiParam(required = true, value = "dataId") String dataId,
-                                                             @ApiParam(required = true, value = "detectType") Integer detectType) {
+    public ApiResult<List<DetectItemMultipleSingleDTO>> list(@ApiParam(required = true, value = "type") @RequestParam Integer type,
+                                                             @ApiParam(required = true, value = "dataId") @RequestParam String dataId,
+                                                             @ApiParam(required = true, value = "detectType") @RequestParam Integer detectType) {
         List<DetectItemMultipleSingleDTO> list = service.getListMultipleSingle(type, dataId, detectType);
         return ApiResultUtil.okay(list);
     }
@@ -51,14 +53,14 @@ public class DetectItemMultipleSingleController {
 
     @ApiOperation("修改信息")
     @PutMapping
-    public ApiResult update(@RequestBody DetectItemMultipleSingleDTO updateDTO) {
+    public ApiResult update(@RequestBody DetectItemMultipleSingleUpdateDTO updateDTO) {
         service.update(updateDTO);
         return ApiResultUtil.okay();
     }
 
     @ApiOperation("创建信息")
     @PostMapping
-    public ApiResult create(@RequestBody DetectItemMultipleSingleDTO createDTO) {
+    public ApiResult create(@RequestBody DetectItemMultipleSingleCreateDTO createDTO) {
         service.create(createDTO);
         return ApiResultUtil.okay();
     }

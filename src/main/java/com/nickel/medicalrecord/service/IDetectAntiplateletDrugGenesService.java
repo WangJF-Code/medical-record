@@ -1,6 +1,8 @@
 package com.nickel.medicalrecord.service;
 
+import com.nickel.medicalrecord.model.dto.DetectAntiplateletDrugGenesCreateDTO;
 import com.nickel.medicalrecord.model.dto.DetectAntiplateletDrugGenesDTO;
+import com.nickel.medicalrecord.model.dto.DetectAntiplateletDrugGenesUpdateDTO;
 
 import java.util.List;
 
@@ -19,7 +21,7 @@ public interface IDetectAntiplateletDrugGenesService {
 
     DetectAntiplateletDrugGenesDTO get(Integer id);
 
-    void update(DetectAntiplateletDrugGenesDTO updateDTO);
+    void update(DetectAntiplateletDrugGenesUpdateDTO updateDTO);
 
-    void create(DetectAntiplateletDrugGenesDTO createDTO);
+    void create(DetectAntiplateletDrugGenesCreateDTO createDTO);
 }

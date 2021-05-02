@@ -1,13 +1,18 @@
 package com.nickel.medicalrecord.service.impl;
 
+import com.nickel.medicalrecord.model.dto.DetectEkgCreateDTO;
+import com.nickel.medicalrecord.model.dto.DetectEkgDTO;
+import com.nickel.medicalrecord.model.dto.DetectEkgUpdateDTO;
 import com.nickel.medicalrecord.model.entity.DetectEkg;
 import com.nickel.medicalrecord.repository.IDetectEkgMapper;
 import com.nickel.medicalrecord.service.IDetectEkgService;
+import com.nickel.medicalrecord.util.EntityTransformUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 类描述：
@@ -30,23 +35,25 @@ public class DetectEkgService implements IDetectEkgService {
     }
 
     @Override
-    public List<DetectEkg> getList(Integer type, String dataId) {
-        return mapper.selectList(type, dataId);
+    public List<DetectEkgDTO> getList(Integer type, String dataId) {
+        List<DetectEkg> list = mapper.selectList(type, dataId);
+        return list.stream().map(EntityTransformUtils::transform).collect(Collectors.toList());
     }
 
     @Override
-    public DetectEkg get(Integer id) {
-        return mapper.selectByPrimaryKey(id);
+    public DetectEkgDTO get(Integer id) {
+        DetectEkg detectEkg = mapper.selectByPrimaryKey(id);
+        return EntityTransformUtils.transform(detectEkg);
     }
 
     @Override
-    public void update(DetectEkg updateDTO) {
-        mapper.updateByPrimaryKeySelective(updateDTO);
+    public void update(DetectEkgUpdateDTO updateDTO) {
+        mapper.updateByPrimaryKeySelective(EntityTransformUtils.transform(updateDTO));
     }
 
     @Override
-    public void create(DetectEkg createDTO) {
-        mapper.insert(createDTO);
+    public void create(DetectEkgCreateDTO createDTO) {
+        mapper.insert(EntityTransformUtils.transform(createDTO));
     }
 
 }

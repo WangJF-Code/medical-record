@@ -1,7 +1,6 @@
 package com.nickel.medicalrecord.service.impl;
 
-import com.nickel.medicalrecord.model.dto.HospitalVascularDTO;
-import com.nickel.medicalrecord.model.dto.HospitalVascularEventDTO;
+import com.nickel.medicalrecord.model.dto.*;
 import com.nickel.medicalrecord.model.entity.HospitalVascular;
 import com.nickel.medicalrecord.model.entity.HospitalVascularEvent;
 import com.nickel.medicalrecord.repository.IHospitalVascularEventMapper;
@@ -54,23 +53,24 @@ public class HospitalVascularService implements IHospitalVascularService {
 
     @Override
     @Transactional
-    public void update(HospitalVascularDTO updateDTO) {
-        eventMapper.deleteByHospitalVascularId(updateDTO.getId());
+    public void update(HospitalVascularUpdateDTO updateDTO) {
+        Integer id = updateDTO.getId();
+        eventMapper.deleteByHospitalVascularId(id);
         mapper.updateByPrimaryKeySelective(EntityTransformUtils.transform(updateDTO));
-        for (HospitalVascularEventDTO hospitalVascularEventDTO : updateDTO.getEventList()) {
-            HospitalVascularEvent vascularEvent = EntityTransformUtils.transform(hospitalVascularEventDTO);
-            vascularEvent.setHospitalVascularId(updateDTO.getId());
-            eventMapper.insert(EntityTransformUtils.transform(hospitalVascularEventDTO));
+        for (HospitalVascularEventSaveDTO saveDTO : updateDTO.getEventList()) {
+            HospitalVascularEvent vascularEvent = EntityTransformUtils.transform(saveDTO);
+            vascularEvent.setHospitalVascularId(id);
+            eventMapper.insert(vascularEvent);
         }
     }
 
     @Override
     @Transactional
-    public void create(HospitalVascularDTO createDTO) {
+    public void create(HospitalVascularCreateDTO createDTO) {
         HospitalVascular hospitalVascular = EntityTransformUtils.transform(createDTO);
         mapper.insert(hospitalVascular);
-        for (HospitalVascularEventDTO hospitalVascularEventDTO : createDTO.getEventList()) {
-            HospitalVascularEvent vascularEvent = EntityTransformUtils.transform(hospitalVascularEventDTO);
+        for (HospitalVascularEventSaveDTO saveDTO : createDTO.getEventList()) {
+            HospitalVascularEvent vascularEvent = EntityTransformUtils.transform(saveDTO);
             vascularEvent.setHospitalVascularId(hospitalVascular.getId());
             eventMapper.insert(vascularEvent);
         }

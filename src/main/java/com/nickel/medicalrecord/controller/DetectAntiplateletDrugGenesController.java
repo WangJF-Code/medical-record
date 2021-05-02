@@ -1,7 +1,9 @@
 package com.nickel.medicalrecord.controller;
 
 import com.nickel.medicalrecord.model.api.ApiResult;
+import com.nickel.medicalrecord.model.dto.DetectAntiplateletDrugGenesCreateDTO;
 import com.nickel.medicalrecord.model.dto.DetectAntiplateletDrugGenesDTO;
+import com.nickel.medicalrecord.model.dto.DetectAntiplateletDrugGenesUpdateDTO;
 import com.nickel.medicalrecord.service.IDetectAntiplateletDrugGenesService;
 import com.nickel.medicalrecord.util.ApiResultUtil;
 import io.swagger.annotations.Api;
@@ -35,8 +37,8 @@ public class DetectAntiplateletDrugGenesController {
 
     @ApiOperation("列表信息")
     @PostMapping("/list")
-    public ApiResult<List<DetectAntiplateletDrugGenesDTO>> list(@ApiParam(required = true, value = "type") Integer type,
-                                                                @ApiParam(required = true, value = "dataId") String dataId) {
+    public ApiResult<List<DetectAntiplateletDrugGenesDTO>> list(@ApiParam(required = true, value = "type") @RequestParam Integer type,
+                                                                @ApiParam(required = true, value = "dataId") @RequestParam String dataId) {
         return ApiResultUtil.okay(service.getList(type, dataId));
     }
 
@@ -48,14 +50,14 @@ public class DetectAntiplateletDrugGenesController {
 
     @ApiOperation("修改信息")
     @PutMapping
-    public ApiResult update(@RequestBody DetectAntiplateletDrugGenesDTO updateDTO) {
+    public ApiResult update(@RequestBody DetectAntiplateletDrugGenesUpdateDTO updateDTO) {
         service.update(updateDTO);
         return ApiResultUtil.okay();
     }
 
     @ApiOperation("创建信息")
     @PostMapping
-    public ApiResult create(@RequestBody DetectAntiplateletDrugGenesDTO createDTO) {
+    public ApiResult create(@RequestBody DetectAntiplateletDrugGenesCreateDTO createDTO) {
         service.create(createDTO);
         return ApiResultUtil.okay();
     }

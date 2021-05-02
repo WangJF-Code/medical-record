@@ -35,9 +35,9 @@ public class DetectItemMultipleController {
 
     @ApiOperation("列表信息")
     @PostMapping("/list")
-    public ApiResult<List<DetectItemMultipleDTO>> list(@ApiParam(required = true, value = "type") Integer type,
-                                                       @ApiParam(required = true, value = "dataId") String dataId,
-                                                       @ApiParam(required = true, value = "detectType") Integer detectType) {
+    public ApiResult<List<DetectItemMultipleDTO>> list(@ApiParam(required = true, value = "type") @RequestParam Integer type,
+                                                       @ApiParam(required = true, value = "dataId") @RequestParam String dataId,
+                                                       @ApiParam(required = true, value = "detectType") @RequestParam Integer detectType) {
         List<DetectItemMultipleDTO> list = service.getListMultiple(type, dataId, detectType);
         return ApiResultUtil.okay(list);
     }
@@ -51,14 +51,14 @@ public class DetectItemMultipleController {
 
     @ApiOperation("修改信息")
     @PutMapping
-    public ApiResult update(@RequestBody DetectItemMultipleDTO updateDTO) {
+    public ApiResult update(@RequestBody DetectItemMultipleUpdateDTO updateDTO) {
         service.update(updateDTO);
         return ApiResultUtil.okay();
     }
 
     @ApiOperation("创建信息")
     @PostMapping
-    public ApiResult create(@RequestBody DetectItemMultipleDTO createDTO) {
+    public ApiResult create(@RequestBody DetectItemMultipleCreateDTO createDTO) {
         service.create(createDTO);
         return ApiResultUtil.okay();
     }

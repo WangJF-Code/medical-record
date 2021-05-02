@@ -1,7 +1,9 @@
 package com.nickel.medicalrecord.controller;
 
 import com.nickel.medicalrecord.model.api.ApiResult;
+import com.nickel.medicalrecord.model.dto.HospitalVascularCreateDTO;
 import com.nickel.medicalrecord.model.dto.HospitalVascularDTO;
+import com.nickel.medicalrecord.model.dto.HospitalVascularUpdateDTO;
 import com.nickel.medicalrecord.service.IHospitalVascularService;
 import com.nickel.medicalrecord.util.ApiResultUtil;
 import io.swagger.annotations.Api;
@@ -47,14 +49,14 @@ public class HospitalVascularEventController {
 
     @ApiOperation("修改信息")
     @PutMapping
-    public ApiResult update(@RequestBody HospitalVascularDTO updateDTO) {
+    public ApiResult update(@RequestBody HospitalVascularUpdateDTO updateDTO) {
         service.update(updateDTO);
         return ApiResultUtil.okay();
     }
 
     @ApiOperation("创建信息")
     @PostMapping
-    public ApiResult create(@RequestBody HospitalVascularDTO createDTO) {
+    public ApiResult create(@RequestBody HospitalVascularCreateDTO createDTO) {
         service.create(createDTO);
         return ApiResultUtil.okay();
     }

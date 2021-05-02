@@ -4,13 +4,13 @@ import com.nickel.medicalrecord.model.dto.*;
 import com.nickel.medicalrecord.model.entity.DetectItem;
 import com.nickel.medicalrecord.repository.IDetectItemMapper;
 import com.nickel.medicalrecord.service.IDetectItemService;
+import com.nickel.medicalrecord.util.DateTimeUtil;
 import com.nickel.medicalrecord.util.EntityTransformUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -50,12 +50,12 @@ public class DetectItemService implements IDetectItemService {
     }
 
     @Override
-    public void update(DetectItemValueDTO updateDTO) {
+    public void update(DetectItemValueUpdateDTO updateDTO) {
         mapper.updateByPrimaryKeySelective(EntityTransformUtils.transform(updateDTO));
     }
 
     @Override
-    public void create(DetectItemValueDTO createDTO) {
+    public void create(DetectItemValueCreateDTO createDTO) {
         mapper.insert(EntityTransformUtils.transform(createDTO));
     }
 
@@ -74,12 +74,12 @@ public class DetectItemService implements IDetectItemService {
     }
 
     @Override
-    public void update(DetectItemSingleDTO updateDTO) {
+    public void update(DetectItemSingleUpdateDTO updateDTO) {
         mapper.updateByPrimaryKeySelective(EntityTransformUtils.transform(updateDTO));
     }
 
     @Override
-    public void create(DetectItemSingleDTO createDTO) {
+    public void create(DetectItemSingleCreateDTO createDTO) {
         mapper.insert(EntityTransformUtils.transform(createDTO));
     }
 
@@ -98,12 +98,12 @@ public class DetectItemService implements IDetectItemService {
     }
 
     @Override
-    public void update(DetectItemMultipleDTO updateDTO) {
+    public void update(DetectItemMultipleUpdateDTO updateDTO) {
         mapper.updateByPrimaryKeySelective(EntityTransformUtils.transform(updateDTO));
     }
 
     @Override
-    public void create(DetectItemMultipleDTO createDTO) {
+    public void create(DetectItemMultipleCreateDTO createDTO) {
         mapper.insert(EntityTransformUtils.transform(createDTO));
     }
 
@@ -122,12 +122,12 @@ public class DetectItemService implements IDetectItemService {
     }
 
     @Override
-    public void update(DetectItemMultipleSingleDTO updateDTO) {
+    public void update(DetectItemMultipleSingleUpdateDTO updateDTO) {
         mapper.updateByPrimaryKeySelective(EntityTransformUtils.transform(updateDTO));
     }
 
     @Override
-    public void create(DetectItemMultipleSingleDTO createDTO) {
+    public void create(DetectItemMultipleSingleCreateDTO createDTO) {
         mapper.insert(EntityTransformUtils.transform(createDTO));
     }
 
@@ -146,42 +146,47 @@ public class DetectItemService implements IDetectItemService {
     }
 
     @Override
-    public void update(DetectItemOutcomeDTO updateDTO) {
+    public void update(DetectItemOutcomeUpdateDTO updateDTO) {
         mapper.updateByPrimaryKeySelective(EntityTransformUtils.transform(updateDTO));
     }
 
     @Override
-    public void create(DetectItemOutcomeDTO createDTO) {
+    public void create(DetectItemOutcomeCreateDTO createDTO) {
         mapper.insert(EntityTransformUtils.transform(createDTO));
     }
 
     private DetectItemValueDTO transformValue(DetectItem item) {
         DetectItemValueDTO dto = DetectItemValueDTO.builder().build();
         BeanUtils.copyProperties(item, dto);
+        dto.setCheckTimeStr(DateTimeUtil.timestampToString(item.getCheckTime()));
         return dto;
     }
 
     private DetectItemSingleDTO transformSingle(DetectItem item) {
         DetectItemSingleDTO dto = DetectItemSingleDTO.builder().build();
         BeanUtils.copyProperties(item, dto);
+        dto.setCheckTimeStr(DateTimeUtil.timestampToString(item.getCheckTime()));
         return dto;
     }
 
     private DetectItemMultipleDTO transformMultiple(DetectItem item) {
         DetectItemMultipleDTO dto = DetectItemMultipleDTO.builder().build();
         BeanUtils.copyProperties(item, dto);
+        dto.setCheckTimeStr(DateTimeUtil.timestampToString(item.getCheckTime()));
         return dto;
     }
 
     private DetectItemMultipleSingleDTO transformMultipleSingle(DetectItem item) {
         DetectItemMultipleSingleDTO dto = DetectItemMultipleSingleDTO.builder().build();
         BeanUtils.copyProperties(item, dto);
+        dto.setCheckTimeStr(DateTimeUtil.timestampToString(item.getCheckTime()));
         return dto;
     }
 
     private DetectItemOutcomeDTO transformOutcome(DetectItem item) {
         DetectItemOutcomeDTO dto = DetectItemOutcomeDTO.builder().build();
         BeanUtils.copyProperties(item, dto);
+        dto.setCheckTimeStr(DateTimeUtil.timestampToString(item.getCheckTime()));
         return dto;
     }
 

@@ -1,6 +1,8 @@
 package com.nickel.medicalrecord.service;
 
-import com.nickel.medicalrecord.model.entity.DetectBiochemicalFullItem;
+import com.nickel.medicalrecord.model.dto.DetectBiochemicalFullItemCreateDTO;
+import com.nickel.medicalrecord.model.dto.DetectBiochemicalFullItemDTO;
+import com.nickel.medicalrecord.model.dto.DetectBiochemicalFullItemUpdateDTO;
 
 import java.util.List;
 
@@ -15,11 +17,11 @@ import java.util.List;
  */
 public interface IDetectBiochemicalFullItemService {
 
-    List<DetectBiochemicalFullItem> getList(Integer type, String dataId);
+    List<DetectBiochemicalFullItemDTO> getList(Integer type, String dataId);
 
-    DetectBiochemicalFullItem get(Integer id);
+    DetectBiochemicalFullItemDTO get(Integer id);
 
-    void update(DetectBiochemicalFullItem updateDTO);
+    void update(DetectBiochemicalFullItemUpdateDTO updateDTO);
 
-    void create(DetectBiochemicalFullItem createDTO);
+    void create(DetectBiochemicalFullItemCreateDTO createDTO);
 }

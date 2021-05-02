@@ -1,13 +1,19 @@
 package com.nickel.medicalrecord.service.impl;
 
+import com.nickel.medicalrecord.model.dto.DetectBiochemicalFullItemCreateDTO;
+import com.nickel.medicalrecord.model.dto.DetectBiochemicalFullItemDTO;
+import com.nickel.medicalrecord.model.dto.DetectBiochemicalFullItemUpdateDTO;
 import com.nickel.medicalrecord.model.entity.DetectBiochemicalFullItem;
 import com.nickel.medicalrecord.repository.IDetectBiochemicalFullItemMapper;
 import com.nickel.medicalrecord.service.IDetectBiochemicalFullItemService;
+import com.nickel.medicalrecord.util.DateTimeUtil;
+import com.nickel.medicalrecord.util.EntityTransformUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 类描述：
@@ -30,22 +36,24 @@ public class DetectBiochemicalFullItemService implements IDetectBiochemicalFullI
     }
 
     @Override
-    public List<DetectBiochemicalFullItem> getList(Integer type, String dataId) {
-        return mapper.selectList(type, dataId);
+    public List<DetectBiochemicalFullItemDTO> getList(Integer type, String dataId) {
+        List<DetectBiochemicalFullItem> list = mapper.selectList(type, dataId);
+        return list.stream().map(EntityTransformUtils::transform).collect(Collectors.toList());
     }
 
     @Override
-    public DetectBiochemicalFullItem get(Integer id) {
-        return mapper.selectByPrimaryKey(id);
+    public DetectBiochemicalFullItemDTO get(Integer id) {
+        DetectBiochemicalFullItem entity = mapper.selectByPrimaryKey(id);
+        return EntityTransformUtils.transform(entity);
     }
 
     @Override
-    public void update(DetectBiochemicalFullItem updateDTO) {
-        mapper.updateByPrimaryKeySelective(updateDTO);
+    public void update(DetectBiochemicalFullItemUpdateDTO updateDTO) {
+        mapper.updateByPrimaryKeySelective(EntityTransformUtils.transform(updateDTO));
     }
 
     @Override
-    public void create(DetectBiochemicalFullItem createDTO) {
-        mapper.insert(createDTO);
+    public void create(DetectBiochemicalFullItemCreateDTO createDTO) {
+        mapper.insert(EntityTransformUtils.transform(createDTO));
     }
 }

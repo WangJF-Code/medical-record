@@ -1,7 +1,9 @@
 package com.nickel.medicalrecord.controller;
 
 import com.nickel.medicalrecord.model.api.ApiResult;
-import com.nickel.medicalrecord.model.entity.DetectBloodRoutine;
+import com.nickel.medicalrecord.model.dto.DetectBloodRoutineCreateDTO;
+import com.nickel.medicalrecord.model.dto.DetectBloodRoutineDTO;
+import com.nickel.medicalrecord.model.dto.DetectBloodRoutineUpdateDTO;
 import com.nickel.medicalrecord.service.IDetectBloodRoutineService;
 import com.nickel.medicalrecord.util.ApiResultUtil;
 import io.swagger.annotations.Api;
@@ -35,29 +37,29 @@ public class DetectBloodRoutineController {
 
     @ApiOperation("列表信息")
     @PostMapping("/list")
-    public ApiResult<List<DetectBloodRoutine>> list(@ApiParam(required = true, value = "type") Integer type,
-                                                    @ApiParam(required = true, value = "dataId") String dataId) {
-        List<DetectBloodRoutine> list = service.getList(type, dataId);
+    public ApiResult<List<DetectBloodRoutineDTO>> list(@ApiParam(required = true, value = "type") @RequestParam Integer type,
+                                                    @ApiParam(required = true, value = "dataId") @RequestParam String dataId) {
+        List<DetectBloodRoutineDTO> list = service.getList(type, dataId);
         return ApiResultUtil.okay(list);
     }
 
     @ApiOperation("详细信息")
     @GetMapping("/{id}")
-    public ApiResult<DetectBloodRoutine> info(@ApiParam(required = true, value = "id") @PathVariable Integer id) {
-        DetectBloodRoutine info = service.get(id);
+    public ApiResult<DetectBloodRoutineDTO> info(@ApiParam(required = true, value = "id") @PathVariable Integer id) {
+        DetectBloodRoutineDTO info = service.get(id);
         return ApiResultUtil.okay(info);
     }
 
     @ApiOperation("修改信息")
     @PutMapping
-    public ApiResult update(@RequestBody DetectBloodRoutine updateDTO) {
+    public ApiResult update(@RequestBody DetectBloodRoutineUpdateDTO updateDTO) {
         service.update(updateDTO);
         return ApiResultUtil.okay();
     }
 
     @ApiOperation("创建信息")
     @PostMapping
-    public ApiResult create(@RequestBody DetectBloodRoutine createDTO) {
+    public ApiResult create(@RequestBody DetectBloodRoutineCreateDTO createDTO) {
         service.create(createDTO);
         return ApiResultUtil.okay();
     }

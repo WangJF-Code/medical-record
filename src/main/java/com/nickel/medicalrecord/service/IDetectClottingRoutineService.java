@@ -1,6 +1,8 @@
 package com.nickel.medicalrecord.service;
 
-import com.nickel.medicalrecord.model.entity.DetectClottingRoutine;
+import com.nickel.medicalrecord.model.dto.DetectClottingRoutineCreateDTO;
+import com.nickel.medicalrecord.model.dto.DetectClottingRoutineDTO;
+import com.nickel.medicalrecord.model.dto.DetectClottingRoutineUpdateDTO;
 
 import java.util.List;
 
@@ -14,11 +16,11 @@ import java.util.List;
  * @Version 1.0
  */
 public interface IDetectClottingRoutineService {
-    List<DetectClottingRoutine> getList(Integer type, String dataId);
+    List<DetectClottingRoutineDTO> getList(Integer type, String dataId);
 
-    DetectClottingRoutine get(Integer id);
+    DetectClottingRoutineDTO get(Integer id);
 
-    void update(DetectClottingRoutine updateDTO);
+    void update(DetectClottingRoutineUpdateDTO updateDTO);
 
-    void create(DetectClottingRoutine createDTO);
+    void create(DetectClottingRoutineCreateDTO createDTO);
 }

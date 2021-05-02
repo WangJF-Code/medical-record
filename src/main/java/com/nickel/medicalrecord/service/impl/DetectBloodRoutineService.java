@@ -1,13 +1,18 @@
 package com.nickel.medicalrecord.service.impl;
 
+import com.nickel.medicalrecord.model.dto.DetectBloodRoutineCreateDTO;
+import com.nickel.medicalrecord.model.dto.DetectBloodRoutineDTO;
+import com.nickel.medicalrecord.model.dto.DetectBloodRoutineUpdateDTO;
 import com.nickel.medicalrecord.model.entity.DetectBloodRoutine;
 import com.nickel.medicalrecord.repository.IDetectBloodRoutineMapper;
 import com.nickel.medicalrecord.service.IDetectBloodRoutineService;
+import com.nickel.medicalrecord.util.EntityTransformUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 类描述：
@@ -30,23 +35,25 @@ public class DetectBloodRoutineService implements IDetectBloodRoutineService {
     }
 
     @Override
-    public List<DetectBloodRoutine> getList(Integer type, String dataId) {
-        return mapper.selectList(type, dataId);
+    public List<DetectBloodRoutineDTO> getList(Integer type, String dataId) {
+        List<DetectBloodRoutine> list = mapper.selectList(type, dataId);
+        return list.stream().map(EntityTransformUtils::transform).collect(Collectors.toList());
     }
 
     @Override
-    public DetectBloodRoutine get(Integer id) {
-        return mapper.selectByPrimaryKey(id);
+    public DetectBloodRoutineDTO get(Integer id) {
+        DetectBloodRoutine routine = mapper.selectByPrimaryKey(id);
+        return EntityTransformUtils.transform(routine);
     }
 
     @Override
-    public void update(DetectBloodRoutine updateDTO) {
-        mapper.updateByPrimaryKeySelective(updateDTO);
+    public void update(DetectBloodRoutineUpdateDTO updateDTO) {
+        mapper.updateByPrimaryKeySelective(EntityTransformUtils.transform(updateDTO));
     }
 
     @Override
-    public void create(DetectBloodRoutine createDTO) {
-        mapper.insert(createDTO);
+    public void create(DetectBloodRoutineCreateDTO createDTO) {
+        mapper.insert(EntityTransformUtils.transform(createDTO));
     }
 
 }

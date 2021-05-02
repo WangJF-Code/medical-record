@@ -1,6 +1,8 @@
 package com.nickel.medicalrecord.service;
 
-import com.nickel.medicalrecord.model.entity.DetectEkg;
+import com.nickel.medicalrecord.model.dto.DetectEkgCreateDTO;
+import com.nickel.medicalrecord.model.dto.DetectEkgDTO;
+import com.nickel.medicalrecord.model.dto.DetectEkgUpdateDTO;
 
 import java.util.List;
 
@@ -14,11 +16,11 @@ import java.util.List;
  * @Version 1.0
  */
 public interface IDetectEkgService {
-    List<DetectEkg> getList(Integer type, String dataId);
+    List<DetectEkgDTO> getList(Integer type, String dataId);
 
-    DetectEkg get(Integer id);
+    DetectEkgDTO get(Integer id);
 
-    void update(DetectEkg updateDTO);
+    void update(DetectEkgUpdateDTO updateDTO);
 
-    void create(DetectEkg createDTO);
+    void create(DetectEkgCreateDTO createDTO);
 }

@@ -1,6 +1,8 @@
 package com.nickel.medicalrecord.service;
 
-import com.nickel.medicalrecord.model.entity.DetectThirteenBloodLipids;
+import com.nickel.medicalrecord.model.dto.DetectThirteenBloodLipidsCreateDTO;
+import com.nickel.medicalrecord.model.dto.DetectThirteenBloodLipidsDTO;
+import com.nickel.medicalrecord.model.dto.DetectThirteenBloodLipidsUpdateDTO;
 
 import java.util.List;
 
@@ -14,11 +16,11 @@ import java.util.List;
  * @Version 1.0
  */
 public interface IDetectThirteenBloodLipidsService {
-    List<DetectThirteenBloodLipids> getList(Integer type, String dataId);
+    List<DetectThirteenBloodLipidsDTO> getList(Integer type, String dataId);
 
-    DetectThirteenBloodLipids get(Integer id);
+    DetectThirteenBloodLipidsDTO get(Integer id);
 
-    void update(DetectThirteenBloodLipids updateDTO);
+    void update(DetectThirteenBloodLipidsUpdateDTO updateDTO);
 
-    void create(DetectThirteenBloodLipids createDTO);
+    void create(DetectThirteenBloodLipidsCreateDTO createDTO);
 }

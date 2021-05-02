@@ -1,7 +1,9 @@
 package com.nickel.medicalrecord.controller;
 
 import com.nickel.medicalrecord.model.api.ApiResult;
-import com.nickel.medicalrecord.model.entity.DetectBiochemicalFullItem;
+import com.nickel.medicalrecord.model.dto.DetectBiochemicalFullItemCreateDTO;
+import com.nickel.medicalrecord.model.dto.DetectBiochemicalFullItemDTO;
+import com.nickel.medicalrecord.model.dto.DetectBiochemicalFullItemUpdateDTO;
 import com.nickel.medicalrecord.service.IDetectBiochemicalFullItemService;
 import com.nickel.medicalrecord.util.ApiResultUtil;
 import io.swagger.annotations.Api;
@@ -35,29 +37,29 @@ public class DetectBiochemicalFullItemController {
 
     @ApiOperation("列表信息")
     @PostMapping("/list")
-    public ApiResult<List<DetectBiochemicalFullItem>> list(@ApiParam(required = true, value = "type") Integer type,
-                                                           @ApiParam(required = true, value = "dataId") String dataId) {
-        List<DetectBiochemicalFullItem> list = service.getList(type, dataId);
+    public ApiResult<List<DetectBiochemicalFullItemDTO>> list(@ApiParam(required = true, value = "type") @RequestParam Integer type,
+                                                              @ApiParam(required = true, value = "dataId") @RequestParam String dataId) {
+        List<DetectBiochemicalFullItemDTO> list = service.getList(type, dataId);
         return ApiResultUtil.okay(list);
     }
 
     @ApiOperation("详细信息")
     @GetMapping("/{id}")
-    public ApiResult<DetectBiochemicalFullItem> info(@ApiParam(required = true, value = "id") @PathVariable Integer id) {
-        DetectBiochemicalFullItem info = service.get(id);
+    public ApiResult<DetectBiochemicalFullItemDTO> info(@ApiParam(required = true, value = "id") @PathVariable Integer id) {
+        DetectBiochemicalFullItemDTO info = service.get(id);
         return ApiResultUtil.okay(info);
     }
 
     @ApiOperation("修改信息")
     @PutMapping
-    public ApiResult update(@RequestBody DetectBiochemicalFullItem updateDTO) {
+    public ApiResult update(@RequestBody DetectBiochemicalFullItemUpdateDTO updateDTO) {
         service.update(updateDTO);
         return ApiResultUtil.okay();
     }
 
     @ApiOperation("创建信息")
     @PostMapping
-    public ApiResult create(@RequestBody DetectBiochemicalFullItem createDTO) {
+    public ApiResult create(@RequestBody DetectBiochemicalFullItemCreateDTO createDTO) {
         service.create(createDTO);
         return ApiResultUtil.okay();
     }

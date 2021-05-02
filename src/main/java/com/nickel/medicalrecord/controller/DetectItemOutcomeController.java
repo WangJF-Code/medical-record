@@ -1,7 +1,9 @@
 package com.nickel.medicalrecord.controller;
 
 import com.nickel.medicalrecord.model.api.ApiResult;
+import com.nickel.medicalrecord.model.dto.DetectItemOutcomeCreateDTO;
 import com.nickel.medicalrecord.model.dto.DetectItemOutcomeDTO;
+import com.nickel.medicalrecord.model.dto.DetectItemOutcomeUpdateDTO;
 import com.nickel.medicalrecord.service.IDetectItemService;
 import com.nickel.medicalrecord.util.ApiResultUtil;
 import io.swagger.annotations.Api;
@@ -35,9 +37,9 @@ public class DetectItemOutcomeController {
 
     @ApiOperation("列表信息")
     @PostMapping("/list")
-    public ApiResult<List<DetectItemOutcomeDTO>> list(@ApiParam(required = true, value = "type") Integer type,
-                                                      @ApiParam(required = true, value = "dataId") String dataId,
-                                                      @ApiParam(required = true, value = "detectType") Integer detectType) {
+    public ApiResult<List<DetectItemOutcomeDTO>> list(@ApiParam(required = true, value = "type") @RequestParam Integer type,
+                                                      @ApiParam(required = true, value = "dataId") @RequestParam String dataId,
+                                                      @ApiParam(required = true, value = "detectType") @RequestParam Integer detectType) {
         List<DetectItemOutcomeDTO> list = service.getListOutcome(type, dataId, detectType);
         return ApiResultUtil.okay(list);
     }
@@ -51,14 +53,14 @@ public class DetectItemOutcomeController {
 
     @ApiOperation("修改信息")
     @PutMapping
-    public ApiResult update(@RequestBody DetectItemOutcomeDTO updateDTO) {
+    public ApiResult update(@RequestBody DetectItemOutcomeUpdateDTO updateDTO) {
         service.update(updateDTO);
         return ApiResultUtil.okay();
     }
 
     @ApiOperation("创建信息")
     @PostMapping
-    public ApiResult create(@RequestBody DetectItemOutcomeDTO createDTO) {
+    public ApiResult create(@RequestBody DetectItemOutcomeCreateDTO createDTO) {
         service.create(createDTO);
         return ApiResultUtil.okay();
     }

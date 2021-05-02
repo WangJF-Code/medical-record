@@ -1,13 +1,18 @@
 package com.nickel.medicalrecord.service.impl;
 
+import com.nickel.medicalrecord.model.dto.DetectClottingRoutineCreateDTO;
+import com.nickel.medicalrecord.model.dto.DetectClottingRoutineDTO;
+import com.nickel.medicalrecord.model.dto.DetectClottingRoutineUpdateDTO;
 import com.nickel.medicalrecord.model.entity.DetectClottingRoutine;
 import com.nickel.medicalrecord.repository.IDetectClottingRoutineMapper;
 import com.nickel.medicalrecord.service.IDetectClottingRoutineService;
+import com.nickel.medicalrecord.util.EntityTransformUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 类描述：
@@ -30,23 +35,25 @@ public class DetectClottingRoutineService implements IDetectClottingRoutineServi
     }
 
     @Override
-    public List<DetectClottingRoutine> getList(Integer type, String dataId) {
-        return mapper.selectList(type, dataId);
+    public List<DetectClottingRoutineDTO> getList(Integer type, String dataId) {
+        List<DetectClottingRoutine> list = mapper.selectList(type, dataId);
+        return list.stream().map(EntityTransformUtils::transform).collect(Collectors.toList());
     }
 
     @Override
-    public DetectClottingRoutine get(Integer id) {
-        return mapper.selectByPrimaryKey(id);
+    public DetectClottingRoutineDTO get(Integer id) {
+        DetectClottingRoutine detectClottingRoutine = mapper.selectByPrimaryKey(id);
+        return EntityTransformUtils.transform(detectClottingRoutine);
     }
 
     @Override
-    public void update(DetectClottingRoutine updateDTO) {
-        mapper.updateByPrimaryKeySelective(updateDTO);
+    public void update(DetectClottingRoutineUpdateDTO updateDTO) {
+        mapper.updateByPrimaryKeySelective(EntityTransformUtils.transform(updateDTO));
     }
 
     @Override
-    public void create(DetectClottingRoutine createDTO) {
-        mapper.insert(createDTO);
+    public void create(DetectClottingRoutineCreateDTO createDTO) {
+        mapper.insert(EntityTransformUtils.transform(createDTO));
     }
 
 }

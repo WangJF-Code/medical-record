@@ -19,39 +19,39 @@ public interface IDetectItemService {
 
     DetectItemValueDTO getValue(Integer id);
 
-    void update(DetectItemValueDTO updateDTO);
+    void update(DetectItemValueUpdateDTO updateDTO);
 
-    void create(DetectItemValueDTO createDTO);
+    void create(DetectItemValueCreateDTO createDTO);
 
     List<DetectItemSingleDTO> getListSingle(Integer type, String dataId, Integer detectType);
 
     DetectItemSingleDTO getSingle(Integer id);
 
-    void update(DetectItemSingleDTO updateDTO);
+    void update(DetectItemSingleUpdateDTO updateDTO);
 
-    void create(DetectItemSingleDTO createDTO);
+    void create(DetectItemSingleCreateDTO createDTO);
 
     List<DetectItemMultipleDTO> getListMultiple(Integer type, String dataId, Integer detectType);
 
     DetectItemMultipleDTO getMultiple(Integer id);
 
-    void update(DetectItemMultipleDTO updateDTO);
+    void update(DetectItemMultipleUpdateDTO updateDTO);
 
-    void create(DetectItemMultipleDTO createDTO);
+    void create(DetectItemMultipleCreateDTO createDTO);
 
     List<DetectItemMultipleSingleDTO> getListMultipleSingle(Integer type, String dataId, Integer detectType);
 
     DetectItemMultipleSingleDTO getMultipleSingle(Integer id);
 
-    void update(DetectItemMultipleSingleDTO updateDTO);
+    void update(DetectItemMultipleSingleUpdateDTO updateDTO);
 
-    void create(DetectItemMultipleSingleDTO createDTO);
+    void create(DetectItemMultipleSingleCreateDTO createDTO);
 
     List<DetectItemOutcomeDTO> getListOutcome(Integer type, String dataId, Integer detectType);
 
     DetectItemOutcomeDTO getOutcome(Integer id);
 
-    void update(DetectItemOutcomeDTO updateDTO);
+    void update(DetectItemOutcomeUpdateDTO updateDTO);
 
-    void create(DetectItemOutcomeDTO createDTO);
+    void create(DetectItemOutcomeCreateDTO createDTO);
 }

@@ -1,6 +1,9 @@
 package com.nickel.medicalrecord.controller;
 
 import com.nickel.medicalrecord.model.api.ApiResult;
+import com.nickel.medicalrecord.model.dto.DetectSwiCreateDTO;
+import com.nickel.medicalrecord.model.dto.DetectSwiDTO;
+import com.nickel.medicalrecord.model.dto.DetectSwiUpdateDTO;
 import com.nickel.medicalrecord.model.entity.DetectSwi;
 import com.nickel.medicalrecord.service.IDetectSwiService;
 import com.nickel.medicalrecord.util.ApiResultUtil;
@@ -31,29 +34,29 @@ public class DetectSwiController {
 
     @ApiOperation("列表信息")
     @PostMapping("/list")
-    public ApiResult<List<DetectSwi>> list(@ApiParam(required = true, value = "type") Integer type,
-                                           @ApiParam(required = true, value = "dataId") String dataId) {
-        List<DetectSwi> list = service.getList(type, dataId);
+    public ApiResult<List<DetectSwiDTO>> list(@ApiParam(required = true, value = "type") @RequestParam Integer type,
+                                              @ApiParam(required = true, value = "dataId") @RequestParam String dataId) {
+        List<DetectSwiDTO> list = service.getList(type, dataId);
         return ApiResultUtil.okay(list);
     }
 
     @ApiOperation("详细信息")
     @GetMapping("/{id}")
-    public ApiResult<DetectSwi> info(@ApiParam(required = true, value = "id") @PathVariable Integer id) {
-        DetectSwi info = service.get(id);
+    public ApiResult<DetectSwiDTO> info(@ApiParam(required = true, value = "id") @PathVariable Integer id) {
+        DetectSwiDTO info = service.get(id);
         return ApiResultUtil.okay(info);
     }
 
     @ApiOperation("修改信息")
     @PutMapping
-    public ApiResult update(@RequestBody DetectSwi updateDTO) {
+    public ApiResult update(@RequestBody DetectSwiUpdateDTO updateDTO) {
         service.update(updateDTO);
         return ApiResultUtil.okay();
     }
 
     @ApiOperation("创建信息")
     @PostMapping
-    public ApiResult create(@RequestBody DetectSwi createDTO) {
+    public ApiResult create(@RequestBody DetectSwiCreateDTO createDTO) {
         service.create(createDTO);
         return ApiResultUtil.okay();
     }

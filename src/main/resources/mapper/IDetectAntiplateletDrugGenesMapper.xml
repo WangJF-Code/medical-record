@@ -3,7 +3,7 @@
 <mapper namespace="com.nickel.medicalrecord.repository.IDetectAntiplateletDrugGenesMapper">
 
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer"
-            resultType="com.nickel.medicalrecord.model.dto.DetectAntiplateletDrugGenesDTO">
+            resultType="com.nickel.medicalrecord.model.entity.DetectAntiplateletDrugGenes">
         SELECT id,
                patientId,
                `type`,
@@ -19,7 +19,7 @@
         FROM detect_antiplatelet_drug_genes
         WHERE id = #{id}
     </select>
-    <select id="selectList" resultType="com.nickel.medicalrecord.model.dto.DetectAntiplateletDrugGenesDTO">
+    <select id="selectList" resultType="com.nickel.medicalrecord.model.entity.DetectAntiplateletDrugGenes">
         SELECT id,
                patientId,
                `type`,

@@ -78,10 +78,15 @@ public class DetectAntiplateletDrugGenesDTO {
     private Long checkTime;
 
     /**
+     * 检查时间
+     */
+    @ApiModelProperty(value = "检查时间")
+    private String checkTimeStr;
+
+    /**
      * 创建时间
      */
     @ApiModelProperty(value = "创建时间")
-    @Builder.Default
-    private Long createTime = System.currentTimeMillis();
+    private Long createTime;
 
 }
