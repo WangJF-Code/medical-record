@@ -158,35 +158,35 @@ public class DetectItemService implements IDetectItemService {
     private DetectItemValueDTO transformValue(DetectItem item) {
         DetectItemValueDTO dto = DetectItemValueDTO.builder().build();
         BeanUtils.copyProperties(item, dto);
-        dto.setCheckTimeStr(DateTimeUtil.timestampToString(item.getCheckTime()));
+        dto.setCheckTime(DateTimeUtil.timestampToString(item.getCheckTime()));
         return dto;
     }
 
     private DetectItemSingleDTO transformSingle(DetectItem item) {
         DetectItemSingleDTO dto = DetectItemSingleDTO.builder().build();
         BeanUtils.copyProperties(item, dto);
-        dto.setCheckTimeStr(DateTimeUtil.timestampToString(item.getCheckTime()));
+        dto.setCheckTime(DateTimeUtil.timestampToString(item.getCheckTime()));
         return dto;
     }
 
     private DetectItemMultipleDTO transformMultiple(DetectItem item) {
         DetectItemMultipleDTO dto = DetectItemMultipleDTO.builder().build();
         BeanUtils.copyProperties(item, dto);
-        dto.setCheckTimeStr(DateTimeUtil.timestampToString(item.getCheckTime()));
+        dto.setCheckTime(DateTimeUtil.timestampToString(item.getCheckTime()));
         return dto;
     }
 
     private DetectItemMultipleSingleDTO transformMultipleSingle(DetectItem item) {
         DetectItemMultipleSingleDTO dto = DetectItemMultipleSingleDTO.builder().build();
         BeanUtils.copyProperties(item, dto);
-        dto.setCheckTimeStr(DateTimeUtil.timestampToString(item.getCheckTime()));
+        dto.setCheckTime(DateTimeUtil.timestampToString(item.getCheckTime()));
         return dto;
     }
 
     private DetectItemOutcomeDTO transformOutcome(DetectItem item) {
         DetectItemOutcomeDTO dto = DetectItemOutcomeDTO.builder().build();
         BeanUtils.copyProperties(item, dto);
-        dto.setCheckTimeStr(DateTimeUtil.timestampToString(item.getCheckTime()));
+        dto.setCheckTime(DateTimeUtil.timestampToString(item.getCheckTime()));
         return dto;
     }
 

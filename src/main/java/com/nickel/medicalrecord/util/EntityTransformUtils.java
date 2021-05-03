@@ -134,7 +134,7 @@ public class EntityTransformUtils {
     public static DetectAntiplateletDrugGenesDTO transform(DetectAntiplateletDrugGenes entity) {
         DetectAntiplateletDrugGenesDTO dto = DetectAntiplateletDrugGenesDTO.builder().build();
         BeanUtils.copyProperties(entity, dto);
-        dto.setCheckTimeStr(DateTimeUtil.timestampToString(entity.getCheckTime()));
+        dto.setCheckTime(DateTimeUtil.timestampToString(entity.getCheckTime()));
         return dto;
     }
 
@@ -155,7 +155,7 @@ public class EntityTransformUtils {
     public static DetectBiochemicalFullItemDTO transform(DetectBiochemicalFullItem entity) {
         DetectBiochemicalFullItemDTO dto = DetectBiochemicalFullItemDTO.builder().build();
         BeanUtils.copyProperties(entity, dto);
-        dto.setCheckTimeStr(DateTimeUtil.timestampToString(entity.getCheckTime()));
+        dto.setCheckTime(DateTimeUtil.timestampToString(entity.getCheckTime()));
         return dto;
     }
 
@@ -176,7 +176,7 @@ public class EntityTransformUtils {
     public static DetectBloodRoutineDTO transform(DetectBloodRoutine entity) {
         DetectBloodRoutineDTO dto = DetectBloodRoutineDTO.builder().build();
         BeanUtils.copyProperties(entity, dto);
-        dto.setCheckTimeStr(DateTimeUtil.timestampToString(entity.getCheckTime()));
+        dto.setCheckTime(DateTimeUtil.timestampToString(entity.getCheckTime()));
         return dto;
     }
 
@@ -197,7 +197,7 @@ public class EntityTransformUtils {
     public static DetectClottingRoutineDTO transform(DetectClottingRoutine entity) {
         DetectClottingRoutineDTO dto = DetectClottingRoutineDTO.builder().build();
         BeanUtils.copyProperties(entity, dto);
-        dto.setCheckTimeStr(DateTimeUtil.timestampToString(entity.getCheckTime()));
+        dto.setCheckTime(DateTimeUtil.timestampToString(entity.getCheckTime()));
         return dto;
     }
 
@@ -219,7 +219,7 @@ public class EntityTransformUtils {
     public static DetectEkgDTO transform(DetectEkg entity) {
         DetectEkgDTO dto = DetectEkgDTO.builder().build();
         BeanUtils.copyProperties(entity, dto);
-        dto.setCheckTimeStr(DateTimeUtil.timestampToString(entity.getCheckTime()));
+        dto.setCheckTime(DateTimeUtil.timestampToString(entity.getCheckTime()));
         return dto;
     }
 
@@ -240,7 +240,7 @@ public class EntityTransformUtils {
     public static DetectInflammatoryMediaDTO transform(DetectInflammatoryMedia entity) {
         DetectInflammatoryMediaDTO dto = DetectInflammatoryMediaDTO.builder().build();
         BeanUtils.copyProperties(entity, dto);
-        dto.setCheckTimeStr(DateTimeUtil.timestampToString(entity.getCheckTime()));
+        dto.setCheckTime(DateTimeUtil.timestampToString(entity.getCheckTime()));
         return dto;
     }
 
@@ -261,7 +261,7 @@ public class EntityTransformUtils {
     public static DetectSwiDTO transform(DetectSwi entity) {
         DetectSwiDTO dto = DetectSwiDTO.builder().build();
         BeanUtils.copyProperties(entity, dto);
-        dto.setCheckTimeStr(DateTimeUtil.timestampToString(entity.getCheckTime()));
+        dto.setCheckTime(DateTimeUtil.timestampToString(entity.getCheckTime()));
         return dto;
     }
 
@@ -282,7 +282,7 @@ public class EntityTransformUtils {
     public static DetectThirteenBloodLipidsDTO transform(DetectThirteenBloodLipids entity) {
         DetectThirteenBloodLipidsDTO dto = DetectThirteenBloodLipidsDTO.builder().build();
         BeanUtils.copyProperties(entity, dto);
-        dto.setCheckTimeStr(DateTimeUtil.timestampToString(entity.getCheckTime()));
+        dto.setCheckTime(DateTimeUtil.timestampToString(entity.getCheckTime()));
         return dto;
     }
 
@@ -303,7 +303,7 @@ public class EntityTransformUtils {
     public static DetectThyroidFunctionDTO transform(DetectThyroidFunction entity) {
         DetectThyroidFunctionDTO dto = DetectThyroidFunctionDTO.builder().build();
         BeanUtils.copyProperties(entity, dto);
-        dto.setCheckTimeStr(DateTimeUtil.timestampToString(entity.getCheckTime()));
+        dto.setCheckTime(DateTimeUtil.timestampToString(entity.getCheckTime()));
         return dto;
     }
 

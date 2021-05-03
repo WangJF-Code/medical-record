@@ -81,13 +81,7 @@ public class DetectClottingRoutineDTO {
      * 检查时间
      */
     @ApiModelProperty(value = "检查时间")
-    private Long checkTime;
-
-    /**
-     * 检查时间
-     */
-    @ApiModelProperty(value = "检查时间")
-    private String checkTimeStr;
+    private String checkTime;
 
     /**
      * 创建时间
