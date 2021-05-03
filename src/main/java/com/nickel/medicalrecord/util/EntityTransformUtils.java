@@ -310,60 +310,70 @@ public class EntityTransformUtils {
     public static DetectItem transform(DetectItemOutcomeCreateDTO createDTO) {
         DetectItem entity = DetectItem.builder().build();
         BeanUtils.copyProperties(createDTO, entity);
+        entity.setCheckTime(DateTimeUtil.stringToTimestamp(createDTO.getCheckTime()));
         return entity;
     }
 
     public static DetectItem transform(DetectItemOutcomeUpdateDTO updateDTO) {
         DetectItem entity = DetectItem.builder().build();
         BeanUtils.copyProperties(updateDTO, entity);
+        entity.setCheckTime(DateTimeUtil.stringToTimestamp(updateDTO.getCheckTime()));
         return entity;
     }
 
     public static DetectItem transform(DetectItemMultipleSingleCreateDTO createDTO) {
         DetectItem entity = DetectItem.builder().build();
         BeanUtils.copyProperties(createDTO, entity);
+        entity.setCheckTime(DateTimeUtil.stringToTimestamp(createDTO.getCheckTime()));
         return entity;
     }
 
     public static DetectItem transform(DetectItemMultipleSingleUpdateDTO updateDTO) {
         DetectItem entity = DetectItem.builder().build();
         BeanUtils.copyProperties(updateDTO, entity);
+        entity.setCheckTime(DateTimeUtil.stringToTimestamp(updateDTO.getCheckTime()));
         return entity;
     }
 
     public static DetectItem transform(DetectItemMultipleCreateDTO createDTO) {
         DetectItem entity = DetectItem.builder().build();
         BeanUtils.copyProperties(createDTO, entity);
+        entity.setCheckTime(DateTimeUtil.stringToTimestamp(createDTO.getCheckTime()));
         return entity;
     }
 
     public static DetectItem transform(DetectItemMultipleUpdateDTO updateDTO) {
         DetectItem entity = DetectItem.builder().build();
         BeanUtils.copyProperties(updateDTO, entity);
+        entity.setCheckTime(DateTimeUtil.stringToTimestamp(updateDTO.getCheckTime()));
         return entity;
     }
 
     public static DetectItem transform(DetectItemSingleCreateDTO createDTO) {
         DetectItem entity = DetectItem.builder().build();
         BeanUtils.copyProperties(createDTO, entity);
+        entity.setCheckTime(DateTimeUtil.stringToTimestamp(createDTO.getCheckTime()));
         return entity;
     }
 
     public static DetectItem transform(DetectItemSingleUpdateDTO updateDTO) {
         DetectItem entity = DetectItem.builder().build();
         BeanUtils.copyProperties(updateDTO, entity);
+        entity.setCheckTime(DateTimeUtil.stringToTimestamp(updateDTO.getCheckTime()));
         return entity;
     }
 
     public static DetectItem transform(DetectItemValueCreateDTO createDTO) {
         DetectItem entity = DetectItem.builder().build();
         BeanUtils.copyProperties(createDTO, entity);
+        entity.setCheckTime(DateTimeUtil.stringToTimestamp(createDTO.getCheckTime()));
         return entity;
     }
 
     public static DetectItem transform(DetectItemValueUpdateDTO updateDTO) {
         DetectItem entity = DetectItem.builder().build();
         BeanUtils.copyProperties(updateDTO, entity);
+        entity.setCheckTime(DateTimeUtil.stringToTimestamp(updateDTO.getCheckTime()));
         return entity;
     }
 
@@ -403,4 +413,21 @@ public class EntityTransformUtils {
         return entity;
     }
 
+    public static SysUser transform(SysUserCreateDTO createDTO) {
+        SysUser entity = SysUser.builder().build();
+        BeanUtils.copyProperties(createDTO, entity);
+        return entity;
+    }
+
+    public static SysUser transform(SysUserUpdateDTO updateDTO) {
+        SysUser entity = SysUser.builder().build();
+        BeanUtils.copyProperties(updateDTO, entity);
+        return entity;
+    }
+
+    public static SysUserDTO transform(SysUser entity) {
+        SysUserDTO dto = SysUserDTO.builder().build();
+        BeanUtils.copyProperties(entity, dto);
+        return dto;
+    }
 }

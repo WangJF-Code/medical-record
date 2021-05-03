@@ -6,28 +6,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class HospitalTreatmentRecordsDTO {
-    /**
-     * 治疗记录ID
-     */
-    @ApiModelProperty(value = "治疗记录ID")
-    private Integer id;
-
-    /**
-     * 患者ID
-     */
-    @ApiModelProperty(value = "患者ID")
-    private String patientId;
-
-    /**
-     * 住院记录ID
-     */
-    @ApiModelProperty(value = "住院记录ID")
-    private String hospitalRecordsId;
+public class HospitalTreatmentRecordsConditionDTO {
 
     /**
      * 入院 48 小时内患者能否行走
@@ -45,7 +30,7 @@ public class HospitalTreatmentRecordsDTO {
      * 预防种类和措施
      */
     @ApiModelProperty(value = "预防种类和措施")
-    private String thrombosisPreventionTypes;
+    private List<String> thrombosisPreventionTypesList;
 
     /**
      * 入院后是否给予抗血小板治疗
@@ -57,7 +42,7 @@ public class HospitalTreatmentRecordsDTO {
      * 抗血小板药物名称
      */
     @ApiModelProperty(value = "抗血小板药物名称")
-    private String antiplateletsDrugs;
+    private List<String> antiplateletsDrugsList;
 
     /**
      * 入院后是否给予抗凝治疗
@@ -69,7 +54,7 @@ public class HospitalTreatmentRecordsDTO {
      * 抗凝药物名称
      */
     @ApiModelProperty(value = "抗凝药物名称")
-    private String anticoagulantDrugs;
+    private List<String> anticoagulantDrugsList;
 
     /**
      * 入院后是否调脂治疗
@@ -84,12 +69,6 @@ public class HospitalTreatmentRecordsDTO {
     private Integer lipidStrengthen;
 
     /**
-     * 调脂药物名称
-     */
-    @ApiModelProperty(value = "调脂药物名称")
-    private String lipidDrugs;
-
-    /**
      * 是否留置胃管
      */
     @ApiModelProperty(value = "是否留置胃管")
@@ -100,23 +79,5 @@ public class HospitalTreatmentRecordsDTO {
      */
     @ApiModelProperty(value = "是否留置尿管")
     private Integer ureter;
-
-    /**
-     * 吞咽功能评价
-     */
-    @ApiModelProperty(value = "吞咽功能评价")
-    private String swallowingFunction;
-
-    /**
-     * 描述
-     */
-    @ApiModelProperty(value = "描述")
-    private String description;
-
-    /**
-     * 创建时间
-     */
-    @ApiModelProperty(value = "创建时间")
-    private Long createTime;
 
 }

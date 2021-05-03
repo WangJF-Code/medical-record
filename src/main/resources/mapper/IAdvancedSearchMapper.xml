@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nickel.medicalrecord.repository.IAdvancedSearchMapper">
+
+    <select id="findHospitalCount" resultType="java.lang.Integer">
+        SELECT
+        COUNT(hospital_records.id)
+        FROM
+        hospital_records
+        LEFT JOIN patient ON patient.id = hospital_records.patientId
+        WHERE hospital_records.deleted = 0
+        <if test="search.patientId != null">
+            AND hospital_records.patientId = #{search.patientId}
+        </if>
+        <if test="search.userName != null">
+            AND patient.userName = #{search.userName}
+        </if>
+        <if test="search.sex != null">
+            AND patient.sex = #{search.sex}
+        </if>
+        <if test="search.nation != null">
+            AND patient.nation = #{search.nation}
+        </if>
+        <if test="search.startHospitalizationTime != null">
+            AND hospital_records.hospitalizationTime > #{search.startHospitalizationTime}
+            AND #{search.endHospitalizationTime}> hospital_records.hospitalizationTime
+        </if>
+        <if test="search.startDischargeTime != null">
+            AND hospital_records.dischargeTime > #{search.startDischargeTime}
+            AND #{search.endDischargeTime} > hospital_records.dischargeTime
+        </if>
+        <if test="search.status != null">
+            AND hospital_records.`status` = #{search.status}
+        </if>
+        <if test="idList != null and idList.size > 0">
+            AND hospital_records.id IN
+            <foreach collection="idList" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+    </select>
+    <select id="findHospitalPage" resultType="com.nickel.medicalrecord.model.dto.HospitalRecordsDTO">
+        SELECT
+        hospital_records.id,
+        hospital_records.patientId,
+        hospital_records.onsetTime,
+        hospital_records.toHospitalTime,
+        hospital_records.hospitalizationTime,
+        hospital_records.description,
+        hospital_records.dischargeTime,
+        hospital_records.`status`,
+        hospital_records.createTime,
+        hospital_records.updateTime,
+        hospital_records.deleted,
+        patient.userName,
+        patient.sex,
+        patient.IDCard,
+        patient.age,
+        patient.phoneNumber,
+        patient.nation,
+        patient.livingStatus,
+        patient.maritalStatus,
+        patient.educationDegree,
+        patient.medicalInsuranceType,
+        patient.job,
+        patient.income,
+        patient.city,
+        patient.address
+        FROM
+        hospital_records
+        LEFT JOIN patient ON patient.id = hospital_records.patientId
+        WHERE hospital_records.deleted = 0
+        <if test="search.patientId != null">
+            AND hospital_records.patientId = #{search.patientId}
+        </if>
+        <if test="search.userName != null">
+            AND patient.userName = #{search.userName}
+        </if>
+        <if test="search.sex != null">
+            AND patient.sex = #{search.sex}
+        </if>
+        <if test="search.nation != null">
+            AND patient.nation = #{search.nation}
+        </if>
+        <if test="search.startHospitalizationTime != null">
+            AND hospital_records.hospitalizationTime > #{search.startHospitalizationTime}
+            AND #{search.endHospitalizationTime} > hospital_records.hospitalizationTime
+        </if>
+        <if test="search.startDischargeTime != null">
+            AND hospital_records.dischargeTime > #{search.startDischargeTime}
+            AND #{search.endDischargeTime} > hospital_records.dischargeTime
+        </if>
+        <if test="search.status != null">
+            AND hospital_records.`status` = #{search.status}
+        </if>
+        <if test="idList != null and idList.size > 0">
+            AND hospital_records.id IN
+            <foreach collection="idList" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        ORDER BY hospital_records.createTime
+        LIMIT #{index}, #{size}
+    </select>
+    <select id="findFollowupCount" resultType="java.lang.Integer">
+
+    </select>
+    <select id="findFollowupPage" resultType="com.nickel.medicalrecord.model.dto.HospitalFollowupDTO">
+
+    </select>
+    <select id="findDiagnosticRecordsIdList" resultType="java.lang.String"
+            parameterType="com.nickel.medicalrecord.model.dto.HospitalDiagnosticRecordsConditionDTO">
+        SELECT hospitalRecordsId
+        FROM
+        hospital_diagnostic_records
+        WHERE `type` = #{type}
+        <if test="cerebralInfarction != null">
+            OR cerebralInfarction = #{cerebralInfarction}
+        </if>
+        <if test="cerebralInfarction != null and cerebralInfarction != 0 and cerebralInfarctionTOASTList != null and cerebralInfarctionTOASTList.size > 0">
+            <foreach collection="cerebralInfarctionTOASTList" item="item">
+                OR cerebralInfarctionTOAST like CONCAT('%', #{item}, '%')
+            </foreach>
+        </if>
+        <if test="cerebralHaemorrhage != null">
+            OR cerebralHaemorrhage = #{cerebralHaemorrhage}
+        </if>
+        <if test="vascularCognitiveImpairment != null">
+            OR vascularCognitiveImpairment = #{vascularCognitiveImpairment}
+        </if>
+        <if test="cerebralCerebrovascularDisease != null">
+            OR cerebralCerebrovascularDisease = #{cerebralCerebrovascularDisease}
+        </if>
+        <if test="intracranialArteryStenosis != null">
+            OR intracranialArteryStenosis = #{intracranialArteryStenosis}
+        </if>
+        <if test="cervicalArteryStenosis != null">
+            OR cervicalArteryStenosis = #{cervicalArteryStenosis}
+        </if>
+        <if test="vertebralArteryStenosis != null">
+            OR vertebralArteryStenosis = #{vertebralArteryStenosis}
+        </if>
+        <if test="coronaryHeartDisease != null">
+            OR coronaryHeartDisease = #{coronaryHeartDisease}
+        </if>
+        <if test="atrialFibrillation != null">
+            OR atrialFibrillation = #{atrialFibrillation}
+        </if>
+        <if test="hypertension != null">
+            OR hypertension = #{hypertension}
+        </if>
+        <if test="diabetes != null">
+            OR diabetes = #{diabetes}
+        </if>
+        <if test="hyperlipidemia != null">
+            OR hyperlipidemia = #{hyperlipidemia}
+        </if>
+        <if test="homocysteineemia != null">
+            OR homocysteineemia = #{homocysteineemia}
+        </if>
+        <if test="hyperuricAcidemia != null">
+            OR hyperuricAcidemia = #{hyperuricAcidemia}
+        </if>
+        <if test="chronicObstructivePulmonaryDisease != null">
+            OR chronicObstructivePulmonaryDisease = #{chronicObstructivePulmonaryDisease}
+        </if>
+        <if test="progressiveStroke != null">
+            OR progressiveStroke = #{progressiveStroke}
+        </if>
+        <if test="cobwebSubcavityBleeding != null">
+            OR cobwebSubcavityBleeding = #{cobwebSubcavityBleeding}
+        </if>
+        <if test="angina != null">
+            OR angina = #{angina}
+        </if>
+        <if test="myocardialInfarction != null">
+            OR myocardialInfarction = #{myocardialInfarction}
+        </if>
+        <if test="lowerLimbArtery != null">
+            OR lowerLimbArtery = #{lowerLimbArtery}
+        </if>
+        <if test="lowerLimbVeins != null">
+            OR lowerLimbVeins = #{lowerLimbVeins}
+        </if>
+        <if test="lungInfections != null">
+            OR lungInfections = #{lungInfections}
+        </if>
+        <if test="urinaryTractInfection != null">
+            OR urinaryTractInfection = #{urinaryTractInfection}
+        </if>
+        <if test="stressUlcers != null">
+            OR stressUlcers = #{stressUlcers}
+        </if>
+    </select>
+    <select id="findTreatmentRecordsIdList" resultType="java.lang.String"
+            parameterType="com.nickel.medicalrecord.model.dto.HospitalTreatmentRecordsConditionDTO">
+        SELECT hospitalRecordsId
+        FROM hospital_treatment_records
+        <where>
+            <if test="walk != null">
+                OR walk = #{walk}
+            </if>
+            <if test="thrombosisPrevention != null">
+                OR thrombosisPrevention = #{thrombosisPrevention}
+            </if>
+            <if test="thrombosisPrevention != null and thrombosisPrevention != 0 and thrombosisPreventionTypesList != null and thrombosisPreventionTypesList.size > 0">
+                <foreach collection="thrombosisPreventionTypesList" item="item">
+                    OR thrombosisPreventionTypes like CONCAT('%', #{item}, '%')
+                </foreach>
+            </if>
+            <if test="antiplatelets != null">
+                OR antiplatelets = #{antiplatelets}
+            </if>
+            <if test="antiplatelets != null and antiplatelets != 0 and antiplateletsDrugsList != null and antiplateletsDrugsList.size > 0">
+                <foreach collection="antiplateletsDrugsList" item="item">
+                    OR antiplateletsDrugs like CONCAT('%', #{item}, '%')
+                </foreach>
+            </if>
+            <if test="anticoagulant != null">
+                OR anticoagulant = #{anticoagulant}
+            </if>
+            <if test="anticoagulant != null and anticoagulant != 0 and anticoagulantDrugsList != null and anticoagulantDrugsList.size > 0">
+                <foreach collection="anticoagulantDrugsList" item="item">
+                    OR anticoagulantDrugs like CONCAT('%', #{item}, '%')
+                </foreach>
+            </if>
+            <if test="lipid != null">
+                OR lipid = #{lipid}
+            </if>
+            <if test="lipidStrengthen != null">
+                OR lipidStrengthen = #{lipidStrengthen}
+            </if>
+            <if test="gastricTube != null">
+                OR gastricTube = #{gastricTube}
+            </if>
+            <if test="ureter != null">
+                OR ureter = #{ureter}
+            </if>
+        </where>
+    </select>
+    <select id="findDataIdListByDetectItemMultipleSingle" resultType="java.lang.String">
+        SELECT
+        dataId
+        FROM
+        detect_Item
+        WHERE
+        type = #{type}
+        AND detectType = #{detectItemMultipleSingle.detectType}
+        <if test="detectItemMultipleSingle.multipleSingleList != null and detectItemMultipleSingle.multipleSingleList.size > 0">
+            AND
+            <foreach collection="detectItemMultipleSingle.multipleSingleList" open="(" separator=" OR " close=")"
+                     item="item">
+                multipleSingle like CONCAT('%', #{item}, '%')
+            </foreach>
+        </if>
+    </select>
+    <select id="findDataIdListByMedicationRecord" resultType="java.lang.String">
+        SELECT dataId
+        FROM medication_record
+        WHERE type = #{type}
+        AND id IN (
+        SELECT medicationRecordId FROM medication_drug_record WHERE drugType IN
+        <foreach collection="medicationDrugRecordList" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+        )
+    </select>
+    <select id="selectDetectItemList" resultType="com.nickel.medicalrecord.model.entity.DetectItem">
+        select id,
+               patientId,
+               `type`,
+               dataId,
+               detectType,
+               `value`,
+               single,
+               multiple,
+               multipleSingle,
+               outcome,
+               images,
+               checkTime,
+               createTime
+        from detect_Item
+        where `type` = #{type}
+          and dataId = #{dataId}
+        ORDER BY checkTime
+    </select>
+
+</mapper>

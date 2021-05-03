@@ -6,34 +6,18 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class HospitalDiagnosticRecordsDTO {
-
-    /**
-     * 诊断记录ID
-     */
-    @ApiModelProperty(value = "诊断记录ID")
-    private Integer id;
-
-    /**
-     * 患者ID
-     */
-    @ApiModelProperty(value = "患者ID")
-    private String patientId;
-
-    /**
-     * 病历ID
-     */
-    @ApiModelProperty(value = "病历ID")
-    private String hospitalRecordsId;
+public class HospitalDiagnosticRecordsConditionDTO {
 
     /**
      * 体查类型:1-入院，2-出院
      */
-    @ApiModelProperty(value = "体查类型:1-入院，2-出院")
+    @ApiModelProperty(value = "体查类型:1-入院，2-出院", required = true)
     private Integer type;
 
     /**
@@ -45,14 +29,8 @@ public class HospitalDiagnosticRecordsDTO {
     /**
      * 脑梗死TOAST：1-大动脉粥样硬化型，2-小动脉病变型，3-心源性，4-其他原因，5-原因不明(以,分割)
      */
-    @ApiModelProperty(value = "脑梗死TOAST：1-大动脉粥样硬化型，2-小动脉病变型，3-心源性，4-其他原因，5-原因不明(以,分割)")
-    private String cerebralInfarctionTOAST;
-
-    /**
-     * 脑梗死TOAST可能性：1-无法确定病因，2-隐源性脑栓塞，3-其他隐源性，4-难分类病因(以,分割)
-     */
-    @ApiModelProperty(value = "脑梗死TOAST可能性：1-无法确定病因，2-隐源性脑栓塞，3-其他隐源性，4-难分类病因(以,分割)")
-    private String cerebralInfarctionPossibility;
+    @ApiModelProperty(value = "脑梗死TOAST：1-大动脉粥样硬化型，2-小动脉病变型，3-心源性，4-其他原因，5-原因不明")
+    private List<String> cerebralInfarctionTOASTList;
 
     /**
      * 脑出血：0-未选，1-肯定，2-可能
@@ -191,9 +169,5 @@ public class HospitalDiagnosticRecordsDTO {
      */
     @ApiModelProperty(value = "应激性溃疡")
     private Integer stressUlcers;
-
-    private String description;
-
-    private Long createTime;
 
 }

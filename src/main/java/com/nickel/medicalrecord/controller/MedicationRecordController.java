@@ -35,8 +35,8 @@ public class MedicationRecordController {
 
     @ApiOperation("列表信息")
     @PostMapping("/list")
-    public ApiResult<List<MedicationRecordDTO>> list(@ApiParam(required = true, value = "type") Integer type,
-                                                     @ApiParam(required = true, value = "dataId") String dataId) {
+    public ApiResult<List<MedicationRecordDTO>> list(@ApiParam(required = true, value = "type") @RequestParam Integer type,
+                                                     @ApiParam(required = true, value = "dataId") @RequestParam String dataId) {
         return ApiResultUtil.okay(service.getList(type, dataId));
     }
 

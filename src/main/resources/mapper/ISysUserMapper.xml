@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nickel.medicalrecord.repository.ISysUserMapper">
+    <resultMap id="BaseResultMap" type="com.nickel.medicalrecord.model.entity.SysUser">
+        <id column="id" property="id"/>
+        <result column="account" property="account"/>
+        <result column="password" property="password"/>
+        <result column="userName" property="userName"/>
+        <result column="phoneNumber" property="phoneNumber"/>
+        <result column="type" property="type"/>
+        <result column="createTime" property="createTime"/>
+        <result column="updateTime" property="updateTime"/>
+        <result column="deleted" property="deleted"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, account, `password`, userName, phoneNumber, `type`, createTime, updateTime, deleted
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+            resultType="com.nickel.medicalrecord.model.entity.SysUser">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_user
+        where id = #{id}
+    </select>
+    <select id="selectList" resultType="com.nickel.medicalrecord.model.entity.SysUser"
+            parameterType="com.nickel.medicalrecord.model.dto.SysUserConditionDTO">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_user
+        where deleted = 0
+        <if test="account != null">
+            and account = #{account}
+        </if>
+        <if test="password != null">
+            and `password` = #{password}
+        </if>
+        <if test="userName != null">
+            and userName = #{userName}
+        </if>
+        <if test="phoneNumber != null">
+            and phoneNumber = #{phoneNumber}
+        </if>
+        <if test="type != null">
+            and `type` = #{type}
+        </if>
+        ORDER BY createTime DESC
+    </select>
+    <select id="selectPageCount" resultType="java.lang.Integer"
+            parameterType="com.nickel.medicalrecord.model.dto.SysUserConditionDTO">
+        select count(1)
+        from sys_user
+        where deleted = 0
+        <if test="account != null">
+            and account = #{account}
+        </if>
+        <if test="password != null">
+            and `password` = #{password}
+        </if>
+        <if test="userName != null">
+            and userName = #{userName}
+        </if>
+        <if test="phoneNumber != null">
+            and phoneNumber = #{phoneNumber}
+        </if>
+        <if test="type != null">
+            and `type` = #{type}
+        </if>
+    </select>
+    <select id="selectPage" resultType="com.nickel.medicalrecord.model.entity.SysUser">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_user
+        where deleted = 0
+        <if test="conditionDTO.account != null">
+            and account = #{conditionDTO.account}
+        </if>
+        <if test="conditionDTO.password != null">
+            and `password` = #{conditionDTO.password}
+        </if>
+        <if test="conditionDTO.userName != null">
+            and userName = #{conditionDTO.userName}
+        </if>
+        <if test="conditionDTO.phoneNumber != null">
+            and phoneNumber = #{conditionDTO.phoneNumber}
+        </if>
+        <if test="conditionDTO.type != null">
+            and `type` = #{conditionDTO.type}
+        </if>
+        ORDER BY createTime DESC
+        LIMIT #{index}, #{size}
+    </select>
+    <select id="selectByAccountCount" resultType="java.lang.Integer">
+        select count(1)
+        from sys_user
+        where account = #{account}
+    </select>
+    <select id="selectByPhoneNumberCount" resultType="java.lang.Integer">
+        select count(1)
+        from sys_user
+        where phoneNumber = #{phoneNumber}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from sys_user
+        where id = #{id}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.nickel.medicalrecord.model.entity.SysUser"
+            useGeneratedKeys="true">
+        insert into sys_user (account, `password`, userName,
+                              phoneNumber, `type`, createTime,
+                              updateTime, deleted)
+        values (#{account}, #{password}, #{userName},
+                #{phoneNumber}, #{type}, #{createTime},
+                #{updateTime}, #{deleted})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id"
+            parameterType="com.nickel.medicalrecord.model.entity.SysUser" useGeneratedKeys="true">
+        insert into sys_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="account != null">
+                account,
+            </if>
+            <if test="password != null">
+                `password`,
+            </if>
+            <if test="userName != null">
+                userName,
+            </if>
+            <if test="phoneNumber != null">
+                phoneNumber,
+            </if>
+            <if test="type != null">
+                `type`,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+            <if test="updateTime != null">
+                updateTime,
+            </if>
+            <if test="deleted != null">
+                deleted,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="account != null">
+                #{account},
+            </if>
+            <if test="password != null">
+                #{password},
+            </if>
+            <if test="userName != null">
+                #{userName},
+            </if>
+            <if test="phoneNumber != null">
+                #{phoneNumber},
+            </if>
+            <if test="type != null">
+                #{type},
+            </if>
+            <if test="createTime != null">
+                #{createTime},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime},
+            </if>
+            <if test="deleted != null">
+                #{deleted},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.nickel.medicalrecord.model.entity.SysUser">
+        update sys_user
+        <set>
+            <if test="account != null">
+                account = #{account},
+            </if>
+            <if test="password != null">
+                `password` = #{password},
+            </if>
+            <if test="userName != null">
+                userName = #{userName},
+            </if>
+            <if test="phoneNumber != null">
+                phoneNumber = #{phoneNumber},
+            </if>
+            <if test="type != null">
+                `type` = #{type},
+            </if>
+            <if test="updateTime != null">
+                updateTime = #{updateTime},
+            </if>
+            <if test="deleted != null">
+                deleted = #{deleted},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.nickel.medicalrecord.model.entity.SysUser">
+        update sys_user
+        set account     = #{account},
+            `password`  = #{password},
+            userName    = #{userName},
+            phoneNumber = #{phoneNumber},
+            `type`      = #{type},
+            updateTime  = #{updateTime},
+            deleted     = #{deleted}
+        where id = #{id}
+    </update>
+</mapper>

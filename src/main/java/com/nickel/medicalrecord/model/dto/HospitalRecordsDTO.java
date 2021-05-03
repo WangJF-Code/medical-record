@@ -64,21 +64,19 @@ public class HospitalRecordsDTO {
      * 创建时间
      */
     @ApiModelProperty(value = "创建时间")
-    @Builder.Default
-    private Long createTime = System.currentTimeMillis();
+    private Long createTime;
 
     /**
      * 修改时间
      */
     @ApiModelProperty(value = "修改时间")
-    @Builder.Default
-    private Long updateTime = System.currentTimeMillis();
+    private Long updateTime;
 
     /**
      * 删除状态
      */
     @ApiModelProperty(value = "删除状态")
-    private Integer deleted = 0;
+    private Integer deleted;
 
     /**
      * 姓名
