@@ -7,7 +7,7 @@
         COUNT(hospital_records.id)
         FROM
         hospital_records
-        LEFT JOIN patient ON patient.id = hospital_records.patientId
+        INNER JOIN patient ON patient.id = hospital_records.patientId
         WHERE hospital_records.deleted = 0
         <if test="search.patientId != null">
             AND hospital_records.patientId = #{search.patientId}
@@ -68,7 +68,7 @@
         patient.address
         FROM
         hospital_records
-        LEFT JOIN patient ON patient.id = hospital_records.patientId
+        INNER JOIN patient ON patient.id = hospital_records.patientId
         WHERE hospital_records.deleted = 0
         <if test="search.patientId != null">
             AND hospital_records.patientId = #{search.patientId}
@@ -103,12 +103,83 @@
         LIMIT #{index}, #{size}
     </select>
     <select id="findFollowupCount" resultType="java.lang.Integer">
-
+        SELECT Count(hospital_records.id)
+        FROM hospital_records
+        INNER JOIN patient ON patient.id = hospital_records.patientId
+        INNER JOIN followup_records ON followup_records.hospitalRecordsId = hospital_records.id
+        WHERE followup_records.deleted = 0
+        <if test="search.hospitalRecordsId != null">
+            AND followup_records.hospitalRecordsId = #{search.hospitalRecordsId}
+        </if>
+        <if test="search.patientId != null">
+            AND followup_records.patientId = #{search.patientId}
+        </if>
+        <if test="search.dead != null">
+            AND followup_records.dead = #{search.dead}
+        </if>
+        <if test="search.userName != null">
+            AND patient.userName = #{search.userName}
+        </if>
+        <if test="search.sex != null">
+            AND patient.sex = #{search.sex}
+        </if>
+        <if test="idList != null and idList.size > 0">
+            AND followup_records.id IN
+            <foreach collection="idList" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
     </select>
-    <select id="findFollowupPage" resultType="com.nickel.medicalrecord.model.dto.HospitalFollowupDTO">
-
+    <select id="findFollowupPage" resultMap="HospitalFollowupDTOResultMap">
+        SELECT
+        hospital_records.id,
+        hospital_records.patientId,
+        patient.userName,
+        patient.sex,
+        patient.age,
+        followup_records.id AS followup_id,
+        followup_records.followupType,
+        followup_records.cycle,
+        followup_records.cycleUnit,
+        followup_records.cycleFloat,
+        followup_records.dead,
+        followup_records.deadTime,
+        followup_records.causeOfDeath,
+        followup_records.livingStatus,
+        followup_records.city,
+        followup_records.address,
+        followup_records.description,
+        followup_records.createTime,
+        followup_records.updateTime,
+        followup_records.deleted
+        FROM hospital_records
+        INNER JOIN patient ON patient.id = hospital_records.patientId
+        INNER JOIN followup_records ON followup_records.hospitalRecordsId = hospital_records.id
+        WHERE followup_records.deleted = 0
+        <if test="search.hospitalRecordsId != null">
+            AND followup_records.hospitalRecordsId = #{search.hospitalRecordsId}
+        </if>
+        <if test="search.patientId != null">
+            AND followup_records.patientId = #{search.patientId}
+        </if>
+        <if test="search.dead != null">
+            AND followup_records.dead = #{search.dead}
+        </if>
+        <if test="search.userName != null">
+            AND patient.userName = #{search.userName}
+        </if>
+        <if test="search.sex != null">
+            AND patient.sex = #{search.sex}
+        </if>
+        <if test="idList != null and idList.size > 0">
+            AND followup_records.id IN
+            <foreach collection="idList" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        LIMIT #{index}, #{size}
     </select>
-    <select id="findDiagnosticRecordsIdList" resultType="java.lang.String"
+    <select id="findHospitalRecordsIdListByDiagnostic" resultType="java.lang.String"
             parameterType="com.nickel.medicalrecord.model.dto.HospitalDiagnosticRecordsConditionDTO">
         SELECT hospitalRecordsId
         FROM
@@ -192,7 +263,7 @@
             OR stressUlcers = #{stressUlcers}
         </if>
     </select>
-    <select id="findTreatmentRecordsIdList" resultType="java.lang.String"
+    <select id="findHospitalRecordsIdListByTreatment" resultType="java.lang.String"
             parameterType="com.nickel.medicalrecord.model.dto.HospitalTreatmentRecordsConditionDTO">
         SELECT hospitalRecordsId
         FROM hospital_treatment_records
@@ -284,5 +355,64 @@
           and dataId = #{dataId}
         ORDER BY checkTime
     </select>
+    <select id="findFollowupRecordsIdListByDrugRecordList" resultType="java.lang.String">
+        SELECT
+        followupRecordsId
+        FROM
+        followup_drug_record
+        WHERE
+        eatDrugType IN
+        <foreach collection="drugRecordList" open="(" close=")" separator="," item="item">
+            #{item}
+        </foreach>
+    </select>
+    <select id="findFollowupRecordListByOnsetRecordList" resultType="java.lang.String">
+        SELECT
+        followupRecordsId
+        FROM
+        followup_onset_record
+        WHERE
+        `type` IN
+        <foreach collection="onsetRecordList" open="(" close=")" separator="," item="item">
+            #{item}
+        </foreach>
+    </select>
+    <select id="findFollowupRecordsIdListByDiagnosticByTOASTList" resultType="java.lang.String">
+        SELECT
+        followupRecordsId
+        FROM
+        followup_vascular_event_record
+        WHERE TOAST IS NOT NULL AND
+        <foreach collection="cerebralInfarctionTOASTList" item="item" open="(" close=")" separator=" OR ">
+            TOAST like CONCAT('%', #{item}, '%')
+        </foreach>
+    </select>
+
+    <resultMap id="HospitalFollowupDTOResultMap" type="com.nickel.medicalrecord.model.dto.HospitalFollowupDTO">
+        <id column="id" property="id"/>
+        <result column="patientId" property="patientId"/>
+        <result column="userName" property="userName"/>
+        <result column="sex" property="sex"/>
+        <result column="age" property="age"/>
+        <collection property="followupRecordsList" ofType="com.nickel.medicalrecord.model.dto.FollowupRecordsDTO">
+            <id column="followup_id" property="id"/>
+            <result column="patientId" property="patientId"/>
+            <result column="id" property="hospitalRecordsId"/>
+            <result column="followupType" property="followupType"/>
+            <result column="cycle" property="cycle"/>
+            <result column="cycleUnit" property="cycleUnit"/>
+            <result column="cycleFloat" property="cycleFloat"/>
+            <result column="dead" property="dead"/>
+            <result column="deadTime" property="deadTime"/>
+            <result column="causeOfDeath" property="causeOfDeath"/>
+            <result column="livingStatus" property="livingStatus"/>
+            <result column="city" property="city"/>
+            <result column="address" property="address"/>
+            <result column="description" property="description"/>
+            <result column="createTime" property="createTime"/>
+            <result column="updateTime" property="updateTime"/>
+            <result column="deleted" property="deleted"/>
+        </collection>
+    </resultMap>
 
 </mapper>

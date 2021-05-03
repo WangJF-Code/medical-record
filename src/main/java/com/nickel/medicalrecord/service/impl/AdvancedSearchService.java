@@ -47,7 +47,14 @@ public class AdvancedSearchService implements IAdvancedSearchService {
     private IDetectThyroidFunctionMapper detectThyroidFunctionMapper;
 
     @Autowired
-    public AdvancedSearchService(IDetectAntiplateletDrugGenesMapper detectAntiplateletDrugGenesMapper, IDetectBiochemicalFullItemMapper detectBiochemicalFullItemMapper, IDetectBloodRoutineMapper detectBloodRoutineMapper, IDetectClottingRoutineMapper detectClottingRoutineMapper, IDetectEkgMapper detectEkgMapper, IDetectInflammatoryMediaMapper detectInflammatoryMediaMapper, IDetectItemMapper detectItemMapper, IDetectSwiMapper detectSwiMapper, IDetectThirteenBloodLipidsMapper detectThirteenBloodLipidsMapper, IDetectThyroidFunctionMapper detectThyroidFunctionMapper, IAdvancedSearchMapper mapper) {
+    public AdvancedSearchService(IDetectAntiplateletDrugGenesMapper detectAntiplateletDrugGenesMapper,
+                                 IDetectBiochemicalFullItemMapper detectBiochemicalFullItemMapper,
+                                 IDetectBloodRoutineMapper detectBloodRoutineMapper,
+                                 IDetectClottingRoutineMapper detectClottingRoutineMapper,
+                                 IDetectEkgMapper detectEkgMapper,
+                                 IDetectInflammatoryMediaMapper detectInflammatoryMediaMapper,
+                                 IDetectSwiMapper detectSwiMapper, IDetectThirteenBloodLipidsMapper detectThirteenBloodLipidsMapper,
+                                 IDetectThyroidFunctionMapper detectThyroidFunctionMapper, IAdvancedSearchMapper mapper) {
         this.detectAntiplateletDrugGenesMapper = detectAntiplateletDrugGenesMapper;
         this.detectBiochemicalFullItemMapper = detectBiochemicalFullItemMapper;
         this.detectBloodRoutineMapper = detectBloodRoutineMapper;
@@ -64,11 +71,11 @@ public class AdvancedSearchService implements IAdvancedSearchService {
     public Page<HospitalRecordsDTO> hospitalList(AdvancedSearchHospitalDTO search, Integer pageCurrent, Integer pageSize) {
         List<String> idList = new ArrayList<>();
         if (Objects.nonNull(search.getDiagnosticRecords())) {
-            List<String> diagnosticRecordsIdList = mapper.findDiagnosticRecordsIdList(search.getDiagnosticRecords());
+            List<String> diagnosticRecordsIdList = mapper.findHospitalRecordsIdListByDiagnostic(search.getDiagnosticRecords());
             idList.addAll(diagnosticRecordsIdList);
         }
         if (Objects.nonNull(search.getTreatmentRecords())) {
-            List<String> treatmentRecordsIdList = mapper.findTreatmentRecordsIdList(search.getTreatmentRecords());
+            List<String> treatmentRecordsIdList = mapper.findHospitalRecordsIdListByTreatment(search.getTreatmentRecords());
             idList.addAll(treatmentRecordsIdList);
         }
         if (Objects.nonNull(search.getDetectItemMultipleSingle())) {
@@ -90,8 +97,32 @@ public class AdvancedSearchService implements IAdvancedSearchService {
     @Override
     public Page<HospitalFollowupDTO> followupList(AdvancedSearchFollowupDTO search, Integer pageCurrent, Integer pageSize) {
         List<String> idList = new ArrayList<>();
+        if (Objects.nonNull(search.getDetectItemMultipleSingle())) {
+            idList.addAll(findDataIdList(FOLLOWUP_RECORD_TYPE, search.getDetectItemMultipleSingle()));
+        }
+        if (Objects.nonNull(search.getMedicationDrugRecordList()) && search.getMedicationDrugRecordList().size() > 0) {
+            idList.addAll(findDataIdList(FOLLOWUP_RECORD_TYPE, search.getMedicationDrugRecordList()));
+        }
+        if (Objects.nonNull(search.getMedicationDrugRecordList()) && search.getMedicationDrugRecordList().size() > 0) {
+            List<String> drugRecordList = mapper.findFollowupRecordsIdListByDrugRecordList(search.getDrugRecordList());
+            idList.addAll(drugRecordList);
+        }
+        if (Objects.nonNull(search.getMedicationDrugRecordList()) && search.getMedicationDrugRecordList().size() > 0) {
+            List<String> onsetRecordList = mapper.findFollowupRecordListByOnsetRecordList(search.getOnsetRecordList());
+            idList.addAll(onsetRecordList);
+        }
+        if (Objects.nonNull(search.getMedicationDrugRecordList()) && search.getMedicationDrugRecordList().size() > 0) {
+            List<String> toastList = mapper.findFollowupRecordsIdListByDiagnosticByTOASTList(search.getTOASTList());
+            idList.addAll(toastList);
+        }
         Integer count = mapper.findFollowupCount(search, idList);
         List<HospitalFollowupDTO> list = mapper.findFollowupPage(search, idList, pageCurrent * pageSize - pageSize, pageSize);
+        for (HospitalFollowupDTO hospitalFollowupDTO : list) {
+            List<FollowupRecordsDTO> followupRecordsList = hospitalFollowupDTO.getFollowupRecordsList();
+            hospitalFollowupDTO.setFollowupCount(followupRecordsList.size());
+            boolean isDead = followupRecordsList.stream().anyMatch(followupRecordsDTO -> followupRecordsDTO.getDead() == 1);
+            hospitalFollowupDTO.setDead(isDead ? 1 : 0);
+        }
         return Page.<HospitalFollowupDTO>builder()
                 .count(count)
                 .currPage(pageCurrent)

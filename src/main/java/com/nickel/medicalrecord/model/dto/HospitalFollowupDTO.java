@@ -1,5 +1,6 @@
 package com.nickel.medicalrecord.model.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -50,7 +51,11 @@ public class HospitalFollowupDTO {
     @ApiModelProperty(value = "是否死亡")
     private Integer dead;
 
-    @ApiModelProperty(value = "随访记录集合")
+    @ApiModelProperty(value = "随访记录")
+    private Integer followupCount;
+
+    @ApiModelProperty(hidden = true)
+    @JsonIgnore
     private List<FollowupRecordsDTO> followupRecordsList;
 
 }

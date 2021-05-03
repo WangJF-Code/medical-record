@@ -98,7 +98,7 @@
         SELECT
         <include refid="FollowupRecordsDTO_Column_List"/>
         FROM followup_records
-        LEFT JOIN patient ON patient.id = followup_records.patientId
+        INNER JOIN patient ON patient.id = followup_records.patientId
         WHERE followup_records.deleted = #{deleted}
         <if test="hospitalRecordsId != null">
             AND followup_records.hospitalRecordsId = #{hospitalRecordsId}
@@ -121,7 +121,7 @@
         SELECT
         <include refid="FollowupRecordsDTO_Column_List"/>
         FROM followup_records
-        LEFT JOIN patient ON patient.id = followup_records.patientId
+        INNER JOIN patient ON patient.id = followup_records.patientId
         WHERE followup_records.id = #{id}
     </select>
     <select id="findCount" resultType="java.lang.Integer"
@@ -129,7 +129,7 @@
         SELECT
         COUNT(followup_records.id)
         FROM followup_records
-        LEFT JOIN patient ON patient.id = followup_records.patientId
+        INNER JOIN patient ON patient.id = followup_records.patientId
         WHERE followup_records.deleted = #{deleted}
         <if test="hospitalRecordsId != null">
             AND followup_records.hospitalRecordsId = #{hospitalRecordsId}
@@ -151,7 +151,7 @@
         SELECT
         <include refid="FollowupRecordsDTO_Column_List"/>
         FROM followup_records
-        LEFT JOIN patient ON patient.id = followup_records.patientId
+        INNER JOIN patient ON patient.id = followup_records.patientId
         WHERE followup_records.deleted = #{conditionDTO.deleted}
         <if test="conditionDTO.hospitalRecordsId != null">
             AND followup_records.hospitalRecordsId = #{conditionDTO.hospitalRecordsId}

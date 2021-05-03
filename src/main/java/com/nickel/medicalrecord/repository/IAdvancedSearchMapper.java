@@ -19,9 +19,9 @@ public interface IAdvancedSearchMapper {
                                                @Param("idList") List<String> idList,
                                                @Param("index") Integer index, @Param("size") Integer size);
 
-    List<String> findDiagnosticRecordsIdList(HospitalDiagnosticRecordsConditionDTO diagnosticRecords);
+    List<String> findHospitalRecordsIdListByDiagnostic(HospitalDiagnosticRecordsConditionDTO diagnosticRecords);
 
-    List<String> findTreatmentRecordsIdList(HospitalTreatmentRecordsConditionDTO treatmentRecords);
+    List<String> findHospitalRecordsIdListByTreatment(HospitalTreatmentRecordsConditionDTO treatmentRecords);
 
     List<String> findDataIdListByDetectItemMultipleSingle(@Param("type") Integer type,
                                                           @Param("detectItemMultipleSingle") DetectItemMultipleSingleConditionDTO detectItemMultipleSingle);
@@ -30,4 +30,10 @@ public interface IAdvancedSearchMapper {
                                                   @Param("medicationDrugRecordList") List<Integer> medicationDrugRecordList);
 
     List<DetectItem> selectDetectItemList(@Param("type") Integer type, @Param("dataId") String dataId);
+
+    List<String> findFollowupRecordsIdListByDrugRecordList(List<Integer> drugRecordList);
+
+    List<String> findFollowupRecordListByOnsetRecordList(List<Integer> onsetRecordList);
+
+    List<String> findFollowupRecordsIdListByDiagnosticByTOASTList(List<Integer> toastList);
 }
