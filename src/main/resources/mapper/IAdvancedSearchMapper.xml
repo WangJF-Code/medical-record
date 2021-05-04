@@ -103,10 +103,14 @@
         LIMIT #{index}, #{size}
     </select>
     <select id="findFollowupCount" resultType="java.lang.Integer">
-        SELECT Count(hospital_records.id)
-        FROM hospital_records
-        INNER JOIN patient ON patient.id = hospital_records.patientId
-        INNER JOIN followup_records ON followup_records.hospitalRecordsId = hospital_records.id
+        SELECT COUNT(id)
+        FROM (
+        SELECT
+        hospital_records.id
+        FROM
+        hospital_records
+        LEFT JOIN patient ON patient.id = hospital_records.patientId
+        LEFT JOIN followup_records ON followup_records.hospitalRecordsId = hospital_records.id
         WHERE followup_records.deleted = 0
         <if test="search.hospitalRecordsId != null">
             AND followup_records.hospitalRecordsId = #{search.hospitalRecordsId}
@@ -129,32 +133,25 @@
                 #{item}
             </foreach>
         </if>
+        GROUP BY hospital_records.id
+        ) AS hospital_followup
     </select>
-    <select id="findFollowupPage" resultMap="HospitalFollowupDTOResultMap">
+    <select id="findFollowupPage" resultType="com.nickel.medicalrecord.model.dto.HospitalFollowupDTO">
+        SELECT
+        *
+        FROM (
         SELECT
         hospital_records.id,
         hospital_records.patientId,
         patient.userName,
         patient.sex,
         patient.age,
-        followup_records.id AS followup_id,
-        followup_records.followupType,
-        followup_records.cycle,
-        followup_records.cycleUnit,
-        followup_records.cycleFloat,
-        followup_records.dead,
-        followup_records.deadTime,
-        followup_records.causeOfDeath,
-        followup_records.livingStatus,
-        followup_records.city,
-        followup_records.address,
-        followup_records.description,
-        followup_records.createTime,
-        followup_records.updateTime,
-        followup_records.deleted
-        FROM hospital_records
-        INNER JOIN patient ON patient.id = hospital_records.patientId
-        INNER JOIN followup_records ON followup_records.hospitalRecordsId = hospital_records.id
+        Count( followup_records.id ) AS followupCount,
+        Max( followup_records.dead ) AS dead
+        FROM
+        hospital_records
+        LEFT JOIN patient ON patient.id = hospital_records.patientId
+        LEFT JOIN followup_records ON followup_records.hospitalRecordsId = hospital_records.id
         WHERE followup_records.deleted = 0
         <if test="search.hospitalRecordsId != null">
             AND followup_records.hospitalRecordsId = #{search.hospitalRecordsId}
@@ -177,6 +174,8 @@
                 #{item}
             </foreach>
         </if>
+        GROUP BY hospital_records.id
+        ) AS hospital_followup
         LIMIT #{index}, #{size}
     </select>
     <select id="findHospitalRecordsIdListByDiagnostic" resultType="java.lang.String"
@@ -387,32 +386,5 @@
             TOAST like CONCAT('%', #{item}, '%')
         </foreach>
     </select>
-
-    <resultMap id="HospitalFollowupDTOResultMap" type="com.nickel.medicalrecord.model.dto.HospitalFollowupDTO">
-        <id column="id" property="id"/>
-        <result column="patientId" property="patientId"/>
-        <result column="userName" property="userName"/>
-        <result column="sex" property="sex"/>
-        <result column="age" property="age"/>
-        <collection property="followupRecordsList" ofType="com.nickel.medicalrecord.model.dto.FollowupRecordsDTO">
-            <id column="followup_id" property="id"/>
-            <result column="patientId" property="patientId"/>
-            <result column="id" property="hospitalRecordsId"/>
-            <result column="followupType" property="followupType"/>
-            <result column="cycle" property="cycle"/>
-            <result column="cycleUnit" property="cycleUnit"/>
-            <result column="cycleFloat" property="cycleFloat"/>
-            <result column="dead" property="dead"/>
-            <result column="deadTime" property="deadTime"/>
-            <result column="causeOfDeath" property="causeOfDeath"/>
-            <result column="livingStatus" property="livingStatus"/>
-            <result column="city" property="city"/>
-            <result column="address" property="address"/>
-            <result column="description" property="description"/>
-            <result column="createTime" property="createTime"/>
-            <result column="updateTime" property="updateTime"/>
-            <result column="deleted" property="deleted"/>
-        </collection>
-    </resultMap>
 
 </mapper>

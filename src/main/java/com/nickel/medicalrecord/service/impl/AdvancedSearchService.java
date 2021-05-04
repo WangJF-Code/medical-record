@@ -117,12 +117,6 @@ public class AdvancedSearchService implements IAdvancedSearchService {
         }
         Integer count = mapper.findFollowupCount(search, idList);
         List<HospitalFollowupDTO> list = mapper.findFollowupPage(search, idList, pageCurrent * pageSize - pageSize, pageSize);
-        for (HospitalFollowupDTO hospitalFollowupDTO : list) {
-            List<FollowupRecordsDTO> followupRecordsList = hospitalFollowupDTO.getFollowupRecordsList();
-            hospitalFollowupDTO.setFollowupCount(followupRecordsList.size());
-            boolean isDead = followupRecordsList.stream().anyMatch(followupRecordsDTO -> followupRecordsDTO.getDead() == 1);
-            hospitalFollowupDTO.setDead(isDead ? 1 : 0);
-        }
         return Page.<HospitalFollowupDTO>builder()
                 .count(count)
                 .currPage(pageCurrent)
