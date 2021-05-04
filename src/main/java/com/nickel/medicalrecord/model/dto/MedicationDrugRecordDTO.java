@@ -33,7 +33,7 @@ public class MedicationDrugRecordDTO {
      * 药物
      */
     @ApiModelProperty(value="药物")
-    private Integer drug;
+    private String drug;
 
     /**
      * 剂量

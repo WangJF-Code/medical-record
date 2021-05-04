@@ -57,6 +57,6 @@ public class AdvancedSearchFollowupDTO {
     private List<Integer> onsetRecordList;
 
     @ApiModelProperty(value = "血管事件测评记录 TOAST：1-大动脉粥样硬化型，2-小动脉病变型，3-心源性，4-其他原因，5-原因不明")
-    private List<Integer> TOASTList;
+    private List<String> TOASTList;
 
 }

@@ -35,5 +35,5 @@ public interface IAdvancedSearchMapper {
 
     List<String> findFollowupRecordListByOnsetRecordList(List<Integer> onsetRecordList);
 
-    List<String> findFollowupRecordsIdListByDiagnosticByTOASTList(List<Integer> toastList);
+    List<String> findFollowupRecordsIdListByDiagnosticByTOASTList(List<String> toastList);
 }

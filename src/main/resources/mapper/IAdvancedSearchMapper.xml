@@ -110,29 +110,31 @@
         FROM
         hospital_records
         LEFT JOIN patient ON patient.id = hospital_records.patientId
-        LEFT JOIN followup_records ON followup_records.hospitalRecordsId = hospital_records.id
-        WHERE followup_records.deleted = 0
-        <if test="search.hospitalRecordsId != null">
-            AND followup_records.hospitalRecordsId = #{search.hospitalRecordsId}
-        </if>
-        <if test="search.patientId != null">
-            AND followup_records.patientId = #{search.patientId}
-        </if>
-        <if test="search.dead != null">
-            AND followup_records.dead = #{search.dead}
-        </if>
-        <if test="search.userName != null">
-            AND patient.userName = #{search.userName}
-        </if>
-        <if test="search.sex != null">
-            AND patient.sex = #{search.sex}
-        </if>
-        <if test="idList != null and idList.size > 0">
-            AND followup_records.id IN
-            <foreach collection="idList" item="item" open="(" separator="," close=")">
-                #{item}
-            </foreach>
-        </if>
+        LEFT JOIN followup_records ON followup_records.hospitalRecordsId = hospital_records.id AND
+        followup_records.deleted = 0
+        <where>
+            <if test="search.hospitalRecordsId != null">
+                AND followup_records.hospitalRecordsId = #{search.hospitalRecordsId}
+            </if>
+            <if test="search.patientId != null">
+                AND followup_records.patientId = #{search.patientId}
+            </if>
+            <if test="search.dead != null">
+                AND followup_records.dead = #{search.dead}
+            </if>
+            <if test="search.userName != null">
+                AND patient.userName = #{search.userName}
+            </if>
+            <if test="search.sex != null">
+                AND patient.sex = #{search.sex}
+            </if>
+            <if test="idList != null and idList.size > 0">
+                AND followup_records.id IN
+                <foreach collection="idList" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
         GROUP BY hospital_records.id
         ) AS hospital_followup
     </select>
@@ -151,29 +153,31 @@
         FROM
         hospital_records
         LEFT JOIN patient ON patient.id = hospital_records.patientId
-        LEFT JOIN followup_records ON followup_records.hospitalRecordsId = hospital_records.id
-        WHERE followup_records.deleted = 0
-        <if test="search.hospitalRecordsId != null">
-            AND followup_records.hospitalRecordsId = #{search.hospitalRecordsId}
-        </if>
-        <if test="search.patientId != null">
-            AND followup_records.patientId = #{search.patientId}
-        </if>
-        <if test="search.dead != null">
-            AND followup_records.dead = #{search.dead}
-        </if>
-        <if test="search.userName != null">
-            AND patient.userName = #{search.userName}
-        </if>
-        <if test="search.sex != null">
-            AND patient.sex = #{search.sex}
-        </if>
-        <if test="idList != null and idList.size > 0">
-            AND followup_records.id IN
-            <foreach collection="idList" item="item" open="(" separator="," close=")">
-                #{item}
-            </foreach>
-        </if>
+        LEFT JOIN followup_records ON followup_records.hospitalRecordsId = hospital_records.id AND
+        followup_records.deleted = 0
+        <where>
+            <if test="search.hospitalRecordsId != null">
+                AND followup_records.hospitalRecordsId = #{search.hospitalRecordsId}
+            </if>
+            <if test="search.patientId != null">
+                AND followup_records.patientId = #{search.patientId}
+            </if>
+            <if test="search.dead != null">
+                AND followup_records.dead = #{search.dead}
+            </if>
+            <if test="search.userName != null">
+                AND patient.userName = #{search.userName}
+            </if>
+            <if test="search.sex != null">
+                AND patient.sex = #{search.sex}
+            </if>
+            <if test="idList != null and idList.size > 0">
+                AND followup_records.id IN
+                <foreach collection="idList" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
         GROUP BY hospital_records.id
         ) AS hospital_followup
         LIMIT #{index}, #{size}
@@ -336,7 +340,7 @@
         )
     </select>
     <select id="selectDetectItemList" resultType="com.nickel.medicalrecord.model.entity.DetectItem">
-        select id,
+        SELECT id,
                patientId,
                `type`,
                dataId,
@@ -349,10 +353,9 @@
                images,
                checkTime,
                createTime
-        from detect_Item
-        where `type` = #{type}
-          and dataId = #{dataId}
-        ORDER BY checkTime
+        FROM detect_Item
+        WHERE `type` = #{type}
+          AND dataId = #{dataId}
     </select>
     <select id="findFollowupRecordsIdListByDrugRecordList" resultType="java.lang.String">
         SELECT
@@ -382,7 +385,7 @@
         FROM
         followup_vascular_event_record
         WHERE TOAST IS NOT NULL AND
-        <foreach collection="cerebralInfarctionTOASTList" item="item" open="(" close=")" separator=" OR ">
+        <foreach collection="toastList" item="item" open="(" close=")" separator=" OR ">
             TOAST like CONCAT('%', #{item}, '%')
         </foreach>
     </select>

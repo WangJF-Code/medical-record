@@ -90,7 +90,7 @@ public class AdvancedSearchService implements IAdvancedSearchService {
                 .count(count)
                 .currPage(pageCurrent)
                 .pageSize(pageSize)
-                .data(list)
+                .data(list.stream().filter(hospitalRecordsDTO -> Objects.nonNull(hospitalRecordsDTO.getId())).collect(Collectors.toList()))
                 .build();
     }
 
@@ -103,15 +103,15 @@ public class AdvancedSearchService implements IAdvancedSearchService {
         if (Objects.nonNull(search.getMedicationDrugRecordList()) && search.getMedicationDrugRecordList().size() > 0) {
             idList.addAll(findDataIdList(FOLLOWUP_RECORD_TYPE, search.getMedicationDrugRecordList()));
         }
-        if (Objects.nonNull(search.getMedicationDrugRecordList()) && search.getMedicationDrugRecordList().size() > 0) {
+        if (Objects.nonNull(search.getDrugRecordList()) && search.getDrugRecordList().size() > 0) {
             List<String> drugRecordList = mapper.findFollowupRecordsIdListByDrugRecordList(search.getDrugRecordList());
             idList.addAll(drugRecordList);
         }
-        if (Objects.nonNull(search.getMedicationDrugRecordList()) && search.getMedicationDrugRecordList().size() > 0) {
+        if (Objects.nonNull(search.getOnsetRecordList()) && search.getOnsetRecordList().size() > 0) {
             List<String> onsetRecordList = mapper.findFollowupRecordListByOnsetRecordList(search.getOnsetRecordList());
             idList.addAll(onsetRecordList);
         }
-        if (Objects.nonNull(search.getMedicationDrugRecordList()) && search.getMedicationDrugRecordList().size() > 0) {
+        if (Objects.nonNull(search.getTOASTList()) && search.getTOASTList().size() > 0) {
             List<String> toastList = mapper.findFollowupRecordsIdListByDiagnosticByTOASTList(search.getTOASTList());
             idList.addAll(toastList);
         }
@@ -121,7 +121,7 @@ public class AdvancedSearchService implements IAdvancedSearchService {
                 .count(count)
                 .currPage(pageCurrent)
                 .pageSize(pageSize)
-                .data(list)
+                .data(list.stream().filter(hospitalFollowupDTO -> Objects.nonNull(hospitalFollowupDTO.getId())).collect(Collectors.toList()))
                 .build();
     }
 

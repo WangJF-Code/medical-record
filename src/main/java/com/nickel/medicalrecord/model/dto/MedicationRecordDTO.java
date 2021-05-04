@@ -49,6 +49,7 @@ public class MedicationRecordDTO {
     @ApiModelProperty(value = "创建时间")
     private Long createTime;
 
+    @ApiModelProperty(value = "药物集合")
     private List<MedicationDrugRecordDTO> drugRecordDTOList;
 
 }
