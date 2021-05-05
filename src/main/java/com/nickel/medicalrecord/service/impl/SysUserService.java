@@ -81,7 +81,7 @@ public class SysUserService implements ISysUserService {
 
     @Override
     public void getAuthCode(String account) {
-        
+
     }
 
     private void checkUser(String account, String phoneNumber) throws ServerException {
