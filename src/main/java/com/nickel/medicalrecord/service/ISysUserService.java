@@ -25,4 +25,6 @@ public interface ISysUserService {
     void resetPassword(String account, String authCode);
 
     SysUserDTO login(String account, String password, String authCode);
+
+    void getAuthCode(String account);
 }

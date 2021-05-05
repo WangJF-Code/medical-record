@@ -29,7 +29,7 @@ public class SysUserController {
         this.service = service;
     }
 
-    @ApiOperation("重置密码")
+    @ApiOperation("修改密码")
     @PostMapping("/updatePassword")
     public ApiResult updatePassword(@ApiParam(value = "密码") @RequestParam String oldPassword,
                                     @ApiParam(value = "密码") @RequestParam String newPassword) {
@@ -42,6 +42,13 @@ public class SysUserController {
     public ApiResult resetPassword(@ApiParam(value = "账号") @RequestParam String account,
                                    @ApiParam(value = "验证码") @RequestParam String authCode) {
         service.resetPassword(account, authCode);
+        return ApiResultUtil.okay();
+    }
+
+    @ApiOperation("获取验证码")
+    @PostMapping("/authCode")
+    public ApiResult getAuthCode(@ApiParam(value = "账号") @RequestParam String account) {
+        service.getAuthCode(account);
         return ApiResultUtil.okay();
     }
 

@@ -72,12 +72,16 @@ public class SysUserService implements ISysUserService {
 
     @Override
     public void resetPassword(String account, String authCode) {
-
     }
 
     @Override
     public SysUserDTO login(String account, String password, String authCode) {
         return null;
+    }
+
+    @Override
+    public void getAuthCode(String account) {
+        
     }
 
     private void checkUser(String account, String phoneNumber) throws ServerException {
