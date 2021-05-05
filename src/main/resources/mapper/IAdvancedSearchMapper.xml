@@ -189,7 +189,7 @@
         hospital_diagnostic_records
         WHERE `type` = #{type}
         <if test="cerebralInfarction != null">
-            OR cerebralInfarction = #{cerebralInfarction}
+            OR cerebralInfarction > 0
         </if>
         <if test="cerebralInfarction != null and cerebralInfarction != 0 and cerebralInfarctionTOASTList != null and cerebralInfarctionTOASTList.size > 0">
             <foreach collection="cerebralInfarctionTOASTList" item="item">
@@ -197,73 +197,73 @@
             </foreach>
         </if>
         <if test="cerebralHaemorrhage != null">
-            OR cerebralHaemorrhage = #{cerebralHaemorrhage}
+            OR cerebralHaemorrhage > 0
         </if>
         <if test="vascularCognitiveImpairment != null">
-            OR vascularCognitiveImpairment = #{vascularCognitiveImpairment}
+            OR vascularCognitiveImpairment > 0
         </if>
         <if test="cerebralCerebrovascularDisease != null">
-            OR cerebralCerebrovascularDisease = #{cerebralCerebrovascularDisease}
+            OR cerebralCerebrovascularDisease > 0
         </if>
         <if test="intracranialArteryStenosis != null">
-            OR intracranialArteryStenosis = #{intracranialArteryStenosis}
+            OR intracranialArteryStenosis > 0
         </if>
         <if test="cervicalArteryStenosis != null">
-            OR cervicalArteryStenosis = #{cervicalArteryStenosis}
+            OR cervicalArteryStenosis > 0
         </if>
         <if test="vertebralArteryStenosis != null">
-            OR vertebralArteryStenosis = #{vertebralArteryStenosis}
+            OR vertebralArteryStenosis > 0
         </if>
         <if test="coronaryHeartDisease != null">
-            OR coronaryHeartDisease = #{coronaryHeartDisease}
+            OR coronaryHeartDisease > 0
         </if>
         <if test="atrialFibrillation != null">
-            OR atrialFibrillation = #{atrialFibrillation}
+            OR atrialFibrillation > 0
         </if>
         <if test="hypertension != null">
-            OR hypertension = #{hypertension}
+            OR hypertension > 0
         </if>
         <if test="diabetes != null">
-            OR diabetes = #{diabetes}
+            OR diabetes > 0
         </if>
         <if test="hyperlipidemia != null">
-            OR hyperlipidemia = #{hyperlipidemia}
+            OR hyperlipidemia > 0
         </if>
         <if test="homocysteineemia != null">
-            OR homocysteineemia = #{homocysteineemia}
+            OR homocysteineemia > 0
         </if>
         <if test="hyperuricAcidemia != null">
-            OR hyperuricAcidemia = #{hyperuricAcidemia}
+            OR hyperuricAcidemia > 0
         </if>
         <if test="chronicObstructivePulmonaryDisease != null">
-            OR chronicObstructivePulmonaryDisease = #{chronicObstructivePulmonaryDisease}
+            OR chronicObstructivePulmonaryDisease > 0
         </if>
         <if test="progressiveStroke != null">
-            OR progressiveStroke = #{progressiveStroke}
+            OR progressiveStroke > 0
         </if>
         <if test="cobwebSubcavityBleeding != null">
-            OR cobwebSubcavityBleeding = #{cobwebSubcavityBleeding}
+            OR cobwebSubcavityBleeding > 0
         </if>
         <if test="angina != null">
-            OR angina = #{angina}
+            OR angina > 0
         </if>
         <if test="myocardialInfarction != null">
-            OR myocardialInfarction = #{myocardialInfarction}
+            OR myocardialInfarction > 0
         </if>
         <if test="lowerLimbArtery != null">
-            OR lowerLimbArtery = #{lowerLimbArtery}
+            OR lowerLimbArtery > 0
         </if>
         <if test="lowerLimbVeins != null">
-            OR lowerLimbVeins = #{lowerLimbVeins}
+            OR lowerLimbVeins > 0
         </if>
         <if test="lungInfections != null">
-            OR lungInfections = #{lungInfections}
+            OR lungInfections > 0
         </if>
         <if test="urinaryTractInfection != null">
-            OR urinaryTractInfection = #{urinaryTractInfection}
+            OR urinaryTractInfection > 0
         </if>
         <if test="stressUlcers != null">
-            OR stressUlcers = #{stressUlcers}
+            OR stressUlcers > 0
         </if>
     </select>
     <select id="findHospitalRecordsIdListByTreatment" resultType="java.lang.String"
@@ -272,10 +272,10 @@
         FROM hospital_treatment_records
         <where>
             <if test="walk != null">
-                OR walk = #{walk}
+                OR walk > 0
             </if>
             <if test="thrombosisPrevention != null">
-                OR thrombosisPrevention = #{thrombosisPrevention}
+                OR thrombosisPrevention > 0
             </if>
             <if test="thrombosisPrevention != null and thrombosisPrevention != 0 and thrombosisPreventionTypesList != null and thrombosisPreventionTypesList.size > 0">
                 <foreach collection="thrombosisPreventionTypesList" item="item">
@@ -283,7 +283,7 @@
                 </foreach>
             </if>
             <if test="antiplatelets != null">
-                OR antiplatelets = #{antiplatelets}
+                OR antiplatelets > 0
             </if>
             <if test="antiplatelets != null and antiplatelets != 0 and antiplateletsDrugsList != null and antiplateletsDrugsList.size > 0">
                 <foreach collection="antiplateletsDrugsList" item="item">
@@ -291,7 +291,7 @@
                 </foreach>
             </if>
             <if test="anticoagulant != null">
-                OR anticoagulant = #{anticoagulant}
+                OR anticoagulant > 0
             </if>
             <if test="anticoagulant != null and anticoagulant != 0 and anticoagulantDrugsList != null and anticoagulantDrugsList.size > 0">
                 <foreach collection="anticoagulantDrugsList" item="item">
@@ -299,16 +299,16 @@
                 </foreach>
             </if>
             <if test="lipid != null">
-                OR lipid = #{lipid}
+                OR lipid > 0
             </if>
             <if test="lipidStrengthen != null">
-                OR lipidStrengthen = #{lipidStrengthen}
+                OR lipidStrengthen > 0
             </if>
             <if test="gastricTube != null">
-                OR gastricTube = #{gastricTube}
+                OR gastricTube > 0
             </if>
             <if test="ureter != null">
-                OR ureter = #{ureter}
+                OR ureter > 0
             </if>
         </where>
     </select>
