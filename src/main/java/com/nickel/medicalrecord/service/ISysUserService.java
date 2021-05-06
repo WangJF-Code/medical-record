@@ -6,6 +6,7 @@ import com.nickel.medicalrecord.model.dto.SysUserConditionDTO;
 import com.nickel.medicalrecord.model.dto.SysUserCreateDTO;
 import com.nickel.medicalrecord.model.dto.SysUserDTO;
 import com.nickel.medicalrecord.model.dto.SysUserUpdateDTO;
+import com.nickel.medicalrecord.model.entity.SysUser;
 
 import java.util.List;
 
@@ -20,11 +21,11 @@ public interface ISysUserService {
 
     void create(SysUserCreateDTO createDTO) throws ServerException;
 
-    void updatePassword(String oldPassword, String newPassword);
+    void updatePassword(String account, String newPassword) throws ServerException;
 
     void resetPassword(String account, String authCode);
 
-    SysUserDTO login(String account, String password, String authCode);
+    SysUser login(String account, String password, String authCode) throws ServerException;
 
     void getAuthCode(String account);
 }

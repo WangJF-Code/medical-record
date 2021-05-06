@@ -28,4 +28,8 @@ public interface ISysUserMapper {
     Integer selectByAccountCount(String account);
 
     Integer selectByPhoneNumberCount(String phoneNumber);
+
+    SysUser selectByAccount(@Param("account") String account, @Param("password") String password);
+
+    int updateByAccount(@Param("account") String account, @Param("password") String password);
 }

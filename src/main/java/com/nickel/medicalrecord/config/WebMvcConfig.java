@@ -11,15 +11,24 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     private WebInterceptor interceptor;
 
+    private ApiConfig config;
+
     @Autowired
     public void setInterceptor(WebInterceptor interceptor) {
         this.interceptor = interceptor;
     }
 
+    @Autowired
+    public void setConfig(ApiConfig config) {
+        this.config = config;
+    }
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(interceptor)
-                .addPathPatterns("/api/**")
-                .excludePathPatterns("/api/user/login", "/api/user/reset", "/api/user/authCode");
+        if (config.isInterceptor()) {
+            registry.addInterceptor(interceptor)
+                    .addPathPatterns("/api/**")
+                    .excludePathPatterns("/api/user/login", "/api/user/reset", "/api/user/authCode");
+        }
     }
 }

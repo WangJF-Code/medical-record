@@ -1,5 +1,6 @@
 package com.nickel.medicalrecord.service.impl;
 
+import com.nickel.medicalrecord.consts.ServerConsts;
 import com.nickel.medicalrecord.error.ServerException;
 import com.nickel.medicalrecord.model.Page;
 import com.nickel.medicalrecord.model.api.ApiCode;
@@ -11,11 +12,13 @@ import com.nickel.medicalrecord.model.entity.SysUser;
 import com.nickel.medicalrecord.repository.ISysUserMapper;
 import com.nickel.medicalrecord.service.ISysUserService;
 import com.nickel.medicalrecord.util.EntityTransformUtils;
+import com.nickel.medicalrecord.util.MD5Util;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -66,17 +69,25 @@ public class SysUserService implements ISysUserService {
     }
 
     @Override
-    public void updatePassword(String oldPassword, String newPassword) {
-
+    public void updatePassword(String account, String newPassword) throws ServerException {
+        int i = mapper.updateByAccount(account, newPassword);
+        if (i < 0) {
+            throw new ServerException(ApiCode.PARAMS_EXCEPTION, "修改密码失败");
+        }
     }
 
     @Override
     public void resetPassword(String account, String authCode) {
+        mapper.updateByAccount(account, MD5Util.getMD5(ServerConsts.SYS_USER_DEFAULT_PASSWORD));
     }
 
     @Override
-    public SysUserDTO login(String account, String password, String authCode) {
-        return null;
+    public SysUser login(String account, String password, String authCode) throws ServerException {
+        SysUser user = mapper.selectByAccount(account, password);
+        if (Objects.isNull(user)) {
+            throw new ServerException(ApiCode.PARAMS_EXCEPTION, "账号或者密码错误");
+        }
+        return user;
     }
 
     @Override

@@ -6,10 +6,12 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @ConfigurationProperties(
-        prefix = "data-api"
+        prefix = "medical-record"
 )
 @Data
 public class ApiConfig {
 
+
+    public boolean interceptor = false;
 
 }

@@ -99,6 +99,14 @@
         from sys_user
         where phoneNumber = #{phoneNumber}
     </select>
+    <select id="selectByAccount" resultType="com.nickel.medicalrecord.model.entity.SysUser">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_user
+        where deleted = 0
+        and account = #{account}
+        and `password` = #{password}
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
         delete
         from sys_user
@@ -206,5 +214,10 @@
             updateTime  = #{updateTime},
             deleted     = #{deleted}
         where id = #{id}
+    </update>
+    <update id="updateByAccount">
+        update sys_user
+        set `password` = #{password}
+        where account = #{account}
     </update>
 </mapper>

@@ -1,20 +1,27 @@
 package com.nickel.medicalrecord.controller;
 
+import com.nickel.medicalrecord.consts.ServerConsts;
 import com.nickel.medicalrecord.error.ServerException;
 import com.nickel.medicalrecord.model.Page;
+import com.nickel.medicalrecord.model.api.ApiCode;
 import com.nickel.medicalrecord.model.api.ApiResult;
 import com.nickel.medicalrecord.model.dto.SysUserConditionDTO;
 import com.nickel.medicalrecord.model.dto.SysUserCreateDTO;
 import com.nickel.medicalrecord.model.dto.SysUserDTO;
 import com.nickel.medicalrecord.model.dto.SysUserUpdateDTO;
+import com.nickel.medicalrecord.model.entity.SysUser;
 import com.nickel.medicalrecord.service.ISysUserService;
 import com.nickel.medicalrecord.util.ApiResultUtil;
+import com.nickel.medicalrecord.util.EntityTransformUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Api(tags = "系统用户相关接口")
@@ -31,10 +38,20 @@ public class SysUserController {
 
     @ApiOperation("修改密码")
     @PostMapping("/updatePassword")
-    public ApiResult updatePassword(@ApiParam(value = "密码") @RequestParam String oldPassword,
+    public ApiResult updatePassword(HttpServletRequest request, @ApiParam(value = "密码") @RequestParam String oldPassword,
                                     @ApiParam(value = "密码") @RequestParam String newPassword) {
-        service.updatePassword(oldPassword, newPassword);
-        return ApiResultUtil.okay();
+        HttpSession session = request.getSession(false);
+        SysUser user = (SysUser) session.getAttribute(ServerConsts.CURRENT_USER);
+        if (!user.getPassword().equals(oldPassword)) {
+            return ApiResultUtil.result(ApiCode.PARAMS_EXCEPTION, "密码错误", null);
+        }
+        try {
+            service.updatePassword(user.getAccount(), newPassword);
+            session.invalidate();
+            return ApiResultUtil.okay();
+        } catch (ServerException e) {
+            return ApiResultUtil.error(e);
+        }
     }
 
     @ApiOperation("重置密码")
@@ -54,11 +71,17 @@ public class SysUserController {
 
     @ApiOperation("登陆")
     @PostMapping("/login")
-    public ApiResult<SysUserDTO> login(@ApiParam(value = "账号") @RequestParam String account,
+    public ApiResult<SysUserDTO> login(HttpServletRequest request, @ApiParam(value = "账号") @RequestParam String account,
                                        @ApiParam(value = "密码") @RequestParam String password,
                                        @ApiParam(value = "验证码") @RequestParam String authCode) {
-        SysUserDTO dto = service.login(account, password, authCode);
-        return ApiResultUtil.okay(dto);
+        try {
+            SysUser user = service.login(account, password, authCode);
+            HttpSession session = request.getSession(true);
+            session.setAttribute(ServerConsts.CURRENT_USER, user);
+            return ApiResultUtil.okay(EntityTransformUtils.transform(user));
+        } catch (ServerException e) {
+            return ApiResultUtil.error(e);
+        }
     }
 
     @ApiOperation("分页列表信息")
